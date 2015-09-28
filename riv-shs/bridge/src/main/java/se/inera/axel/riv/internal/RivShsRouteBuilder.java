@@ -27,9 +27,11 @@ import org.apache.camel.component.http.SSLContextParametersSecureProtocolSocketF
 import org.apache.camel.util.jsse.SSLContextParameters;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
+
 import se.inera.axel.riv.RivShsMappingService;
 import se.inera.axel.shs.camel.ThrowExceptionOnShsErrorProcessor;
 import se.inera.axel.shs.mime.TransferEncoding;
+import se.inera.axel.shs.processor.AxelHeaders;
 import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.xml.label.SequenceType;
 import se.inera.axel.shs.xml.label.TransferType;
@@ -49,6 +51,7 @@ public class RivShsRouteBuilder extends RouteBuilder {
 
         // body: soap-envelope with riv service call
         from("{{rivInBridgeEndpoint}}{{rivInBridgePathPrefix}}").routeId("riv2shs")
+                .streamCaching()
                 .onException(Exception.class)
                     .log(LoggingLevel.ERROR, "Error bridging RIV/SHS: ${exception.stacktrace}")
                     .handled(true)
@@ -67,7 +70,7 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .choice().when(method("rivShsMapper", "useAsynchronousShs").isEqualTo(Boolean.TRUE))
                     .setHeader(ShsHeaders.SEQUENCETYPE, constant(SequenceType.EVENT))
                     .setHeader(ShsHeaders.TRANSFERTYPE, constant(TransferType.ASYNCH))
-                    .setHeader("AxelRobustAsynchShs", constant(Boolean.TRUE))
+                    .setHeader(AxelHeaders.ROBUST_ASYNCH_SHS, constant(Boolean.TRUE))
                 .otherwise()
                     .setHeader(ShsHeaders.SEQUENCETYPE, constant(SequenceType.REQUEST))
                     .setHeader(ShsHeaders.TRANSFERTYPE, constant(TransferType.SYNCH))
