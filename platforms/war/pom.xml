@@ -4,13 +4,13 @@
     <parent>
         <artifactId>platforms</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC2</version>
+        <version>1.0-RC3-SNAPSHOT</version>
     </parent>
 
     <groupId>se.skltp.shs.war</groupId>
     <artifactId>war</artifactId>
 
-    <version>1.0-RC2</version>
+    <version>1.0-RC3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SHS :: Platforms :: WAR</name>
 

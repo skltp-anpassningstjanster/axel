@@ -5,7 +5,7 @@
     <parent>
         <artifactId>shs-broker</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC2</version>
+        <version>1.0-RC3-SNAPSHOT</version>
     </parent>
 
     <artifactId>shs-agreement-mongodb</artifactId>

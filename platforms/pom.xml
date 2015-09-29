@@ -4,14 +4,14 @@
     <parent>
         <artifactId>shs</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC2</version>
+        <version>1.0-RC3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>se.skltp.shs</groupId>
     <artifactId>platforms</artifactId>
 
-    <version>1.0-RC2</version>
+    <version>1.0-RC3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Axel :: Platforms</name>
 

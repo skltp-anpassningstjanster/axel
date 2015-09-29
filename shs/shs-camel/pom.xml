@@ -4,7 +4,7 @@
     <parent>
         <artifactId>core</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC2</version>
+        <version>1.0-RC3-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>shs-camel</artifactId>
