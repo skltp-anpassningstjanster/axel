@@ -5,7 +5,7 @@
     <parent>
         <artifactId>shs-broker</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC1</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>shs-agreement-mongodb</artifactId>
@@ -14,7 +14,7 @@
     <name>SHS :: Core :: Broker :: Agreement (MongoDB)</name>
     <description>Provides an implementation of the AgreementService using MongoDB as backend.</description>
 
-    <properties />
+    <properties></properties>
 
     <dependencies>
 

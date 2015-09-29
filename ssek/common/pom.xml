@@ -4,7 +4,7 @@
     <parent>
         <artifactId>ssek</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC1</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>ssek-common</artifactId>
@@ -13,7 +13,7 @@
     <name>SHS :: SSEK :: common</name>
     <description>Functionality that is common to Axel's SSEK functionality</description>
 
-    <properties />
+    <properties></properties>
 
     <dependencies>
         <dependency>
