@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>karaf</artifactId>
-        <groupId>se.inera.axel.karaf</groupId>
+        <groupId>se.skltp.shs.karaf</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>branding</artifactId>
     <packaging>bundle</packaging>
-    <name>Axel :: Platforms :: Karaf :: Branding</name>
+    <name>SHS :: Platforms :: Karaf :: Branding</name>
     <description>Provides axel branding to the Karaf platform.</description>
 
     <build>

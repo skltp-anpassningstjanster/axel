@@ -5,14 +5,14 @@
 
     <parent>
         <artifactId>shs-broker</artifactId>
-        <groupId>se.inera.axel</groupId>
+        <groupId>se.skltp.shs</groupId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>shs-integration-test</artifactId>
     <packaging>jar</packaging>
 
-    <name>Axel :: SHS :: Broker :: Integration Tests</name>
+    <name>SHS :: Core :: Broker :: Integration Tests</name>
     <description>Integration tests that test the SHS broker</description>
 
     <dependencies>
@@ -123,33 +123,34 @@
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>common-services</artifactId>
             <version>${axel.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>docs</artifactId>
             <version>${axel.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-agreement-mongodb</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-broker-api</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-broker-api</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
@@ -157,30 +158,33 @@
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-camel</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-certificate</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-cmdline</artifactId>
             <version>${axel.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-directory-ldap</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-directory-ldap</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
@@ -188,26 +192,27 @@
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-messagelog-mongodb</artifactId>
             <version>${axel.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-messagestore-mongodb</artifactId>
             <version>${axel.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-protocol</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-protocol</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
@@ -215,15 +220,16 @@
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-receiveservice</artifactId>
             <version>${axel.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-router</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

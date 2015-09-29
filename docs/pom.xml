@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>axel</artifactId>
-        <groupId>se.inera.axel</groupId>
+        <artifactId>shs</artifactId>
+        <groupId>se.skltp.shs</groupId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -11,7 +11,7 @@
     <artifactId>docs</artifactId>
 
     <packaging>jar</packaging>
-    <name>Axel :: Docs</name>
+    <name>SHS :: Docs</name>
     <description>Provides configuration, installation and documentation files, e.g. scripts for creating indexes in MongoDB.</description>
 
     <modules></modules>

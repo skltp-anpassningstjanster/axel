@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>karaf</artifactId>
-        <groupId>se.inera.axel.karaf</groupId>
+        <groupId>se.skltp.shs.karaf</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>distribution</artifactId>
     <packaging>pom</packaging>
-    <name>Axel :: Platforms :: Karaf :: Distribution</name>
+    <name>SHS :: Platforms :: Karaf :: Distribution</name>
     <description>Creates a Apache Karaf custom distribution of Axel with an SHS Broker and RIV/SHS bridge included.</description>
 
     <dependencies>
@@ -34,19 +34,19 @@
             <classifier>features</classifier>
         </dependency>
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>docs</artifactId>
             <version>${axel.version}</version>
             <type>tar.gz</type>
         </dependency>
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-cmdline</artifactId>
             <version>${axel.version}</version>
             <type>tar.gz</type>
         </dependency>
         <dependency>
-            <groupId>se.inera.axel.karaf</groupId>
+            <groupId>se.skltp.shs.karaf</groupId>
             <artifactId>features</artifactId>
             <version>${axel.version}</version>
             <type>xml</type>
@@ -93,7 +93,7 @@
                             <!-- For instance, the branding jar -->
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>se.inera.axel.karaf</groupId>
+                                    <groupId>se.skltp.shs.karaf</groupId>
                                     <artifactId>branding</artifactId>
                                     <version>${project.version}</version>
                                     <outputDirectory>target/dependencies</outputDirectory>
@@ -118,14 +118,14 @@
                                     <outputDirectory>target/dependencies</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>se.inera.axel</groupId>
+                                    <groupId>se.skltp.shs</groupId>
                                     <artifactId>shs-cmdline</artifactId>
                                     <!--                                     <classifier>bin</classifier> -->
                                     <type>tar.gz</type>
                                     <outputDirectory>target/dependencies</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>se.inera.axel</groupId>
+                                    <groupId>se.skltp.shs</groupId>
                                     <artifactId>docs</artifactId>
                                     <type>tar.gz</type>
                                     <outputDirectory>target/dependencies/</outputDirectory>
@@ -142,7 +142,7 @@
                         <configuration>
                             <includeTypes>xml</includeTypes>
                             <classifier>features</classifier>
-                            <includeGroupIds>se.inera.axel.karaf</includeGroupIds>
+                            <includeGroupIds>se.skltp.shs.karaf</includeGroupIds>
                             <includeArtifactIds>features</includeArtifactIds>
                             <useRepositoryLayout>true</useRepositoryLayout>
                         </configuration>
@@ -168,7 +168,7 @@
                                 <descriptor>mvn:org.ops4j.pax.wicket/paxwicket/${pax.wicket.version}/xml/features</descriptor>
                                 <descriptor>mvn:org.ops4j.pax.wicket/features/${pax.wicket.version}/xml/features</descriptor>
                                 <descriptor>mvn:org.apache.activemq/activemq-karaf/${activemq.version}/xml/features</descriptor>
-                                <descriptor>file:${project.build.directory}/dependency/se/inera/axel/karaf/features/${project.version}/features-${project.version}-features.xml</descriptor>
+                                <descriptor>file:${project.build.directory}/dependency/se/skltp/shs/karaf/features/${project.version}/features-${project.version}-features.xml</descriptor>
                             </descriptors>
                             <features>
                                 <feature>config</feature>
