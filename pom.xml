@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>oss-parent</artifactId>
+        <groupId>org.sonatype.oss</groupId>
+        <version>9</version>
+    </parent>
     <groupId>se.skltp.shs</groupId>
     <artifactId>shs</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-RC1</version>
     <packaging>pom</packaging>
     <name>SHS</name>
     <url>http://code.google.com/p/inera-axel</url>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-    </parent>
-    
     <inceptionYear>2012</inceptionYear>
 
     <organization>
@@ -97,11 +97,11 @@
     <scm>
         <connection>scm:git:git://github.com/skltp-incubator/axel.git</connection>
         <developerConnection>scm:git:git://github.com/skltp-incubator/axel.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0-RC1</tag>
         <url>http://github.com/skltp-incubator/axel</url>
     </scm>
 
-<!-- 
+    <!-- 
     <distributionManagement>
         <repository>
             <id>axel-nexus-releases</id>
@@ -120,7 +120,7 @@
         </site>
     </distributionManagement>
 -->
-    
+
     <properties>
         <activation.version>1.1</activation.version>
         <activemq.version>5.9.0</activemq.version>
@@ -858,7 +858,7 @@
             <id>sonatype-nexus-staging-repository</id>
             <url>https://oss.sonatype.org/content/repositories/staging/</url>
         </repository>
-        
+
         <repository>
             <id>SpringSource Enterprise Bundle Repository - [[SpringSource]] Bundle Releases</id>
             <url>http://repository.springsource.com/maven/bundles/release/</url>
@@ -1121,17 +1121,17 @@
                     <version>${maven-jetty-plugin.version}</version>
                 </plugin>
                 <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-release-plugin</artifactId>
-                  <version>2.5.1</version>
-                  <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
-                    <pushChanges>false</pushChanges>
-                    <localCheckout>true</localCheckout>
-                  </configuration>
-              </plugin>
-              <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                        <pushChanges>false</pushChanges>
+                        <localCheckout>true</localCheckout>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>com.mycila.maven-license-plugin</groupId>
                     <artifactId>maven-license-plugin</artifactId>
                     <version>${maven-license-plugin.version}</version>
