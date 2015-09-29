@@ -5,13 +5,13 @@
     <parent>
         <artifactId>war</artifactId>
         <groupId>se.skltp.shs.war</groupId>
-        <version>1.0-RC2-SNAPSHOT</version>
+        <version>1.0-RC1</version>
         <relativePath>..</relativePath>
     </parent>
 
     <groupId>se.skltp.shs.war</groupId>
     <artifactId>riv-shs-war</artifactId>
-    <version>1.0-RC2-SNAPSHOT</version>
+    <version>1.0-RC1</version>
     <packaging>war</packaging>
     <name>SHS :: Platforms :: WAR :: RIV/SHS Bridge</name>
     <description>Inera Axel Standalone RIV/SHS Bridge</description>

@@ -4,7 +4,7 @@
     <parent>
         <artifactId>riv</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC2-SNAPSHOT</version>
+        <version>1.0-RC1</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <artifactId>itintegration-monitoring-schemas-1.0</artifactId>

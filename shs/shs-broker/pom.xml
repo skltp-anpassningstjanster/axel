@@ -4,7 +4,7 @@
     <parent>
         <artifactId>core</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC2-SNAPSHOT</version>
+        <version>1.0-RC1</version>
     </parent>
 
     <artifactId>shs-broker</artifactId>
