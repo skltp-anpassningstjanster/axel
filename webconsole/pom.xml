@@ -4,7 +4,7 @@
     <parent>
         <artifactId>shs</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-RC2</version>
     </parent>
     <artifactId>axel-webconsole</artifactId>
 
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>se.skltp.shs</groupId>
             <artifactId>axel-test-support</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0-RC2</version>
             <scope>test</scope>
         </dependency>
 

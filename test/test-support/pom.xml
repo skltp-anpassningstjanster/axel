@@ -4,7 +4,7 @@
     <parent>
         <artifactId>shs</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-RC2</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 

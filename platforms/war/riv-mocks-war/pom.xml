@@ -5,13 +5,13 @@
     <parent>
         <artifactId>war</artifactId>
         <groupId>se.skltp.shs.war</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-RC2</version>
         <relativePath>..</relativePath>
     </parent>
 
     <groupId>se.skltp.shs.war</groupId>
     <artifactId>riv-mocks-war</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-RC2</version>
     <packaging>war</packaging>
     <name>SHS :: Platforms :: WAR :: RIV Mocks</name>
     <description>Inera Axel RIV Mock Services</description>
