@@ -4,7 +4,7 @@
     <parent>
         <artifactId>shs-broker</artifactId>
         <groupId>se.skltp.shs</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-RC1</version>
     </parent>
     <artifactId>shs-certificate</artifactId>
     <packaging>bundle</packaging>
