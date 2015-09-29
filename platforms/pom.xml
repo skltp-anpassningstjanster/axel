@@ -17,7 +17,7 @@
 
     <modules>
         <module>common-services</module>
-        <module>karaf</module>
+        <!--         <module>karaf</module>  -->
         <module>war</module>
     </modules>
 
