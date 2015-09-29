@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>shs</artifactId>
-        <groupId>se.inera.axel</groupId>
+        <artifactId>core</artifactId>
+        <groupId>se.skltp.shs</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>shs-cmdline</artifactId>
 
-    <name>Axel :: SHS :: Cmdline</name>
+    <name>SHS :: Core :: Cmdline</name>
     <description>Provides an SHS command line client which can be used to send messages to an SHS server.</description>
 
     <dependencies>
@@ -103,13 +103,15 @@
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-camel</artifactId>
+          <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-protocol</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

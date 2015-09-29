@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>axel</artifactId>
-        <groupId>se.inera.axel</groupId>
+        <artifactId>shs</artifactId>
+        <groupId>se.skltp.shs</groupId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>fitnesse-test</artifactId>
 
-    <name>Axel :: Test :: FitNesse Tests</name>
+    <name>SHS :: Test :: FitNesse Tests</name>
     <description>Contains FitNesse implementations of portions of the system (integration) tests specified by the project.</description>
 
     <properties>
@@ -49,7 +49,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>se.inera.axel</groupId>
+            <groupId>se.skltp.shs</groupId>
             <artifactId>shs-cmdline</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -130,7 +130,7 @@
                                     <target>
                                         <echo message="Starting FitNesse..." taskname="fitnesse"></echo>
                                         <java classname="fitnesseMain.FitNesseMain" classpathref="maven.test.classpath" fork="true">
-                                            <arg line="-p 8089"></arg>
+                                            <arg line="-p 8000"></arg>
                                             <arg line="-d ."></arg>
                                         </java>
                                     </target>
