@@ -8,6 +8,12 @@
     <name>SHS</name>
     <url>http://code.google.com/p/inera-axel</url>
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
+    
     <inceptionYear>2012</inceptionYear>
 
     <organization>
@@ -95,6 +101,7 @@
         <url>http://github.com/skltp-incubator/axel</url>
     </scm>
 
+<!-- 
     <distributionManagement>
         <repository>
             <id>axel-nexus-releases</id>
@@ -112,7 +119,8 @@
             <url>${axel.site.repo}</url>
         </site>
     </distributionManagement>
-
+-->
+    
     <properties>
         <activation.version>1.1</activation.version>
         <activemq.version>5.9.0</activemq.version>
@@ -844,6 +852,14 @@
 
     <repositories>
         <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>sonatype-nexus-staging-repository</id>
+            <url>https://oss.sonatype.org/content/repositories/staging/</url>
+        </repository>
+        
+        <repository>
             <id>SpringSource Enterprise Bundle Repository - [[SpringSource]] Bundle Releases</id>
             <url>http://repository.springsource.com/maven/bundles/release/</url>
         </repository>
@@ -889,14 +905,6 @@
             <id>ops4j.sonatype.snapshots.deploy</id>
             <name>OPS4J snapshot repository</name>
             <url>https://oss.sonatype.org/content/repositories/ops4j-snapshots/</url>
-        </repository>
-
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>sonatype-nexus-staging-repository</id>
-            <url>https://oss.sonatype.org/content/repositories/staging/</url>
         </repository>
     </repositories>
 
