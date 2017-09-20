@@ -4,7 +4,7 @@
     <parent>
         <artifactId>karaf</artifactId>
         <groupId>se.inera.axel.karaf</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-SP1-SNAPSHOT</version>
     </parent>
 
     <artifactId>features</artifactId>
