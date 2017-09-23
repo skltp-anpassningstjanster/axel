@@ -64,6 +64,7 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .transform().xpath("/soapenv:Envelope/soapenv:Body/*", soapenv)
                 .setHeader(ShsHeaders.PRODUCT_ID, method("rivShsMapper", "mapRivServiceToShsProduct"))
                 .setHeader(ShsHeaders.CORRID, header(RivShsMappingService.HEADER_RIV_CORRID))
+                .setHeader(ShsHeaders.STATUS, simple("{{shs.label.status}}"))
                 .choice().when(method("rivShsMapper", "useAsynchronousShs").isEqualTo(Boolean.TRUE))
                     .setHeader(ShsHeaders.SEQUENCETYPE, constant(SequenceType.EVENT))
                     .setHeader(ShsHeaders.TRANSFERTYPE, constant(TransferType.ASYNCH))
