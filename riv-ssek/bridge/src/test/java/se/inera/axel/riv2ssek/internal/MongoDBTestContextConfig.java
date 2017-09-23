@@ -31,7 +31,7 @@ import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.config.RuntimeConfigBuilder;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
-import de.flapdoodle.embed.process.extract.UUIDTempNaming;
+import de.flapdoodle.embed.process.extract.ITempNaming;
 import de.flapdoodle.embed.process.runtime.Network;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
@@ -48,14 +48,14 @@ public class MongoDBTestContextConfig implements DisposableBean {
     public @Bean(destroyMethod = "stop") MongodExecutable mongodExecutable() throws Exception {
         IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.V2_2)
-                .net(new Net(Network.getFreeServerPort(), Network.localhostIsIPv6()))
+                .net(new Net("127.0.0.1", Network.getFreeServerPort(), Network.localhostIsIPv6()))
                 .build();
 
         IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
                 .defaults(Command.MongoD)
                 .artifactStore(new ArtifactStoreBuilder()
                         .defaults(Command.MongoD)
-                        .executableNaming(new UUIDTempNaming())
+                        .executableNaming(new FixedTempNaming())
                 )
                 .build();
 
@@ -100,5 +100,19 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
         if (mongodProcess != null)
             mongodProcess.stop();
+        
+        MongodExecutable mongodExecutable = mongodExecutable();
+        
+        if(mongodExecutable != null)
+        	mongodExecutable.stop();
+    }
+    
+    private class FixedTempNaming implements ITempNaming {
+
+    	@Override
+    	public String nameFor(String prefix, String postfix) {
+    		return prefix + "-" + "riv-ssek-bridge" + "-" + postfix;
+    	}
+
     }
 }

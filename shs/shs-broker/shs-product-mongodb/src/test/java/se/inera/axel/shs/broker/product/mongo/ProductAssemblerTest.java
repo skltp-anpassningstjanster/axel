@@ -20,6 +20,8 @@ package se.inera.axel.shs.broker.product.mongo;
 
 import com.natpryce.makeiteasy.Maker;
 import org.dozer.DozerBeanMapper;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.testng.annotations.*;
 import org.unitils.reflectionassert.ReflectionAssert;
@@ -33,8 +35,13 @@ import static com.natpryce.makeiteasy.MakeItEasy.an;
 import static com.natpryce.makeiteasy.MakeItEasy.make;
 import static org.testng.Assert.assertEquals;
 
+import org.apache.camel.spring.javaconfig.test.JavaConfigContextLoader;
+
 @SuppressWarnings("unchecked")
-public class ProductAssemblerTest {
+@ContextConfiguration(locations =
+{"se.inera.axel.shs.broker.product.mongo.MongoDBTestContextConfig"},
+loader = JavaConfigContextLoader.class)
+public class ProductAssemblerTest extends AbstractTestNGSpringContextTests {
 	private ProductAssembler productAssembler = new ProductAssembler();
 	private DozerBeanMapper mapper;
 

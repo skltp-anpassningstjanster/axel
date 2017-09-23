@@ -27,7 +27,7 @@ import de.flapdoodle.embed.mongo.MongodStarter;
 import de.flapdoodle.embed.mongo.config.*;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
-import de.flapdoodle.embed.process.extract.UUIDTempNaming;
+import de.flapdoodle.embed.process.extract.ITempNaming;
 import de.flapdoodle.embed.process.runtime.Network;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
@@ -42,16 +42,19 @@ import org.springframework.data.mongodb.repository.support.MongoRepositoryFactor
 public class MongoDBTestContextConfig implements DisposableBean {
 
     public @Bean(destroyMethod = "stop") MongodExecutable mongodExecutable() throws Exception {
+    	
+    	
+    	
         IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.V2_2)
-                .net(new Net(Network.getFreeServerPort(), Network.localhostIsIPv6()))
+                .net(new Net("127.0.0.1", Network.getFreeServerPort(), Network.localhostIsIPv6()))
                 .build();
 
         IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
                 .defaults(Command.MongoD)
                 .artifactStore(new ArtifactStoreBuilder()
                         .defaults(Command.MongoD)
-                        .executableNaming(new UUIDTempNaming())
+                        .executableNaming(new FixedTempNaming())
                 )
                 .build();
 
@@ -91,10 +94,19 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
         if (mongo != null)
             mongo.close();
-
+        
         MongodProcess mongodProcess = mongodProcess();
 
         if (mongodProcess != null)
             mongodProcess.stop();
+    }
+    
+    private class FixedTempNaming implements ITempNaming {
+
+    	@Override
+    	public String nameFor(String prefix, String postfix) {
+    		return prefix + "-" + "riv-shs-bridge" + "-" + postfix;
+    	}
+
     }
 }
