@@ -74,7 +74,7 @@ public class RivShsRouteBuilder extends RouteBuilder {
                     .setHeader(ShsHeaders.TRANSFERTYPE, constant(TransferType.SYNCH))
                 .end()
                 .setHeader(ShsHeaders.DATAPART_TYPE, constant("xml"))
-                .setHeader(ShsHeaders.DATAPART_FILENAME, simple("req-inera.xml"))
+                .setHeader(ShsHeaders.DATAPART_FILENAME, simple(RivShsMappingService.HEADER_FILENAME))
                 .setHeader(ShsHeaders.DATAPART_CONTENTTYPE, constant("application/xml"))
                 .setHeader(ShsHeaders.DATAPART_TRANSFERENCODING, constant(TransferEncoding.BASE64))
                 .setHeader(org.apache.camel.converter.jaxp.XmlConverter.OUTPUT_PROPERTIES_PREFIX + OutputKeys.OMIT_XML_DECLARATION, constant("no"))

@@ -23,9 +23,9 @@ import se.inera.axel.shs.xml.label.ShsLabel;
 
 public interface RivShsMappingService {
 
-	final static String HEADER_RIV_CORRID ="x-vp-correlation-id";
+	final static String HEADER_RIV_CORRID ="x-skltp-correlation-id";
 	final static String HEADER_SOAP_ACTION ="SOAPAction";
-
+	final static String HEADER_FILENAME = String.format("req-${in.header.%s}.xml", HEADER_RIV_CORRID);
 	
 	String mapRivServiceToShsProduct(String rivServiceNamespace);
 	String mapShsProductToRivService(ShsLabel shsLabel);
