@@ -110,7 +110,7 @@ public class RivSsekRouteBuilderTest extends AbstractCamelTestNGSpringContextTes
     private static final String RIV_RECEIVER_TESTVALUE = "TEST_RECEIVER";
     private static final String RIV_PAYLOAD_TESTVALUE = "TEST_PAYLOAD";
     public static final String RIV_SENDER = "x-rivta-original-serviceconsumer-hsaid";
-    public static final String RIV_CORR_ID = "x-vp-correlation-id";
+    public static final String RIV_CORR_ID = "x-skltp-correlation-id";
     
     @Produce(context = "riv-ssek-bridge-test")
     ProducerTemplate camel;
@@ -278,7 +278,7 @@ public class RivSsekRouteBuilderTest extends AbstractCamelTestNGSpringContextTes
     }
 
     /**
-     * Injects RIV request with "x-vp-correlation-id" HTTP header.
+     * Injects RIV request with "x-skltp-correlation-id" HTTP header.
      * Make sure that this is used.
      *
      * @throws InterruptedException
@@ -302,7 +302,7 @@ public class RivSsekRouteBuilderTest extends AbstractCamelTestNGSpringContextTes
     }
 
     /**
-     * Injects RIV request without the "x-vp-correlation-id" HTTP header.
+     * Injects RIV request without the "x-skltp-correlation-id" HTTP header.
      * Make sure that a generated TxId is filled in by the route builder.
      *
      * @throws InterruptedException
