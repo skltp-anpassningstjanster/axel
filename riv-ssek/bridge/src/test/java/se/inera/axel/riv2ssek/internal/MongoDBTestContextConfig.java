@@ -33,6 +33,12 @@ import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
 import de.flapdoodle.embed.process.extract.ITempNaming;
 import de.flapdoodle.embed.process.runtime.Network;
+import se.inera.axel.test.flapdoodle.FixedTempNaming;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +61,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
                 .defaults(Command.MongoD)
                 .artifactStore(new ArtifactStoreBuilder()
                         .defaults(Command.MongoD)
-                        .executableNaming(new FixedTempNaming())
+                        .executableNaming(new FixedTempNaming("riv-ssek-bridge"))
                 )
                 .build();
 
@@ -106,13 +112,5 @@ public class MongoDBTestContextConfig implements DisposableBean {
         if(mongodExecutable != null)
         	mongodExecutable.stop();
     }
-    
-    private class FixedTempNaming implements ITempNaming {
 
-    	@Override
-    	public String nameFor(String prefix, String postfix) {
-    		return prefix + "-" + "riv-ssek-bridge" + "-" + postfix;
-    	}
-
-    }
 }

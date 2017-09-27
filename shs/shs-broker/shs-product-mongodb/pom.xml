@@ -109,6 +109,12 @@
 
         <dependency>
             <groupId>se.inera.axel</groupId>
+            <artifactId>axel-test-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-broker-api</artifactId>
         </dependency>
 

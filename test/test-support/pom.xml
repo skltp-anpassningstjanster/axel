@@ -19,6 +19,16 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.process</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.ops4j.pax.wicket</groupId>
             <artifactId>org.ops4j.pax.wicket.test</artifactId>
@@ -35,5 +45,6 @@
             <artifactId>testng</artifactId>
             <scope>compile</scope>
         </dependency>
+
     </dependencies>
 </project>

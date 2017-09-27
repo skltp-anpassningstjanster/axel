@@ -29,6 +29,7 @@ import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
 import de.flapdoodle.embed.process.extract.ITempNaming;
 import de.flapdoodle.embed.process.runtime.Network;
+import se.inera.axel.test.flapdoodle.FixedTempNaming;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
                 .defaults(Command.MongoD)
                 .artifactStore(new ArtifactStoreBuilder()
                         .defaults(Command.MongoD)
-                        .executableNaming(new FixedTempNaming())
+                        .executableNaming(new FixedTempNaming("shs-product-mongodb"))
                 )
                 .build();
 
@@ -116,26 +117,4 @@ public class MongoDBTestContextConfig implements DisposableBean {
         	mongodExecutable.stop();
     }
     
-    private class FixedTempNaming implements ITempNaming {
-
-    	@Override
-    	public String nameFor(String prefix, String postfix) {
-    		final String name = prefix + "-" + "shs-product-mongodb" + "-" + postfix;
-
-    		deleteFile(name);
-    		return name;
-    	}
-    	
-    	private void deleteFile(String name) {
-    		// Temporary fix. Needs refactoring
-    	    String tempFile = System.getenv("temp") + File.separator + name;
-
-    	    try {
-				Files.deleteIfExists(new File(tempFile).toPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}    		
-    	}
-
-    }
 }
