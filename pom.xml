@@ -8,6 +8,12 @@
     <name>Axel</name>
     <url>https://github.com/skltp-incubator/axel</url>
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
+    
     <inceptionYear>2012</inceptionYear>
 
     <organization>
