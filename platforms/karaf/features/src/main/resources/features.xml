@@ -73,6 +73,7 @@
         <bundle>mvn:se.inera.axel/itintegration-monitoring-service/${axel.version}</bundle>
     </feature>
 
+<!--  
     <feature name="axel-ssek-test-services" version="${axel.version}">
         <feature>axel-common</feature>
 
@@ -81,6 +82,7 @@
         <bundle>mvn:org.ssek.schemas/ssek-helloworld-schemas-2011-11-17/${axel.version}</bundle>
         <bundle>mvn:se.inera.axel/ssek-test-services/${axel.version}</bundle>
     </feature>
+-->
 
     <feature name="axel-riv-test-services" version="${axel.version}">
         <feature>axel-common</feature>
@@ -162,6 +164,7 @@
         <bundle>mvn:se.inera.axel/riv-shs-webconsole/${axel.version}</bundle>
     </feature>
 
+<!--
     <feature name="axel-riv-ssek-bridge" version="${axel.version}">
         <feature>axel-shs-camel</feature>
         <feature>camel-jetty</feature>
@@ -183,6 +186,7 @@
         <bundle>mvn:se.inera.axel/axel-webconsole/${axel.version}</bundle>
         <bundle>mvn:se.inera.axel/riv-ssek-webconsole/${axel.version}</bundle>
     </feature>
+-->
 
     <feature name="axel-all" version="1.0-SNAPSHOT">
         <feature>axel-monitoring</feature>
@@ -191,10 +195,12 @@
         <feature>axel-riv-ping</feature>
         <feature>axel-riv-shs-bridge</feature>
         <feature>axel-riv-shs-bridge-webconsole</feature>
+        <!-- 
         <feature>axel-ssek-test-services</feature>
         <feature>axel-riv-test-services</feature>
         <feature>axel-riv-ssek-bridge</feature>
         <feature>axel-riv-ssek-bridge-webconsole</feature>
+         -->
     </feature>
 
 
