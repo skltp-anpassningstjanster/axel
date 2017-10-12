@@ -34,6 +34,8 @@ import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.xml.label.SequenceType;
 import se.inera.axel.shs.xml.label.TransferType;
 
+import java.util.UUID;
+
 import javax.xml.transform.OutputKeys;
 
 public class RivShsRouteBuilder extends RouteBuilder {
@@ -64,6 +66,7 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .transform().xpath("/soapenv:Envelope/soapenv:Body/*", soapenv)
                 .setHeader(ShsHeaders.PRODUCT_ID, method("rivShsMapper", "mapRivServiceToShsProduct"))
                 .setHeader(ShsHeaders.CORRID, header(RivShsMappingService.HEADER_RIV_CORRID))
+                .setHeader(ShsHeaders.TXID, header(UUID.randomUUID().toString()))
                 .setHeader(ShsHeaders.STATUS, simple("{{shs.label.status}}"))
                 .choice().when(method("rivShsMapper", "useAsynchronousShs").isEqualTo(Boolean.TRUE))
                     .setHeader(ShsHeaders.SEQUENCETYPE, constant(SequenceType.EVENT))
@@ -75,7 +78,7 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .end()
                 .setHeader(ShsHeaders.DATAPART_TYPE, constant("xml"))
                 .setHeader(ShsHeaders.DATAPART_FILENAME, simple(RivShsMappingService.HEADER_FILENAME))
-                .setHeader(ShsHeaders.DATAPART_CONTENTTYPE, constant("application/xml"))
+                .setHeader(ShsHeaders.DATAPART_CONTENTTYPE, constant(RivShsMappingService.CONTENT_TYPE))
                 .setHeader(ShsHeaders.DATAPART_TRANSFERENCODING, constant(TransferEncoding.BASE64))
                 .setHeader(org.apache.camel.converter.jaxp.XmlConverter.OUTPUT_PROPERTIES_PREFIX + OutputKeys.OMIT_XML_DECLARATION, constant("no"))
                 .beanRef("camelToShsConverter")
