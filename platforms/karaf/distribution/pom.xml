@@ -36,19 +36,19 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>docs</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>tar.gz</type>
         </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-cmdline</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>tar.gz</type>
         </dependency>
         <dependency>
             <groupId>se.inera.axel.karaf</groupId>
             <artifactId>features</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>

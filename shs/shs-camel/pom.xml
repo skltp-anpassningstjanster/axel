@@ -45,8 +45,7 @@
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-            <version>${activation.version}</version>
-        </dependency>
+            </dependency>
 
         <dependency>
             <groupId>javax.mail</groupId>
@@ -165,7 +164,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <groups>
                         <group>

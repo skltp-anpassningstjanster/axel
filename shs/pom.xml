@@ -8,7 +8,6 @@
     </parent>
 
     <artifactId>shs</artifactId>
-  <version>1.0-SP1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Axel :: SHS</name>

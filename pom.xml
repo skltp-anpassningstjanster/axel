@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>oss-parent</artifactId>
+        <groupId>org.sonatype.oss</groupId>
+        <version>9</version>
+    </parent>
     <groupId>se.inera.axel</groupId>
     <artifactId>axel</artifactId>
     <version>1.0-SP1-SNAPSHOT</version>
@@ -8,12 +14,6 @@
     <name>Axel</name>
     <url>https://github.com/skltp-incubator/axel</url>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-    </parent>
-    
     <inceptionYear>2012</inceptionYear>
 
     <organization>
@@ -123,7 +123,6 @@
         <activation.version>1.1</activation.version>
         <activemq.version>5.9.0</activemq.version>
         <aopalliance.version>1.0</aopalliance.version>
-        <axel.version>${project.version}</axel.version>
         <build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
         <camel.version>2.12.3</camel.version>
         <cglib.version>2.2.2</cglib.version>
@@ -764,73 +763,73 @@
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>axel-test-support</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>itintegration-monitoring-service</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>monitoring</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-agreement-mongodb</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-broker-api</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-camel</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-directory-ldap</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-messagestore-mongodb</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-product-mongodb</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-protocol</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-router</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>ssek-common</artifactId>
-                <version>${axel.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>

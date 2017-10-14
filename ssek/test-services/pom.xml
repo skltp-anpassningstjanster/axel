@@ -47,7 +47,7 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>ssek-common</artifactId>
-        </dependency>
+			</dependency>
         <dependency>
             <groupId>se.riv.insuranceprocess.healthreporting</groupId>
             <artifactId>insuranceprocess-healthreporting-schemas-3.1.0</artifactId>

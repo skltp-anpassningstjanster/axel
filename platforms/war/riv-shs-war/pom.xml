@@ -9,9 +9,7 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <groupId>se.inera.axel.war</groupId>
     <artifactId>riv-shs-war</artifactId>
-    <version>1.0-SP1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Axel :: Platforms :: WAR :: RIV/SHS Bridge</name>
     <description>Inera Axel Standalone RIV/SHS Bridge</description>
@@ -28,7 +26,6 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-            <version>${cxf.version}</version>
         </dependency>
 
         <dependency>
@@ -63,7 +60,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
 
         <dependency>
@@ -77,17 +73,17 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>common-services</artifactId>
-            <version>${axel.version}</version>
+			<version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>riv-shs-bridge</artifactId>
-            <version>${axel.version}</version>
+			<version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>riv-shs-webconsole</artifactId>
-            <version>${axel.version}</version>
+			<version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>

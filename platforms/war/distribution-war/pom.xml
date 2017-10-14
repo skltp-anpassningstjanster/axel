@@ -21,31 +21,31 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>docs</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>tar.gz</type>
         </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-cmdline</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>tar.gz</type>
         </dependency>
         <dependency>
             <groupId>se.inera.axel.war</groupId>
             <artifactId>riv-shs-war</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>se.inera.axel.war</groupId>
             <artifactId>riv-ssek-war</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>se.inera.axel.war</groupId>
             <artifactId>shs-broker-war</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
     </dependencies>

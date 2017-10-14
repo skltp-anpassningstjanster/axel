@@ -10,7 +10,6 @@
     <groupId>se.inera.axel.war</groupId>
     <artifactId>war</artifactId>
 
-    <version>1.0-SP1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Axel :: Platforms :: WAR</name>
 

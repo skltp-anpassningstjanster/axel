@@ -19,16 +19,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 -->
-<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="axel-${axel.version}">
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="axel-${project.version}">
     <repository>mvn:org.ops4j.pax.wicket/paxwicket/${pax.wicket.version}/xml/features</repository>
     <repository>mvn:org.ops4j.pax.wicket/features/${pax.wicket.version}/xml/features</repository>
 
     <!-- Hack so that the features file is included when running add-features-to-repo -->
-    <feature name="axel-features" version="${axel.version}">
-        <bundle>mvn:se.inera.axel.karaf/features/${axel.version}/xml/features</bundle>
+    <feature name="axel-features" version="${project.version}">
+        <bundle>mvn:se.inera.axel.karaf/features/${project.version}/xml/features</bundle>
     </feature>
 
-    <feature name="axel-common" version="${axel.version}" start-level="65">
+    <feature name="axel-common" version="${project.version}" start-level="65">
         <feature>cxf-jaxrs</feature>
         <feature>cxf-jaxb</feature>
         <feature>cxf-databinding-jaxb</feature>
@@ -57,52 +57,52 @@
         <bundle>mvn:org.mongodb/mongo-java-driver/${mongo-java-driver.version}</bundle>
         <bundle>mvn:org.springframework.data/spring-data-mongodb/${spring-data-mongodb.version}</bundle>
 
-        <bundle>mvn:se.inera.axel/common-services/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/common-services/${project.version}</bundle>
     </feature>
 
-    <feature name="axel-monitoring" version="${axel.version}">
+    <feature name="axel-monitoring" version="${project.version}">
 
         <bundle>mvn:org.yaml/snakeyaml/1.13</bundle>
-        <bundle>mvn:se.inera.axel/monitoring/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/monitoring/${project.version}</bundle>
     </feature>
 
-    <feature name="axel-riv-ping" version="${axel.version}">
+    <feature name="axel-riv-ping" version="${project.version}">
         <feature>axel-common</feature>
 
-        <bundle>mvn:se.riv.itintegration.monitoring/itintegration-monitoring-schemas-1.0/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/itintegration-monitoring-service/${axel.version}</bundle>
+        <bundle>mvn:se.riv.itintegration.monitoring/itintegration-monitoring-schemas-1.0/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/itintegration-monitoring-service/${project.version}</bundle>
     </feature>
 
 <!--  
-    <feature name="axel-ssek-test-services" version="${axel.version}">
+    <feature name="axel-ssek-test-services" version="${project.version}">
         <feature>axel-common</feature>
 
         <bundle>mvn:org.apache.cxf.xjc-utils/cxf-xjc-runtime/${cxf-xjc-plugin.version}</bundle>
-        <bundle>mvn:se.inera.axel/ssek-common/${axel.version}</bundle>
-        <bundle>mvn:org.ssek.schemas/ssek-helloworld-schemas-2011-11-17/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/ssek-test-services/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/ssek-common/${project.version}</bundle>
+        <bundle>mvn:org.ssek.schemas/ssek-helloworld-schemas-2011-11-17/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/ssek-test-services/${project.version}</bundle>
     </feature>
 -->
 
-    <feature name="axel-riv-test-services" version="${axel.version}">
+    <feature name="axel-riv-test-services" version="${project.version}">
         <feature>axel-common</feature>
 
         <bundle>mvn:org.apache.cxf.xjc-utils/cxf-xjc-runtime/${cxf-xjc-plugin.version}</bundle>
-        <bundle>mvn:se.riv.insuranceprocess.healthreporting/insuranceprocess-healthreporting-schemas-3.1.0/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/insuranceprocess-healthreporting-mocks/${axel.version}</bundle>
-        <bundle>mvn:se.riv.fk/fk-vardgivare-sjukvard-schemas-1.0/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/fk-vardgivare-sjukvard-mocks/${axel.version}</bundle>
+        <bundle>mvn:se.riv.insuranceprocess.healthreporting/insuranceprocess-healthreporting-schemas-3.1.0/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/insuranceprocess-healthreporting-mocks/${project.version}</bundle>
+        <bundle>mvn:se.riv.fk/fk-vardgivare-sjukvard-schemas-1.0/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/fk-vardgivare-sjukvard-mocks/${project.version}</bundle>
     </feature>
 
-    <feature name="axel-shs-camel" version="${axel.version}">
+    <feature name="axel-shs-camel" version="${project.version}">
         <feature>axel-common</feature>
 
-        <bundle>mvn:se.inera.axel/shs-protocol/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/shs-camel/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-protocol/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-camel/${project.version}</bundle>
     </feature>
 
 
-    <feature name="axel-shs-broker" version="${axel.version}">
+    <feature name="axel-shs-broker" version="${project.version}">
         <feature>camel-dozer</feature>
     	<feature>camel-quartz2</feature>
 
@@ -112,22 +112,22 @@
         <bundle>wrap:mvn:org.springframework.ldap/spring-ldap-core/${spring-ldap.version}</bundle>
         <bundle>wrap:mvn:org.springframework.ldap/spring-ldap-core-tiger/${spring-ldap.version}</bundle>
 
-        <bundle>mvn:se.inera.axel/shs-broker-api/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-broker-api/${project.version}</bundle>
 
-        <bundle>mvn:se.inera.axel/shs-agreement-mongodb/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/shs-product-mongodb/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/shs-directory-ldap/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/shs-messagestore-mongodb/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/shs-messagelog-mongodb/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-agreement-mongodb/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-product-mongodb/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-directory-ldap/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-messagestore-mongodb/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-messagelog-mongodb/${project.version}</bundle>
 
-        <bundle>mvn:se.inera.axel/shs-router/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-router/${project.version}</bundle>
 
-        <bundle>mvn:se.inera.axel/shs-receiveservice/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/shs-deliveryservice/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/shs-scheduler/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-receiveservice/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-deliveryservice/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-scheduler/${project.version}</bundle>
     </feature>
 
-    <feature name="axel-shs-broker-webconsole" version="${axel.version}">
+    <feature name="axel-shs-broker-webconsole" version="${project.version}">
         <feature>axel-shs-broker</feature>
 
         <feature>pax-wicket-blueprint</feature>
@@ -137,20 +137,20 @@
         <bundle>mvn:org.apache.wicket/wicket-spring/${wicket.version}</bundle>
         <bundle>mvn:org.apache.wicket/wicket-datetime/${wicket.version}</bundle>
 
-        <bundle>mvn:se.inera.axel/axel-webconsole/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/shs-webconsole/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/axel-webconsole/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/shs-webconsole/${project.version}</bundle>
     </feature>
 
-    <feature name="axel-riv-shs-bridge" version="${axel.version}">
+    <feature name="axel-riv-shs-bridge" version="${project.version}">
         <feature>axel-shs-camel</feature>
         <!-- riv-shs-bridge need access the ProductService via OSGi for now. -->
         <feature>axel-shs-broker</feature>
 
-        <bundle>mvn:se.inera.axel/riv-shs-bridge/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/riv-shs-bridge/${project.version}</bundle>
 
     </feature>
 
-    <feature name="axel-riv-shs-bridge-webconsole" version="${axel.version}">
+    <feature name="axel-riv-shs-bridge-webconsole" version="${project.version}">
         <feature>axel-riv-shs-bridge</feature>
 
         <feature>pax-wicket-blueprint</feature>
@@ -160,20 +160,20 @@
         <bundle>mvn:org.apache.wicket/wicket-spring/${wicket.version}</bundle>
         <bundle>mvn:org.apache.wicket/wicket-datetime/${wicket.version}</bundle>
 
-        <bundle>mvn:se.inera.axel/axel-webconsole/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/riv-shs-webconsole/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/axel-webconsole/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/riv-shs-webconsole/${project.version}</bundle>
     </feature>
 
 <!--
-    <feature name="axel-riv-ssek-bridge" version="${axel.version}">
+    <feature name="axel-riv-ssek-bridge" version="${project.version}">
         <feature>axel-shs-camel</feature>
         <feature>camel-jetty</feature>
         <feature>camel-velocity</feature>
 
-        <bundle>mvn:se.inera.axel/riv-ssek-bridge/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/riv-ssek-bridge/${project.version}</bundle>
     </feature>
 
-    <feature name="axel-riv-ssek-bridge-webconsole" version="${axel.version}">
+    <feature name="axel-riv-ssek-bridge-webconsole" version="${project.version}">
         <feature>axel-riv-ssek-bridge</feature>
 
         <feature>pax-wicket-blueprint</feature>
@@ -183,8 +183,8 @@
         <bundle>mvn:org.apache.wicket/wicket-spring/${wicket.version}</bundle>
         <bundle>mvn:org.apache.wicket/wicket-datetime/${wicket.version}</bundle>
 
-        <bundle>mvn:se.inera.axel/axel-webconsole/${axel.version}</bundle>
-        <bundle>mvn:se.inera.axel/riv-ssek-webconsole/${axel.version}</bundle>
+        <bundle>mvn:se.inera.axel/axel-webconsole/${project.version}</bundle>
+        <bundle>mvn:se.inera.axel/riv-ssek-webconsole/${project.version}</bundle>
     </feature>
 -->
 
