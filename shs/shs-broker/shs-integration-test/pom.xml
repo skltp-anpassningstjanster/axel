@@ -6,7 +6,7 @@
     <parent>
         <artifactId>shs-broker</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>1.0-SP1-RC1</version>
+        <version>1.0-SP1-RC2-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>shs-integration-test</artifactId>
