@@ -9,7 +9,7 @@
     </parent>
     <groupId>se.inera.axel</groupId>
     <artifactId>axel</artifactId>
-    <version>1.0-SP1-SNAPSHOT</version>
+    <version>1.0-SP1-RC1</version>
     <packaging>pom</packaging>
     <name>Axel</name>
     <url>https://github.com/skltp-incubator/axel</url>
@@ -97,7 +97,7 @@
     <scm>
         <connection>scm:git:git://github.com/skltp-incubator/axel.git</connection>
         <developerConnection>scm:git:git://github.com/skltp-incubator/axel.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0-SP1-RC1</tag>
         <url>https://github.com/skltp-incubator/axel</url>
     </scm>
 
@@ -1036,7 +1036,7 @@
                             </systemProperty>
                             <systemProperty>
                                 <name>com.sun.management.jmxremote</name>
-                                <value></value>
+                                <value />
                             </systemProperty>
                         </systemProperties>
                     </configuration>
@@ -1207,7 +1207,7 @@
                 </property>
             </activation>
             <build>
-                <plugins></plugins>
+                <plugins />
             </build>
         </profile>
     </profiles>

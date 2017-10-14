@@ -4,7 +4,7 @@
     <parent>
         <artifactId>ssek</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>1.0-SP1-SNAPSHOT</version>
+        <version>1.0-SP1-RC1</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <groupId>org.ssek.schemas</groupId>

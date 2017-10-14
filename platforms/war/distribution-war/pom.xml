@@ -4,7 +4,7 @@
     <parent>
         <artifactId>war</artifactId>
         <groupId>se.inera.axel.war</groupId>
-        <version>1.0-SP1-SNAPSHOT</version>
+        <version>1.0-SP1-RC1</version>
     </parent>
 
     <artifactId>distribution-war</artifactId>
