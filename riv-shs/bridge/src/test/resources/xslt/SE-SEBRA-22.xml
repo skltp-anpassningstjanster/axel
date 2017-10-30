@@ -1,0 +1,212 @@
+<ns3:ProcessIndividualCaseSafetyReport xmlns:ns3="urn:riv:lv:reporting:pharmacovigilance:ProcessIndividualCaseSafetyReportResponder:1" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns2="urn:riv:lv:reporting:pharmacovigilance:1">
+	<ns3:individualCaseSafetyReport>
+		<ns2:ichicsr lang="se">
+			<ns2:ichicsrmessageheader>
+				<ns2:messagetype>ichicsr</ns2:messagetype>
+				<ns2:messageformatversion>2.1</ns2:messageformatversion>
+				<ns2:messageformatrelease>2.0</ns2:messageformatrelease>
+				<ns2:messagenumb>SE-SEBRA-22</ns2:messagenumb>
+				<ns2:messagesenderidentifier>SEBRA</ns2:messagesenderidentifier>
+				<ns2:messagereceiveridentifier>SEMPAT</ns2:messagereceiveridentifier>
+				<ns2:messagedateformat>204</ns2:messagedateformat>
+				<ns2:messagedate>20140710153001</ns2:messagedate>
+			</ns2:ichicsrmessageheader>
+			<ns2:safetyreport>
+				<ns2:safetyreportversion>0</ns2:safetyreportversion>
+				<ns2:safetyreportid>SE-SEBRA-22</ns2:safetyreportid>
+				<ns2:primarysourcecountry>SE</ns2:primarysourcecountry>
+				<ns2:occurcountry>SE</ns2:occurcountry>
+				<ns2:transmissiondateformat>102</ns2:transmissiondateformat>
+				<ns2:transmissiondate>20140710</ns2:transmissiondate>
+				<ns2:reporttype>1</ns2:reporttype>
+				<ns2:serious>1</ns2:serious>
+				<ns2:seriousnessdeath>1</ns2:seriousnessdeath>
+				<ns2:seriousnesslifethreatening>2</ns2:seriousnesslifethreatening>
+				<ns2:seriousnesshospitalization>2</ns2:seriousnesshospitalization>
+				<ns2:seriousnessdisabling>2</ns2:seriousnessdisabling>
+				<ns2:seriousnesscongenitalanomali>2</ns2:seriousnesscongenitalanomali>
+				<ns2:seriousnessother>2</ns2:seriousnessother>
+				<ns2:receivedateformat>102</ns2:receivedateformat>
+				<ns2:receivedate>20140710</ns2:receivedate>
+				<ns2:receiptdateformat>102</ns2:receiptdateformat>
+				<ns2:receiptdate>20140710</ns2:receiptdate>
+				<ns2:companynumb>SE-SEBRA-22</ns2:companynumb>
+				<ns2:primarysource>
+					<ns2:reportertitle>Läkare, specialist i allmänmedicin</ns2:reportertitle>
+					<ns2:reportergivename>Topi</ns2:reportergivename>
+					<ns2:reporterfamilyname>Laajoki</ns2:reporterfamilyname>
+					<ns2:reporterorganization>Knivsta Vårdcentral</ns2:reporterorganization>
+					<ns2:reporterdepartment>Avdelning 1</ns2:reporterdepartment>
+					<ns2:reporterstreet>Ängbyvägen 8</ns2:reporterstreet>
+					<ns2:reportercity>Knivsta</ns2:reportercity>
+					<ns2:reporterstate>C</ns2:reporterstate>
+					<ns2:reporterpostcode>741 30</ns2:reporterpostcode>
+					<ns2:reportercountry>SE</ns2:reportercountry>
+					<ns2:qualification>1</ns2:qualification>
+				</ns2:primarysource>
+				<ns2:sender lang="se">
+					<ns2:sendertype>3</ns2:sendertype>
+					<ns2:senderorganization>ARTIS</ns2:senderorganization>
+					<ns2:senderdepartment>SRQ</ns2:senderdepartment>
+					<ns2:sendercountrycode>SE</ns2:sendercountrycode>
+				</ns2:sender>
+				<ns2:receiver>
+					<ns2:receivertype>2</ns2:receivertype>
+					<ns2:receiverorganization>SEMPAT</ns2:receiverorganization>
+					<ns2:receiverdepartment>Department of Pharmacovigilance</ns2:receiverdepartment>
+					<ns2:receivercountrycode>SE</ns2:receivercountrycode>
+				</ns2:receiver>
+				<ns2:patient>
+					<ns2:patientbirthdateformat>102</ns2:patientbirthdateformat>
+					<ns2:patientbirthdate>19641212</ns2:patientbirthdate>
+					<ns2:patientonsetage>49</ns2:patientonsetage>
+					<ns2:patientonsetageunit>801</ns2:patientonsetageunit>
+					<ns2:gestationperiod>5</ns2:gestationperiod>
+					<ns2:gestationperiodunit>802</ns2:gestationperiodunit>
+					<ns2:patientsex>2</ns2:patientsex>
+					<ns2:patientmedicalhistorytext>Vid 30-årsålder lätta magbesvär i samband med en penicillinkur. För
+                        5 år sedan lätta erytem i samband med heracillinkur för sårinfektion.
+                    </ns2:patientmedicalhistorytext>
+					<ns2:medicalhistoryepisode>
+						<ns2:patientepisodename>Förmaksflimer</ns2:patientepisodename>
+						<ns2:patientmedicalstartdateformat>610</ns2:patientmedicalstartdateformat>
+						<ns2:patientmedicalstartdate>201403</ns2:patientmedicalstartdate>
+					</ns2:medicalhistoryepisode>
+					<ns2:medicalhistoryepisode>
+						<ns2:patientepisodename>Kronisk hjärtinsufficiens</ns2:patientepisodename>
+						<ns2:patientmedicalstartdateformat>602</ns2:patientmedicalstartdateformat>
+						<ns2:patientmedicalstartdate>2014</ns2:patientmedicalstartdate>
+					</ns2:medicalhistoryepisode>
+					<ns2:patientdeath>
+						<ns2:patientdeathdateformat>102</ns2:patientdeathdateformat>
+						<ns2:patientdeathdate>20140601</ns2:patientdeathdate>
+						<ns2:patientdeathcause>
+							<ns2:patientdeathreport>Patienten blev överkörd av en buss.
+                            </ns2:patientdeathreport>
+						</ns2:patientdeathcause>
+					</ns2:patientdeath>
+					<ns2:parent>
+						<ns2:parentmedicalrelevanttext>&lt;patientfirstname&gt;Anna&lt;/patientfirstname&gt;
+                            &lt;patientlastname&gt;Svensson&lt;/patientlastname&gt;
+                            &lt;patientidentitynumber&gt;196412121212&lt;/patientidentitynumber&gt;
+                            &lt;reporterhsaid&gt;0123456789&lt;/reporterhsaid&gt;
+                            &lt;reporterunithsaid&gt;0123456789012&lt;/reporterunithsaid&gt;
+                            &lt;healthcarecareserviceprovider&gt;0123456789013&lt;/healthcarecareserviceprovider&gt;
+                            &lt;reporterphone&gt;0701234567&lt;/reporterphone&gt;
+                            &lt;municipalitycode&gt;0330&lt;/municipalitycode&gt;
+                            &lt;countycode&gt;03&lt;/countycode&gt;
+                            &lt;hsatitle&gt;LK&lt;/hsatitle&gt;
+                            &lt;caretype&gt;02&lt;/caretype&gt;
+                            &lt;management&gt;Landsting/Region&lt;/management&gt;
+                            &lt;drug&gt;
+                            &lt;drugname&gt;Simvastatin Amneal&lt;/drugname&gt;
+                            &lt;intensity&gt;40 mg&lt;/intensity&gt;
+                            &lt;indication&gt;Sänker blodfetter&lt;/indication&gt;
+                            &lt;reactdiscontinue&gt;yes&lt;/reactdiscontinue&gt;
+                            &lt;reactreturned&gt;yes&lt;/reactreturned&gt;
+                            &lt;nplpackid&gt;20140512001234&lt;/nplpackid&gt;
+                            &lt;nplid&gt;20140512000234&lt;/nplid&gt;
+                            &lt;/drug&gt;
+                            &lt;drug&gt;
+                            &lt;drugname&gt;Kåvepenin®&lt;/drugname&gt;
+                            &lt;intensity&gt;500 mg&lt;/intensity&gt;
+                            &lt;indication&gt;Mot infektion&lt;/indication&gt;
+                            &lt;reactdiscontinue&gt;no&lt;/reactdiscontinue&gt;
+                            &lt;reactreturned&gt;yes&lt;/reactreturned&gt;
+                            &lt;/drug&gt;
+                            &lt;drug&gt;
+                            &lt;drugname&gt;Humira®&lt;/drugname&gt;
+                            &lt;intensity&gt;40 mg/0,8 ml&lt;/intensity&gt;
+                            &lt;indication&gt;Mot RA&lt;/indication&gt;
+                            &lt;/drug&gt;
+                            &lt;document&gt;
+                            &lt;type&gt;Rapport pdf&lt;/type&gt;
+                            &lt;name&gt;SE-SRQ-nummer.pdf&lt;/name&gt;
+                            &lt;/document&gt;
+                        </ns2:parentmedicalrelevanttext>
+					</ns2:parent>
+					<ns2:reaction>
+						<ns2:primarysourcereaction>Muskelvärk</ns2:primarysourcereaction>
+						<ns2:termhighlighted>2</ns2:termhighlighted>
+						<ns2:reactionstartdateformat>102</ns2:reactionstartdateformat>
+						<ns2:reactionstartdate>20140401</ns2:reactionstartdate>
+						<ns2:reactionoutcome>1</ns2:reactionoutcome>
+					</ns2:reaction>
+					<ns2:reaction>
+						<ns2:primarysourcereaction>Hudutslag</ns2:primarysourcereaction>
+						<ns2:termhighlighted>2</ns2:termhighlighted>
+						<ns2:reactionstartdateformat>102</ns2:reactionstartdateformat>
+						<ns2:reactionstartdate>20140526</ns2:reactionstartdate>
+						<ns2:reactionoutcome>5</ns2:reactionoutcome>
+					</ns2:reaction>
+					<ns2:reaction>
+						<ns2:primarysourcereaction>Feber</ns2:primarysourcereaction>
+						<ns2:termhighlighted>2</ns2:termhighlighted>
+						<ns2:reactionstartdateformat>102</ns2:reactionstartdateformat>
+						<ns2:reactionstartdate>20140402</ns2:reactionstartdate>
+						<ns2:reactionoutcome>1</ns2:reactionoutcome>
+					</ns2:reaction>
+					<ns2:drug>
+						<ns2:drugcharacterization>1</ns2:drugcharacterization>
+						<ns2:medicinalproduct>Simvastatin Amneal</ns2:medicinalproduct>
+						<ns2:drugbatchnumb>12312123</ns2:drugbatchnumb>
+						<ns2:drugauthorizationnumb>43257</ns2:drugauthorizationnumb>
+						<ns2:drugauthorizationholder>Amneal Pharma Europe Limited
+                        </ns2:drugauthorizationholder>
+						<ns2:drugdosagetext>1 x 2</ns2:drugdosagetext>
+						<ns2:drugdosageform>Filmdragerad tablett</ns2:drugdosageform>
+						<ns2:drugadministrationroute>1</ns2:drugadministrationroute>
+						<ns2:drugstartdateformat>102</ns2:drugstartdateformat>
+						<ns2:drugstartdate>20140202</ns2:drugstartdate>
+						<ns2:drugenddateformat>102</ns2:drugenddateformat>
+						<ns2:drugenddate>20140414</ns2:drugenddate>
+						<ns2:activesubstance>
+							<ns2:activesubstancename>simvastatin</ns2:activesubstancename>
+						</ns2:activesubstance>
+					</ns2:drug>
+					<ns2:drug>
+						<ns2:drugcharacterization>1</ns2:drugcharacterization>
+						<ns2:medicinalproduct>Kåvepenin®</ns2:medicinalproduct>
+						<ns2:drugauthorizationnumb>084090</ns2:drugauthorizationnumb>
+						<ns2:drugauthorizationholder>Meda</ns2:drugauthorizationholder>
+						<ns2:drugdosagetext>2 x 2</ns2:drugdosagetext>
+						<ns2:drugdosageform>Filmdragerad tablett</ns2:drugdosageform>
+						<ns2:drugstartdateformat>102</ns2:drugstartdateformat>
+						<ns2:drugstartdate>20140525</ns2:drugstartdate>
+						<ns2:drugenddateformat>102</ns2:drugenddateformat>
+						<ns2:drugenddate>20140610</ns2:drugenddate>
+						<ns2:activesubstance>
+							<ns2:activesubstancename>fenoximetylpenicillinkalium</ns2:activesubstancename>
+						</ns2:activesubstance>
+					</ns2:drug>
+					<ns2:drug>
+						<ns2:drugcharacterization>2</ns2:drugcharacterization>
+						<ns2:medicinalproduct>Humira®</ns2:medicinalproduct>
+						<ns2:drugbatchnumb>9876543210</ns2:drugbatchnumb>
+						<ns2:drugauthorizationnumb>18474</ns2:drugauthorizationnumb>
+						<ns2:drugauthorizationholder>AbbVie Ltd</ns2:drugauthorizationholder>
+						<ns2:drugdosagetext>1 x 1</ns2:drugdosagetext>
+						<ns2:drugdosageform>Injektionsvätska, lösning</ns2:drugdosageform>
+						<ns2:drugstartdateformat>102</ns2:drugstartdateformat>
+						<ns2:drugstartdate>20130602</ns2:drugstartdate>
+						<ns2:activesubstance>
+							<ns2:activesubstancename>adalimumab</ns2:activesubstancename>
+						</ns2:activesubstance>
+					</ns2:drug>
+					<ns2:summary>
+						<ns2:narrativeincludeclinical>49-årig kvinna som behandlas sedan ett år med Humira med god
+                            effekt. För 3 månader sedan insatt Simvastatin men har själv slutat att ta den pga.
+                            besvärlig muskelvärk. Inte tagit Simvastatin den senaste månaden. Nu under pågående
+                            Kåvepeninbehandling mot halsfluss med start 26/5 har patienten fått utspridda illröda erytem
+                            på överarmar och lår. Misstänks vara penicillinorsakade. Enligt min bedömning har patienten
+                            fått två biverkningar: muskelvärk av Simvastatin och erytem av Kåvepenin.
+                        </ns2:narrativeincludeclinical>
+						<ns2:reportercomment>Bor på Teneriffa på vinterhalvåret. Patientens pappa hade hemofili A utan
+                            komplikationer. Telefonnr: 018-470034
+                        </ns2:reportercomment>
+					</ns2:summary>
+				</ns2:patient>
+			</ns2:safetyreport>
+		</ns2:ichicsr>
+	</ns3:individualCaseSafetyReport>
+</ns3:ProcessIndividualCaseSafetyReport>

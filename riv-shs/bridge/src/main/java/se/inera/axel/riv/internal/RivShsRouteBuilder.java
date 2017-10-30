@@ -65,6 +65,9 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .validate(header(ShsHeaders.TO).isNotEqualTo(""))
                 .transform().xpath("/soapenv:Envelope/soapenv:Body/*", soapenv)
                 .setHeader(ShsHeaders.PRODUCT_ID, method("rivShsMapper", "mapRivServiceToShsProduct"))
+                
+                .process(new XslTransformer())
+                
                 .setHeader(ShsHeaders.CORRID, header(RivShsMappingService.HEADER_RIV_CORRID))
                 .setHeader(ShsHeaders.TXID, header(UUID.randomUUID().toString()))
                 .setHeader(ShsHeaders.STATUS, simple("{{shs.label.status}}"))

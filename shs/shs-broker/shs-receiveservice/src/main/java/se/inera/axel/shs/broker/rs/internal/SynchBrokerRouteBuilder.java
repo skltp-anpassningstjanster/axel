@@ -34,7 +34,8 @@ import se.inera.axel.shs.xml.label.ShsLabel;
  */
 public class SynchBrokerRouteBuilder extends RouteBuilder {
 
-    private boolean enableStreamCaching = false;
+    @SuppressWarnings("unused")
+	private boolean enableStreamCaching = false;
 
     public void setEnableStreamCaching(boolean enabled) {
         this.enableStreamCaching = enabled;
