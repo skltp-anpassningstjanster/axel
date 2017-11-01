@@ -40,6 +40,11 @@ import javax.xml.transform.OutputKeys;
 
 public class RivShsRouteBuilder extends RouteBuilder {
 
+	private XslTransformer xslTransformer;
+	public void setXslTransformer(XslTransformer xslTransformer) {
+		this.xslTransformer = xslTransformer;
+	}
+	
     @Override
     public void configure() throws Exception {
 
@@ -66,7 +71,7 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .transform().xpath("/soapenv:Envelope/soapenv:Body/*", soapenv)
                 .setHeader(ShsHeaders.PRODUCT_ID, method("rivShsMapper", "mapRivServiceToShsProduct"))
                 
-                .process(new XslTransformer())
+                .process(xslTransformer)
                 
                 .setHeader(ShsHeaders.CORRID, header(RivShsMappingService.HEADER_RIV_CORRID))
                 .setHeader(ShsHeaders.TXID, header(UUID.randomUUID().toString()))

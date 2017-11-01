@@ -75,6 +75,7 @@
         <prop key="trustStoreParameters.resource">/certs/truststore.jks</prop>
         <prop key="trustStoreParameters.type">jks</prop>
         <prop key="trustStoreParameters.password">password</prop>
+    	<prop key="xsltLocation">${axel.home}/etc/xslt</prop>
     </osgix:cm-properties>
 
 </beans>

@@ -164,7 +164,8 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
 
     @Test(expectedExceptions = SoapFault.class, enabled = true)
     public void pingRequestWithInvalidToAddressShouldThrow() throws Throwable {
-        ShsMessage testMessage = make(shsMessageMaker.but(
+        @SuppressWarnings("unchecked")
+		ShsMessage testMessage = make(shsMessageMaker.but(
                 with(label, a(ShsLabel,
                         with(to, to("1111111111"))))));
 
@@ -177,7 +178,8 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
 
     @Test(expectedExceptions = SoapFault.class, enabled = true)
     public void pingRequestWithoutNamespaceShouldThrow() throws Throwable {
-        ShsMessage testMessage = make(a(ShsMessage,
+        @SuppressWarnings("unchecked")
+		ShsMessage testMessage = make(a(ShsMessage,
                 with(label, a(ShsLabel, with(to, to("0000000000")))),
                 with(dataParts, listOf(pingRequestWithoutNamespace))));
 
@@ -210,7 +212,8 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
         };
     }
 
-    @BeforeClass
+    @SuppressWarnings("unchecked")
+	@BeforeClass
     public void beforeClass() throws IOException {
         //System.setProperty("skipStartingCamelContext", "true");
         System.setProperty("shsInBridgeEndpoint", "direct:shs2riv");
@@ -240,11 +243,13 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
         mockTestShs2Riv.reset();
     }
 
-    private Maker<se.inera.axel.shs.xml.label.To> to(String to) {
+    @SuppressWarnings("unchecked")
+	private Maker<se.inera.axel.shs.xml.label.To> to(String to) {
         return a(To, with(ToInstantiator.value, to));
     }
 
-    private Maker<DataPart> pingRequestDataPart(String bodyTemplate, String toAddress) throws IOException {
+    @SuppressWarnings("unchecked")
+	private Maker<DataPart> pingRequestDataPart(String bodyTemplate, String toAddress) throws IOException {
         return a(DataPart,
                 with(dataHandler, stringDataHandler(String.format(bodyTemplate, toAddress))));
     }
@@ -256,7 +261,13 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
 
     @Override
     protected RouteBuilder[] createRouteBuilders() throws Exception {
-        return new RouteBuilder[]{new RivShsRouteBuilder(),
+    	
+    	XslTransformer xslTransformer = new XslTransformer();
+    	xslTransformer.setXsltLocation("src/test/resources/xslt/");
+    	RivShsRouteBuilder rivShsRouteBuilder = new RivShsRouteBuilder();
+		rivShsRouteBuilder.setXslTransformer(xslTransformer );
+    	
+        return new RouteBuilder[]{rivShsRouteBuilder,
                 new RouteBuilder() {
                     @Override
                     public void configure() throws Exception {

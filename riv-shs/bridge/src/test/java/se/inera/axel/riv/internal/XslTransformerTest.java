@@ -4,15 +4,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.testng.CamelTestSupport;
-import org.apache.commons.io.IOUtils;
 import org.testng.annotations.Test;
 
 import se.inera.axel.shs.processor.ShsHeaders;
@@ -52,6 +49,9 @@ public class XslTransformerTest extends CamelTestSupport {
 
     @Override
     protected RouteBuilder[] createRouteBuilders() throws Exception {
+
+       	final XslTransformer xslTransformer = new XslTransformer();
+    	xslTransformer.setXsltLocation("src/test/resources/xslt/");
     	
     	RouteBuilder rb = new RouteBuilder() {
 
@@ -61,7 +61,7 @@ public class XslTransformerTest extends CamelTestSupport {
 				from("direct:xsltransform")
 					.setBody().simple("resource:classpath:xslt/SE-SEBRA-22.xml")
 					.setHeader(ShsHeaders.PRODUCT_ID, simple("SE-SEBRA"))
-					.process(new XslTransformer()).to("mock:xsltransform");
+					.process(xslTransformer).to("mock:xsltransform");
 				
 			}
     		

@@ -37,12 +37,18 @@
     <ctx:component-scan base-package="se.inera.axel.riv" />
 	
 	
-    <bean id="rivShsRouteBuilder" class="se.inera.axel.riv.internal.RivShsRouteBuilder" />
+    <bean id="rivShsRouteBuilder" class="se.inera.axel.riv.internal.RivShsRouteBuilder" >
+    	<property name="xslTransformer" ref="xslTransformer"/>
+    </bean>
     <bean id="rivShsMapper" class="se.inera.axel.riv.internal.RepositoryRivShsMappingService" />
     															
     <bean id="camelToShsConverter" class="se.inera.axel.shs.camel.DefaultCamelToShsMessageProcessor" />
     <bean id="shsToCamelConverter" class="se.inera.axel.shs.camel.DefaultShsMessageToCamelProcessor" />
-        
+
+    <bean id="xslTransformer" class="se.inera.axel.riv.internal.XslTransformer">
+    	<property name="xsltLocation" value="${axel.home}/etc/xslt"/>
+    </bean>
+       
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongoDbFactory" />
 		<property name="writeConcern">
