@@ -29,6 +29,11 @@
 		</xsl:element>
 	</xsl:template>
 
+  <xsl:template match="comment()">
+    <xsl:comment>
+      <xsl:value-of select="." />
+    </xsl:comment>
+  </xsl:template>
 </xsl:stylesheet>
 
 
