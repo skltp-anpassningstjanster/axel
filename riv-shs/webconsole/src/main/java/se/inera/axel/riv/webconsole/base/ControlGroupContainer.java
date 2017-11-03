@@ -25,15 +25,16 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.FormComponent;
 
 public class ControlGroupContainer extends WebMarkupContainer {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	public ControlGroupContainer(final FormComponent<?> field) {
 		super("control." + field.getId());
 		
 		add(new Behavior() {
+
+			private static final long serialVersionUID = 2013166880406979130L;
+
 			@Override
 			public void onComponentTag(Component component, ComponentTag tag) {
 				if (!field.isValid()) {

@@ -18,6 +18,9 @@
  */
 package se.inera.axel.riv;
 
+import org.apache.camel.Property;
+
+import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.xml.label.ShsLabel;
 
 
@@ -33,5 +36,7 @@ public interface RivShsMappingService {
 	String mapRivServiceToRivEndpoint(String rivServiceNamespace);
     String mapRivServiceToResponseBody(String rivServiceNamespace);
     Boolean useAsynchronousShs(String rivServiceNamespace);
+	String mapShsProductToXslScript(ShsLabel shsLabel);
+	String mapRivServiceToXslScript(String rivServiceNamespace);
 
 }

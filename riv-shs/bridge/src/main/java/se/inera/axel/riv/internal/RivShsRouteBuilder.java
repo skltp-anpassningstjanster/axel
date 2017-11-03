@@ -70,12 +70,14 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .validate(header(ShsHeaders.TO).isNotEqualTo(""))
                 .transform().xpath("/soapenv:Envelope/soapenv:Body/*", soapenv)
                 .setHeader(ShsHeaders.PRODUCT_ID, method("rivShsMapper", "mapRivServiceToShsProduct"))
-                
-                .process(xslTransformer)
-                
+                .setHeader(ShsHeaders.STATUS, simple("{{shs.label.status}}"))
+                      
+                .setProperty("AxelXslScript", method("rivShsMapper", "mapRivServiceToXslScript"))
+                .choice().when(property("AxelXslScript").isNotNull())
+                	.process(xslTransformer)
+                .end()
                 .setHeader(ShsHeaders.CORRID, header(RivShsMappingService.HEADER_RIV_CORRID))
                 .setHeader(ShsHeaders.TXID, header(UUID.randomUUID().toString()))
-                .setHeader(ShsHeaders.STATUS, simple("{{shs.label.status}}"))
                 .choice().when(method("rivShsMapper", "useAsynchronousShs").isEqualTo(Boolean.TRUE))
                     .setHeader(ShsHeaders.SEQUENCETYPE, constant(SequenceType.EVENT))
                     .setHeader(ShsHeaders.TRANSFERTYPE, constant(TransferType.ASYNCH))

@@ -43,7 +43,7 @@ public class RivShsServiceMapping implements Serializable {
 
     Boolean useAsynchronousShs = Boolean.TRUE;
 
-
+    String xslScript;
 
 	public String getId() {
 		return id;
@@ -85,6 +85,14 @@ public class RivShsServiceMapping implements Serializable {
     public void setUseAsynchronousShs(Boolean useAsynchronousShs) {
         this.useAsynchronousShs = useAsynchronousShs;
     }
+
+	public String getXslScript() {
+		return xslScript;
+	}
+	
+	public void setXslScript(String xslScript) {
+		this.xslScript = xslScript;
+	}
 
     @Override
 	public int hashCode() {

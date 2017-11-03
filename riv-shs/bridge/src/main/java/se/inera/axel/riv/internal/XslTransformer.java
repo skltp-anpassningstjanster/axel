@@ -19,39 +19,44 @@ public class XslTransformer implements Processor {
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(XslTransformer.class);
 	private static TransformerFactory factory = TransformerFactory.newInstance();
 	
-	private String xsltLocation;
-	public void setXsltLocation(String xsltLocation) {
-		this.xsltLocation = xsltLocation;
-		if(this.xsltLocation != null) {
-			this.xsltLocation = this.xsltLocation + "/";
-			this.xsltLocation = this.xsltLocation.replace("//", "/").replace("file:", "");
-		}
-	}
 
 	@Override
 	public void process(Exchange exchange) throws Exception {
-		
-		String productId = (String) exchange.getIn().getHeader(ShsHeaders.PRODUCT_ID);
-		log.info("Looking for xsl-file for {} in {}", productId, xsltLocation);
-		
-		if(xsltLocation == null) {
-			log.info("No location for xslt-files is defined");
-			return;
-		}
-			
-		String xslFileName = xsltLocation + productId + ".xsl";
-		File xslFile = new File(xslFileName);
 
-		if(xslFile.exists()) {
-			log.info("Found xslt-file {}. Will make transformation.", xslFileName);
-			String payload = transform(exchange.getIn().getBody(String.class), xslFile);			
-			exchange.getIn().setBody(payload);			
-		} else
-			log.info("The xslt-file {} was not found. No transformation is made.", xslFileName);		
+		String status = (String) exchange.getIn().getHeader(ShsHeaders.STATUS);
+		String productId = (String) exchange.getIn().getHeader(ShsHeaders.PRODUCT_ID);
+		
+		String xslScript = (String) exchange.getProperty("AxelXslScript");
+		String payload = null;
+		
+		if (xslScript != null) {
+			log.info("Found xslt-script for product {}. Will make transformation.", productId);
+			payload = transform(exchange.getIn().getBody(String.class), xslScript);
+		}
+		
+		if(payload != null) {
+			exchange.getIn().setBody(payload);
+			
+			// Log transformed payload i test environment
+			if("test".equalsIgnoreCase(status))
+				log.info("transformed payload is:" + payload);
+		}
 	}
 
+	@SuppressWarnings("unused")
 	private String transform(String s, File xslStream) throws IOException, URISyntaxException, TransformerException {
 	    Transformer transformer = factory.newTransformer(new StreamSource(xslStream));
+
+	    return transform(transformer, s);
+	}
+
+	private String transform(String s, String xslString) throws IOException, URISyntaxException, TransformerException {
+	    Transformer transformer = factory.newTransformer(new StringSource(xslString));
+
+	    return transform(transformer, s);
+	}
+
+	private String transform(Transformer transformer, String s) throws IOException, URISyntaxException, TransformerException {
 
 	    StringWriter outWriter = new StringWriter();
 	    transformer.transform(new StringSource(s), new StreamResult(outWriter));

@@ -218,7 +218,7 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
         //System.setProperty("skipStartingCamelContext", "true");
         System.setProperty("shsInBridgeEndpoint", "direct:shs2riv");
         System.setProperty("rsEndpoint", "direct-vm:shs:rs");
-        System.setProperty("rivInBridgeEndpoint", String.format("jetty://http://0.0.0.0:%s/riv", RIV_IN_PORT));
+        System.setProperty("rivInBridgeEndpoint", String.format("jetty://http://localhost:%s/riv", RIV_IN_PORT));
         System.setProperty("rivInBridgePathPrefix", "/riv");
 
         rivShsMapper = mock(RepositoryRivShsMappingService.class);
@@ -262,10 +262,8 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
     @Override
     protected RouteBuilder[] createRouteBuilders() throws Exception {
     	
-    	XslTransformer xslTransformer = new XslTransformer();
-    	xslTransformer.setXsltLocation("src/test/resources/xslt/");
     	RivShsRouteBuilder rivShsRouteBuilder = new RivShsRouteBuilder();
-		rivShsRouteBuilder.setXslTransformer(xslTransformer );
+		rivShsRouteBuilder.setXslTransformer(new XslTransformer());
     	
         return new RouteBuilder[]{rivShsRouteBuilder,
                 new RouteBuilder() {

@@ -51,7 +51,6 @@ public class XslTransformerTest extends CamelTestSupport {
     protected RouteBuilder[] createRouteBuilders() throws Exception {
 
        	final XslTransformer xslTransformer = new XslTransformer();
-    	xslTransformer.setXsltLocation("src/test/resources/xslt/");
     	
     	RouteBuilder rb = new RouteBuilder() {
 
@@ -61,8 +60,11 @@ public class XslTransformerTest extends CamelTestSupport {
 				from("direct:xsltransform")
 					.setBody().simple("resource:classpath:xslt/SE-SEBRA-22.xml")
 					.setHeader(ShsHeaders.PRODUCT_ID, simple("SE-SEBRA"))
-					.process(xslTransformer).to("mock:xsltransform");
-				
+				    .setProperty("AxelXslScript", simple("resource:classpath:xslt/SE-SEBRA.xsl"))
+	                .choice().when(property("AxelXslScript").isNotNull())
+			        	.process(xslTransformer)
+					.end()
+					.to("mock:xsltransform");
 			}
     		
     	};

@@ -19,6 +19,7 @@
 package se.inera.axel.riv2ssek.internal;
 
 import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
@@ -31,13 +32,8 @@ import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.config.RuntimeConfigBuilder;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
-import de.flapdoodle.embed.process.extract.ITempNaming;
 import de.flapdoodle.embed.process.runtime.Network;
 import se.inera.axel.test.flapdoodle.FixedTempNaming;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
@@ -80,7 +76,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
     public @Bean(destroyMethod = "close") Mongo mongo() throws Exception {
         MongodProcess mongodProcess = mongodProcess();
 
-        return new Mongo(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
+        return new MongoClient(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
     }
 
     public @Bean MongoDbFactory mongoDbFactory() throws Exception {

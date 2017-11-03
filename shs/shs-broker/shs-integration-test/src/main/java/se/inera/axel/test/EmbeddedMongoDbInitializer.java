@@ -47,7 +47,7 @@ public class EmbeddedMongoDbInitializer implements ApplicationContextInitializer
         Map<String, Object> mongopropsMap = DynamicProperties.get();
         String shsRsPort = String.valueOf(AvailablePortFinder.getNextAvailable());
         mongopropsMap.put("shsRsPort", shsRsPort);
-        mongopropsMap.put("shsRsHttpEndpoint", String.format("jetty://http://0.0.0.0:%s", shsRsPort));
+        mongopropsMap.put("shsRsHttpEndpoint", String.format("jetty://http://localhost:%s", shsRsPort));
         mongopropsMap.put("mongodb.uri", String.format("mongodb://localhost:%s/axel?w=1", mongodProcess.getConfig().net().getPort()));
         mongopropsMap.put("remoteShsBrokerPort", String.valueOf(AvailablePortFinder.getNextAvailable()));
         propertySources.addFirst(new MapPropertySource("mongoprops", mongopropsMap));

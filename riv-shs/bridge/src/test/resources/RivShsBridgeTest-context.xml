@@ -46,7 +46,7 @@
 			<props>
 		        <prop key="orgId">0000000000</prop>
 		        <prop key="shs.label.status">test</prop>
-		        <prop key="rivInBridgeEndpoint">https://0.0.0.0:8089</prop>
+		        <prop key="rivInBridgeEndpoint">https://localhost:8089</prop>
 		        <prop key="rivInBridgePathPrefix">/riv</prop>
                 <prop key="shsInBridgeEndpoint">direct-vm:shs2riv</prop>
 

@@ -4,7 +4,6 @@ import com.natpryce.makeiteasy.Donor;
 import com.natpryce.makeiteasy.Maker;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
-import org.apache.camel.LoggingLevel;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,14 +30,13 @@ import se.inera.axel.shs.broker.directory.InMemoryDirectoryServerInitializer;
 import se.inera.axel.shs.cmdline.ShsCmdline;
 import se.inera.axel.shs.mime.TransferEncoding;
 import se.inera.axel.shs.processor.ShsHeaders;
-import se.inera.axel.shs.xml.agreement.ShsAgreementMaker;
+import se.inera.axel.shs.xml.agreement.ShsAgreementMaker.CustomerInstantiator;
 import se.inera.axel.shs.xml.label.SequenceType;
 import se.inera.axel.shs.xml.label.TransferType;
 import se.inera.axel.test.DynamicProperties;
 import se.inera.axel.test.EmbeddedMongoDbInitializer;
 
 import javax.annotation.Resource;
-import javax.xml.transform.OutputKeys;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -70,7 +68,8 @@ public class ReceiveServiceIT extends AbstractCamelTestNGSpringContextTests {
     @Autowired
     private AgreementAdminService agreementAdminService;
 
-    @Autowired
+    @SuppressWarnings("unused")
+	@Autowired
     private AgreementAssembler agreementAssembler;
 
     @Autowired
@@ -89,7 +88,8 @@ public class ReceiveServiceIT extends AbstractCamelTestNGSpringContextTests {
     CamelContext camelContext;
 
 
-    @BeforeMethod
+    @SuppressWarnings("unchecked")
+	@BeforeMethod
     public void setUp() throws Exception {
         MockEndpoint.resetMocks(camelContext);
 
@@ -109,14 +109,14 @@ public class ReceiveServiceIT extends AbstractCamelTestNGSpringContextTests {
                     }
                 }),
                 with(shs, a(Shs,
-                        with(customer, a(Customer, with(ShsAgreementMaker.Customer.value, "0000000000"))),
+                        with(customer, a(Customer, with(CustomerInstantiator.value, "0000000000"))),
                         with(products, listOf(a(Product, with(value, "00000000-0000-0000-0000-000000000000"))))))
         );
 
         agreementAdminService.save(make(shsAgreementMaker));
 
         agreementAdminService.save(make(shsAgreementMaker.but(with(shs, a(Shs,
-                with(customer, a(Customer, with(ShsAgreementMaker.Customer.value, "1111111111"))),
+                with(customer, a(Customer, with(CustomerInstantiator.value, "1111111111"))),
                 with(products, listOf(a(Product, with(value, "00000000-0000-0000-0000-000000000000"))))
         )))));
 
@@ -197,7 +197,7 @@ public class ReceiveServiceIT extends AbstractCamelTestNGSpringContextTests {
             .to("stream:out")
             .to("mock:receiveServiceReply");
 
-            from("jetty://http://0.0.0.0:{{remoteShsBrokerPort}}/shs/rs").id("remoteShsBroker")
+            from("jetty://http://localhost:{{remoteShsBrokerPort}}/shs/rs").id("remoteShsBroker")
             .to("bean:shs2camelConverter")
             .to("mock:remoteShsBroker")
             .to("bean:defaultCamelToShsMessageProcessor");

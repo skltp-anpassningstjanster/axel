@@ -29,5 +29,12 @@ public class FixedTempNaming implements ITempNaming {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}    
+	    tempFile = "target/" + File.separator + name;
+
+	    try {
+			Files.deleteIfExists(new File(tempFile).toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}    
 	}
 }
