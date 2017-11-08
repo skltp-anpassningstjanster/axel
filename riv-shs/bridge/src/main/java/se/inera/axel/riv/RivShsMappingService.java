@@ -18,9 +18,6 @@
  */
 package se.inera.axel.riv;
 
-import org.apache.camel.Property;
-
-import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.xml.label.ShsLabel;
 
 
