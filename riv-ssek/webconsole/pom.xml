@@ -6,7 +6,7 @@
     <parent>
         <artifactId>riv-ssek</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>1.0-SP1-RC2</version>
+        <version>1.0-SP1-RC3-SNAPSHOT</version>
     </parent>
 
     <artifactId>riv-ssek-webconsole</artifactId>
