@@ -51,9 +51,9 @@
 
         <property name="properties">
             <props>
-                <prop key="shsRsHttpEndpoint">http://0.0.0.0</prop>
+                <!--<prop key="shsRsHttpEndpoint">http://0.0.0.0</prop>-->
                 <prop key="shsRsPathPrefix">/shs/rs</prop>
-                <prop key="shsRsHttpEndpoint.port">8585</prop>
+                <!--<prop key="shsRsHttpEndpoint.port">8585</prop>-->
                 <prop key="nodeId">axel</prop>
 
                 <prop key="shsRsKeyStoreParameters.resource">/certs/clientkeystore</prop>

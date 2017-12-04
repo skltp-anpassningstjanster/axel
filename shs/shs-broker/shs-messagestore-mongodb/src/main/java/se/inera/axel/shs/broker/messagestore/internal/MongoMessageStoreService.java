@@ -52,9 +52,8 @@ public class MongoMessageStoreService implements MessageStoreService {
 
         DB db = gridFs.getDB();
 
-        db.requestStart();
+
         try {
-            db.requestEnsureConnection();
             saveFile(entry.getId(), mimeStream);
 
             if (entry.getLabel() == null) {
@@ -77,8 +76,6 @@ public class MongoMessageStoreService implements MessageStoreService {
         } catch (Exception e) {
             // TODO decide which exception to throw
             throw new RuntimeException("Failed to save shs message stream", e);
-        } finally {
-            db.requestDone();
         }
     }
 
@@ -158,6 +155,6 @@ public class MongoMessageStoreService implements MessageStoreService {
 
 	@Override
 	public void delete(ShsMessageEntry entry) {
-        gridFs.remove(getFile(entry.getId()));
-	}
+            gridFs.remove(getFile(entry.getId()));
+    }
 }
