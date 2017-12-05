@@ -81,7 +81,7 @@ public class AsynchBrokerRouteBuilderTest extends AbstractCamelTestNGSpringConte
 
     public AsynchBrokerRouteBuilderTest() {
         if (System.getProperty("shsRsHttpEndpoint.port") == null) {
-            int port = AvailablePortFinder.getNextAvailable(8585);
+            int port = AvailablePortFinder.getNextAvailable(9100);
             System.setProperty("shsRsHttpEndpoint.port", Integer.toString(port));
         }
     }

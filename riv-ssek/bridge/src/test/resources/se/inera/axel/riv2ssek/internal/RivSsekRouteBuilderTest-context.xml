@@ -56,6 +56,7 @@
         <property name="properties" ref="props"/>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="ignoreResourceNotFound" value="true"/>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
     </bean>
 
     <bean id="props" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -65,11 +66,11 @@
         <property name="properties">
             <props>
 				<prop key="CamelLogDebugBodyMaxChars">0</prop>
-				<!--<prop key="riv2ssekEndpoint">jetty://http://0.0.0.0</prop>-->
-				<!--<prop key="riv2ssekEndpoint.path">riv2ssek</prop>-->
+				<prop key="riv2ssekEndpoint">jetty://http://0.0.0.0</prop>
+				<prop key="riv2ssekEndpoint.path">riv2ssek</prop>
 
 				<prop key="ssekEndpoint.server">http://0.0.0.0</prop>
-				<!--<prop key="ssekEndpoint.port"></prop>-->
+				<prop key="ssekEndpoint.port"></prop>
 				<prop key="ssekEndpoint.path">ssek</prop>
 
 			 	<prop key="ssekDefaultSender">Mina intyg</prop>

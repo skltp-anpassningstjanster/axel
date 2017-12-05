@@ -98,7 +98,7 @@ public class EmbeddedMongoDbInitializer implements ApplicationContextInitializer
         MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
 
         IMongodConfig mongodConfig = new MongodConfigBuilder()
-                .version(Version.Main.V2_2)
+                .version(Version.Main.V3_4)
                 .net(new Net(Network.getFreeServerPort(), Network.localhostIsIPv6()))
                 .build();
 

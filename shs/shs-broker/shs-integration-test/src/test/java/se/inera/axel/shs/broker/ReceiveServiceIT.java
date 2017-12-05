@@ -196,7 +196,7 @@ public class ReceiveServiceIT extends AbstractCamelTestNGSpringContextTests {
             .to("stream:out")
             .to("mock:receiveServiceReply");
 
-            from("jetty://http://0.0.0.0:{{sys:remoteShsBrokerPort}}/shs/rs").id("remoteShsBroker")
+            from("jetty://http://0.0.0.0:{{remoteShsBrokerPort}}/shs/rs").id("remoteShsBroker")
             .to("bean:shs2camelConverter")
             .to("mock:remoteShsBroker")
             .to("bean:defaultCamelToShsMessageProcessor");

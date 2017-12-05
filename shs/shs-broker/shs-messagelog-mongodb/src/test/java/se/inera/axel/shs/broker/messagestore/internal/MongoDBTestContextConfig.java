@@ -44,7 +44,7 @@ public class MongoDBTestContextConfig {
 
     @Bean(destroyMethod = "shutdown")
     public MongodForTestsFactory mongodForTestsFactory() throws IOException {
-        return MongodForTestsFactory.with(Version.Main.V2_4);
+        return MongodForTestsFactory.with(Version.Main.V3_4);
     }
 
     @Bean
