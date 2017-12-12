@@ -19,6 +19,7 @@ import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.MergedContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import se.inera.axel.shs.broker.agreement.AgreementAdminService;
@@ -124,7 +125,7 @@ public class ReceiveServiceIT extends AbstractCamelTestNGSpringContextTests {
                 directoryAdminServiceRegistry.getDirectoryAdminService(directoryAdminServiceRegistry.getServerNames().get(0));
 
         Address address = directoryAdminService.getAddress("1111111111", "00000000-0000-0000-0000-000000000000");
-        address.setDeliveryMethods("http4://localhost:" + DynamicProperties.get().get("remoteShsBrokerPort") + "/shs/rs");
+        address.setDeliveryMethods("http4://localhost:" + environment.getProperty("remoteShsBrokerPort") + "/shs/rs");
 
         directoryAdminService.saveAddress(
                 directoryAdminService.getOrganization("1111111111"),
@@ -210,19 +211,6 @@ public class ReceiveServiceIT extends AbstractCamelTestNGSpringContextTests {
      * before they are started.
      */
     public static final class ReceiveServiceITContextLoader extends CamelSpringTestContextLoader {
-        private MergedContextConfiguration mergedContextConfiguration;
-
-        /**
-         * Override to save the MergedContextConfiguration in order to give it to prepareContext
-         * @param mergedConfig
-         * @return
-         * @throws Exception
-         */
-        @Override
-        public ApplicationContext loadContext(MergedContextConfiguration mergedConfig) throws Exception {
-            mergedContextConfiguration = mergedConfig;
-            return super.loadContext(mergedConfig);
-        }
 
         /**
          * Call prepareContext to prepare it with the ApplicationContextInitializers
@@ -230,35 +218,11 @@ public class ReceiveServiceIT extends AbstractCamelTestNGSpringContextTests {
          * @return
          */
         @Override
-        protected GenericApplicationContext createContext(Class<?> testClass) {
-            GenericApplicationContext context = super.createContext(testClass);
+        protected GenericApplicationContext createContext(Class<?> testClass, MergedContextConfiguration mergedContextConfiguration ) {
+            GenericApplicationContext context = super.createContext(testClass, mergedContextConfiguration);
             prepareContext(context, mergedContextConfiguration);
             return context;
         }
 
-        @Override
-        protected void handleCamelContextStartup(GenericApplicationContext context, Class<?> testClass) throws Exception {
-            addOverridePropertiesToPropertiesComponent(context);
-            super.handleCamelContextStartup(context, testClass);
-        }
-
-        private void addOverridePropertiesToPropertiesComponent(GenericApplicationContext context) throws Exception {
-            CamelSpringTestHelper.doToSpringCamelContexts(context, new CamelSpringTestHelper.DoToSpringCamelContextsStrategy() {
-                @Override
-                public void execute(String contextName, SpringCamelContext camelContext) throws Exception {
-                    PropertiesComponent pc = camelContext.getComponent("properties", PropertiesComponent.class);
-                    Properties extra = new Properties();
-                    for (Map.Entry<String, Object> propertyEntry : DynamicProperties.get().entrySet()) {
-                        if (propertyEntry.getValue() instanceof String) {
-                            extra.setProperty(propertyEntry.getKey(), (String)propertyEntry.getValue());
-                        }
-                    }
-
-                    if (extra != null && !extra.isEmpty()) {
-                        pc.setOverrideProperties(extra);
-                    }
-                }
-            });
-        }
     }
 }

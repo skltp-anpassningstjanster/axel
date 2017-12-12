@@ -1,18 +1,13 @@
 package se.inera.axel.monitoring;
 
-import com.mongodb.DBPort;
-import com.mongodb.DBPortPool;
 import com.mongodb.MongoClient;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.mongo.tests.MongodForTestsFactory;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -22,16 +17,16 @@ import static org.hamcrest.Matchers.*;
  */
 public class MongoDbConnectionPoolHealthCheckTest extends AbstractHealthCheckTest {
 
+    public static final String MONGODB_NAME_PATTERN = "org.mongodb.driver:type=ConnectionPool,*";
     private MongodForTestsFactory mongodForTestsFactory;
     private MongoClient mongoClient;
 
     @BeforeClass
     public void beforeClass() throws Exception {
         mongodForTestsFactory = MongodForTestsFactory.with(Version.Main.PRODUCTION);
-        mongoClient = mongodForTestsFactory.newMongo();
-
         mBeanServer = ManagementFactory.getPlatformMBeanServer();
     }
+
 
     @AfterClass
     public void tearDown() throws Exception {
@@ -42,15 +37,19 @@ public class MongoDbConnectionPoolHealthCheckTest extends AbstractHealthCheckTes
 
     @BeforeMethod
     public void setUp() throws Exception {
+        mongoClient = mongodForTestsFactory.newMongo();
 
+    }
 
-
+    @AfterMethod
+    public void afterMethod() throws Exception {
+        mongoClient.close();
     }
 
     @Test
     public void whenNoConnectionIsInUseAHealthStatusShouldNotBeReported() throws Exception {
         MongoDbConnectionPoolHealthCheck healthCheck =
-                new MongoDbConnectionPoolHealthCheck("se.inera.axel.test", "com.mongodb:type=ConnectionPool,*", null);
+                new MongoDbConnectionPoolHealthCheck("se.inera.axel.test", MONGODB_NAME_PATTERN, null);
 
         List<HealthStatus> healthStatuses = new ArrayList<>();
         healthCheck.check(healthStatuses, mBeanServer);
@@ -60,26 +59,40 @@ public class MongoDbConnectionPoolHealthCheckTest extends AbstractHealthCheckTes
 
     @Test
     public void allConnectionsInUseShouldTriggerWarning() throws Exception {
-        List<DBPort> ports = new ArrayList<>();
-        DBPortPool dbPortPool = mongoClient.getConnector().getDBPortPool(mongoClient.getAddress());
 
-        try {
-            while (dbPortPool.getTotal() < dbPortPool.getMaxSize()) {
-                ports.add(dbPortPool.get());
-            }
+        int maxConnectionsPerHost = mongoClient.getMongoClientOptions().getConnectionsPerHost();
+        callDbInParallelMultipleTimes(maxConnectionsPerHost);
 
-            MongoDbConnectionPoolHealthCheck healthCheck =
-                    new MongoDbConnectionPoolHealthCheck("se.inera.axel.test", "com.mongodb:type=ConnectionPool,*", null);
+        MongoDbConnectionPoolHealthCheck healthCheck =
+                new MongoDbConnectionPoolHealthCheck("se.inera.axel.test", MONGODB_NAME_PATTERN, null);
 
-            List<HealthStatus> healthStatuses = new ArrayList<>();
-            healthCheck.check(healthStatuses, mBeanServer);
+        List<HealthStatus> healthStatuses = new ArrayList<>();
+        healthCheck.check(healthStatuses, mBeanServer);
 
-            assertThat(healthStatuses, contains(hasProperty("level", equalTo(SeverityLevel.WARNING))));
+        assertThat(healthStatuses, contains(hasProperty("level", equalTo(SeverityLevel.WARNING))));
 
-        } finally {
-            for (DBPort port : ports) {
-                dbPortPool.done(port);
-            }
-        }
     }
+
+    void callDbInParallelMultipleTimes(int timesToCallDatabase) throws InterruptedException, ExecutionException {
+        Collection<Callable<String>> tasks = new ArrayList<>();
+        for(int i=0; i<timesToCallDatabase;i++){
+            tasks.add(new CallDatabaseTask(""+i));
+        }
+
+        ExecutorService executor = Executors.newFixedThreadPool(timesToCallDatabase);
+        executor.invokeAll(tasks);
+        executor.shutdown();
+    }
+
+    private final class CallDatabaseTask implements Callable {
+        CallDatabaseTask(String name){
+            this.name = name;
+        }
+         @Override public String call() throws Exception {
+            mongoClient.getDatabase(name).createCollection(name);
+            return name;
+        }
+        private final String name;
+    }
+
 }

@@ -49,7 +49,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
     public @Bean(destroyMethod = "stop") MongodExecutable mongodExecutable() throws Exception {
         IMongodConfig mongodConfig = new MongodConfigBuilder()
-                .version(Version.Main.V2_2)
+                .version(Version.Main.V3_4)
                 .net(new Net("127.0.0.1", Network.getFreeServerPort(), Network.localhostIsIPv6()))
                 .build();
 
@@ -73,14 +73,14 @@ public class MongoDBTestContextConfig implements DisposableBean {
         return  mongod;
     }
 
-    public @Bean(destroyMethod = "close") Mongo mongo() throws Exception {
+    public @Bean(destroyMethod = "close")
+    MongoClient mongoClient() throws Exception {
         MongodProcess mongodProcess = mongodProcess();
-
         return new MongoClient(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
     }
 
     public @Bean MongoDbFactory mongoDbFactory() throws Exception {
-        return new SimpleMongoDbFactory(mongo(), "axel-test");
+        return new SimpleMongoDbFactory(mongoClient(), "axel-test");
     }
 
     public @Bean MongoOperations mongoOperations() throws Exception {
@@ -93,7 +93,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-        Mongo mongo = mongo();
+        Mongo mongo = mongoClient();
 
         if (mongo != null)
             mongo.close();

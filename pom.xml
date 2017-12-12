@@ -124,18 +124,18 @@
         <activemq.version>5.9.0</activemq.version>
         <aopalliance.version>1.0</aopalliance.version>
         <build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
-        <camel.version>2.12.3</camel.version>
+        <camel.version>2.15.6</camel.version>
         <cglib.version>2.2.2</cglib.version>
-        <commons-codec.version>1.6</commons-codec.version>
+        <commons-codec.version>1.10</commons-codec.version>
         <commons-collections.version>3.2.1</commons-collections.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
         <commons-io.version>2.4</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-pool.version>1.6</commons-pool.version>
-        <cxf-xjc-plugin.version>2.7.0</cxf-xjc-plugin.version>
-        <cxf.version>2.7.10</cxf.version>
-        <de.flapdoodle.embed.mongo.version>1.42</de.flapdoodle.embed.mongo.version>
-        <de.flapdoodle.embed.process.version>1.36</de.flapdoodle.embed.process.version>
+        <cxf-xjc-plugin.version>3.0.4</cxf-xjc-plugin.version>
+        <cxf.version>3.0.6</cxf.version>
+        <de.flapdoodle.embed.mongo.version>2.0.0</de.flapdoodle.embed.mongo.version>
+        <de.flapdoodle.embed.process.version>2.0.1</de.flapdoodle.embed.process.version>
         <dozer.version>5.4.0</dozer.version>
         <ehcache.version>2.5.1</ehcache.version>
         <fitnesse.version>20140201</fitnesse.version>
@@ -144,13 +144,13 @@
         <hamcrest.version>1.3</hamcrest.version>
         <hawtio.version>1.4.0</hawtio.version>
         <javamail.version>1.4.5</javamail.version>
-        <jaxb.version>2.1</jaxb.version>
-        <jaxrs.version>2.0-m10</jaxrs.version>
-        <jaxws.version>2.1</jaxws.version>
+        <jaxb.version>2.2.11</jaxb.version>
+        <jaxrs.version>2.0.1</jaxrs.version>
+        <jaxws.version>2.2.12</jaxws.version>
         <jcommander.version>1.30</jcommander.version>
-        <jetty.version>7.6.9.v20130131</jetty.version>
+        <jetty.version>8.1.17.v20150415</jetty.version>
         <joda-time.version>2.2</joda-time.version>
-        <karaf.version>2.3.5</karaf.version>
+        <karaf.version>2.4.0</karaf.version>
         <make-it-easy.version>3.1.0</make-it-easy.version>
         <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
         <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
@@ -173,7 +173,7 @@
         <maven-sortpom-plugin.version>2.1.0</maven-sortpom-plugin.version>
         <maven-surefire-plugin.version>2.14.1</maven-surefire-plugin.version>
         <mockito.version>1.9.5</mockito.version>
-        <mongo-java-driver.version>2.11.4</mongo-java-driver.version>
+        <mongo-java-driver.version>3.4.2</mongo-java-driver.version>
         <pax.wicket.version>3.0.1</pax.wicket.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -181,10 +181,10 @@
         <servlet.version>2.5</servlet.version>
         <slf4j.version>1.6.6</slf4j.version>
         <smartrics-RestFixture.version>3.0</smartrics-RestFixture.version>
-        <spring-data-mongodb.version>1.3.5.RELEASE</spring-data-mongodb.version>
-        <spring-data.version>1.6.5.RELEASE</spring-data.version>
-        <spring-ldap.version>1.3.2.RELEASE</spring-ldap.version>
-        <spring.version>3.2.4.RELEASE</spring.version>
+        <spring-data-mongodb.version>1.10.8.RELEASE</spring-data-mongodb.version>
+        <spring-data.version>1.13.8.RELEASE</spring-data.version>
+        <spring-ldap.version>2.1.0.RELEASE</spring-ldap.version>
+        <spring.version>4.3.12.RELEASE</spring.version>
         <springockito.version>1.0.4</springockito.version>
         <testng.version>6.8.1</testng.version>
         <unitils-core.version>3.3</unitils-core.version>

@@ -19,6 +19,8 @@
 package se.inera.axel.shs.broker.messagestore.internal;
 
 import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.mongo.tests.MongodForTestsFactory;
@@ -41,22 +43,22 @@ public class MongoDBTestContextConfig {
 
     @Bean(destroyMethod = "shutdown")
     public MongodForTestsFactory mongodForTestsFactory() throws IOException {
-        return MongodForTestsFactory.with(Version.Main.V2_4);
+        return MongodForTestsFactory.with(Version.Main.V3_4);
     }
 
     @Bean
-    public Mongo mongo() throws Exception {
+    public MongoClient mongoClient() throws Exception {
         return mongodForTestsFactory().newMongo();
     }
 
     public @Bean MongoDbFactory mongoDbFactorySafe() throws Exception {
-        SimpleMongoDbFactory simpleMongoDbFactory = new SimpleMongoDbFactory(mongo(), "axel-test");
-        simpleMongoDbFactory.setWriteConcern(WriteConcern.SAFE);
+        SimpleMongoDbFactory simpleMongoDbFactory = new SimpleMongoDbFactory(mongoClient(), "axel-test");
+        simpleMongoDbFactory.setWriteConcern(WriteConcern.ACKNOWLEDGED);
         return simpleMongoDbFactory;
     }
 
     public @Bean MongoDbFactory mongoDbFactory() throws Exception {
-        return new SimpleMongoDbFactory(mongo(), "axel-test");
+        return new SimpleMongoDbFactory(mongoClient(), "axel-test");
     }
 
     public @Bean MessageStoreService messageStoreService() throws Exception {

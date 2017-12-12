@@ -48,7 +48,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
     	
     	
         IMongodConfig mongodConfig = new MongodConfigBuilder()
-                .version(Version.Main.V2_2)
+                .version(Version.Main.V3_4)
                 .net(new Net("127.0.0.1", Network.getFreeServerPort(), Network.localhostIsIPv6()))
                 .build();
 

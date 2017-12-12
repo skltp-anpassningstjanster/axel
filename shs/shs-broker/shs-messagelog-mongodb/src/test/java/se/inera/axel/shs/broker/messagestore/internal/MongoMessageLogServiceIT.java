@@ -20,7 +20,6 @@ package se.inera.axel.shs.broker.messagestore.internal;
 
 import com.google.common.collect.Lists;
 import com.natpryce.makeiteasy.Maker;
-import org.apache.camel.spring.javaconfig.test.JavaConfigContextLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -52,9 +51,9 @@ import static se.inera.axel.shs.mime.ShsMessageMaker.ShsMessage;
 import static se.inera.axel.shs.xml.label.ShsLabelMaker.*;
 import static se.inera.axel.shs.xml.label.ShsLabelMaker.ShsLabelInstantiator.*;
 
-@ContextConfiguration(locations =
-        {"se.inera.axel.shs.broker.messagestore.internal.MongoDBTestContextConfig"},
-        loader = JavaConfigContextLoader.class)
+@ContextConfiguration(
+        classes = {se.inera.axel.shs.broker.messagestore.internal.MongoDBTestContextConfig.class}
+        )
 public class MongoMessageLogServiceIT extends AbstractMongoMessageLogTest {
 
 	private static ObjectFactory shsManagementFactory = new ObjectFactory();

@@ -18,7 +18,6 @@
  */
 package se.inera.axel.shs.broker.messagestore.internal;
 
-import org.apache.camel.spring.javaconfig.test.JavaConfigContextLoader;
 import org.apache.commons.io.FileUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -40,9 +39,9 @@ import static com.natpryce.makeiteasy.MakeItEasy.make;
 import static org.testng.Assert.*;
 import static se.inera.axel.shs.mime.ShsMessageMaker.ShsMessage;
 
-@ContextConfiguration(locations =
-        {"se.inera.axel.shs.broker.messagestore.internal.FileTestContextConfig"},
-        loader = JavaConfigContextLoader.class)
+@ContextConfiguration(
+        classes = {se.inera.axel.shs.broker.messagestore.internal.FileTestContextConfig.class}
+        )
 public class FileMessageStoreServiceIT extends AbstractTestNGSpringContextTests {
 
     MessageStoreService messageStore;

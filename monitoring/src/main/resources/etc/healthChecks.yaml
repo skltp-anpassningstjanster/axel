@@ -41,7 +41,7 @@
   objectNamePattern: org.apache.camel:context=*shs-scheduler,type=routes,name="removeSuccessfullyTransferredMessages"
 - !!se.inera.axel.monitoring.MongoDbConnectionPoolHealthCheck
   healthCheckId: se.inera.axel.mongoDbConnectionPool
-  objectNamePattern: com.mongodb:type=ConnectionPool,*
+  objectNamePattern: org.mongodb.driver:type=ConnectionPool,*
 - !!se.inera.axel.monitoring.JmxHealthCheck
   healthCheckId: se.inera.axel.ldapCache
   objectNamePattern: net.sf.ehcache:type=Cache,name=ldap,*
