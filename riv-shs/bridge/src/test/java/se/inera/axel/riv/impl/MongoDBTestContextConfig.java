@@ -43,13 +43,16 @@ import org.springframework.data.mongodb.repository.support.MongoRepositoryFactor
 @Configuration
 public class MongoDBTestContextConfig implements DisposableBean {
 
+    Mongo mongo;
+    MongodProcess mongodProcess;
+    
     public @Bean(destroyMethod = "stop") MongodExecutable mongodExecutable() throws Exception {
     	
     	
     	
         IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.V3_4)
-                .net(new Net("127.0.0.1", Network.getFreeServerPort(), Network.localhostIsIPv6()))
+                .net(new Net(Network.getFreeServerPort(), Network.localhostIsIPv6()))
                 .build();
 
         IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
@@ -67,15 +70,16 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
     public @Bean(destroyMethod = "stop") MongodProcess mongodProcess() throws Exception {
 
-        MongodProcess mongod = mongodExecutable().start();
+    	mongodProcess = mongodExecutable().start();
 
-        return  mongod;
+        return  mongodProcess;
     }
 
     public @Bean(destroyMethod = "close") Mongo mongo() throws Exception {
         MongodProcess mongodProcess = mongodProcess();
 
-        return new MongoClient(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
+        mongo = new MongoClient(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
+        return mongo;
     }
 
     public @Bean MongoDbFactory mongoDbFactory() throws Exception {
@@ -92,13 +96,10 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-        Mongo mongo = mongo();
 
         if (mongo != null)
             mongo.close();
         
-        MongodProcess mongodProcess = mongodProcess();
-
         if (mongodProcess != null)
             mongodProcess.stop();
     }

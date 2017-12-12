@@ -79,9 +79,9 @@ public class ShsCmdlineRouteBuilderTest extends CamelSpringTestSupport {
 
         getMockEndpoint("mock:stream:out").expectedMessageCount(1);
 
-        Map headers = new HashMap();
+        Map<String, Object> headers = new HashMap<String, Object>();
         headers.put(ShsCmdlineHeaders.TO_URN, "urn:X-shs:1111111111");
-        Map queryParameters = new LinkedHashMap();
+        Map<String, String> queryParameters = new LinkedHashMap<String, String>();
         queryParameters.put("filter", "noack");
 
         headers.put(ShsCmdlineHeaders.QUERY_PARAMS, queryParameters);
@@ -98,7 +98,7 @@ public class ShsCmdlineRouteBuilderTest extends CamelSpringTestSupport {
 
         context.start();
 
-        List expectedFilenames = new ArrayList();
+        List<String> expectedFilenames = new ArrayList<String>();
         appendMessage1FileNames(expectedFilenames);
         appendMessage2FileNames(expectedFilenames);
         appendMessageNoFilenameMessageFileNames(expectedFilenames);
@@ -108,9 +108,9 @@ public class ShsCmdlineRouteBuilderTest extends CamelSpringTestSupport {
         fileoutput.expectedHeaderValuesReceivedInAnyOrder(Exchange.FILE_NAME, expectedFilenames);
         fileoutput.expectedMinimumMessageCount(6);
 
-        Map headers = new HashMap();
+        Map<String, Object> headers = new HashMap<String, Object>();
         headers.put(ShsCmdlineHeaders.TO_URN, "urn:X-shs:1111111111");
-        Map queryParameters = new LinkedHashMap();
+        Map<String, String> queryParameters = new LinkedHashMap<String, String>();
         queryParameters.put("filter", "noack");
 
         headers.put(ShsCmdlineHeaders.QUERY_PARAMS, queryParameters);
@@ -127,7 +127,7 @@ public class ShsCmdlineRouteBuilderTest extends CamelSpringTestSupport {
 
         context.start();
 
-        List expectedFilenames = new ArrayList();
+        List<String> expectedFilenames = new ArrayList<String>();
         appendMessage1OriginalFileNames(expectedFilenames);
         appendMessage2OriginalFileNames(expectedFilenames);
         appendMessageNoFilenameMessageFileNames(expectedFilenames);
@@ -137,9 +137,9 @@ public class ShsCmdlineRouteBuilderTest extends CamelSpringTestSupport {
         fileoutput.expectedHeaderValuesReceivedInAnyOrder(Exchange.FILE_NAME, expectedFilenames);
         fileoutput.expectedMinimumMessageCount(6);
 
-        Map headers = new HashMap();
+        Map<String, Object> headers = new HashMap<String, Object>();
         headers.put(ShsCmdlineHeaders.TO_URN, "urn:X-shs:1111111111");
-        Map queryParameters = new LinkedHashMap();
+        Map<String, String> queryParameters = new LinkedHashMap();
         queryParameters.put("filter", "noack");
 
         headers.put(ShsCmdlineHeaders.QUERY_PARAMS, queryParameters);
@@ -150,27 +150,27 @@ public class ShsCmdlineRouteBuilderTest extends CamelSpringTestSupport {
         assertMockEndpointsSatisfied(1, TimeUnit.SECONDS);
     }
 
-    private void appendMessage1OriginalFileNames(List expectedFilenames) {
+    private void appendMessage1OriginalFileNames(List<String> expectedFilenames) {
         expectedFilenames.add("981ead58-b2b1-4373-b3b8-d93e1594f359-label");
         expectedFilenames.add("98config.properties");
     }
 
-    private void appendMessage1FileNames(List expectedFilenames) {
+    private void appendMessage1FileNames(List<String> expectedFilenames) {
         expectedFilenames.add("981ead58-b2b1-4373-b3b8-d93e1594f359-label");
         expectedFilenames.add("981ead58-b2b1-4373-b3b8-d93e1594f359-0");
     }
 
-    private void appendMessage2OriginalFileNames(List expectedFilenames) {
+    private void appendMessage2OriginalFileNames(List<String> expectedFilenames) {
         expectedFilenames.add("e41a8be7-5e81-46cd-8418-11a250348c29-label");
         expectedFilenames.add("e4config.properties");
     }
 
-    private void appendMessage2FileNames(List expectedFilenames) {
+    private void appendMessage2FileNames(List<String> expectedFilenames) {
         expectedFilenames.add("e41a8be7-5e81-46cd-8418-11a250348c29-label");
         expectedFilenames.add("e41a8be7-5e81-46cd-8418-11a250348c29-0");
     }
 
-    private void appendMessageNoFilenameMessageFileNames(List expectedFilenames) {
+    private void appendMessageNoFilenameMessageFileNames(List<String> expectedFilenames) {
         expectedFilenames.add("9212a1dd-77bc-4727-ace0-76f13ae5c4bf-label");
         expectedFilenames.add("9212a1dd-77bc-4727-ace0-76f13ae5c4bf-0");
     }

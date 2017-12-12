@@ -62,7 +62,7 @@ public class ShsCmdlineRouteBuilder extends RouteBuilder {
 		.log(LoggingLevel.ERROR, "Error code: ${exception.responseHeaders[X-shs-errorcode]}");
 
 
-		from("direct:shsSendAsync")
+		from("direct:shsSendAsync").routeId("shsSendAsync")
 		.bean(new DefaultCamelToShsMessageProcessor())
 		.log("validating label...")
 		.bean(SimpleLabelValidator.class)
@@ -70,7 +70,7 @@ public class ShsCmdlineRouteBuilder extends RouteBuilder {
 		.to("{{shsServerUrl}}");
 
 
-		from("direct:shsSendSync")
+		from("direct:shsSendSync").routeId("shsSendSync")
 		.bean(new DefaultCamelToShsMessageProcessor())
 		.log("validating label...")
 		.bean(SimpleLabelValidator.class)

@@ -46,7 +46,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
     public @Bean(destroyMethod = "stop") MongodExecutable mongodExecutable() throws Exception {
         IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.V3_4)
-                .net(new Net("127.0.0.1", Network.getFreeServerPort(), Network.localhostIsIPv6()))
+                .net(new Net(Network.getFreeServerPort(), Network.localhostIsIPv6()))
                 .build();
 
         IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
