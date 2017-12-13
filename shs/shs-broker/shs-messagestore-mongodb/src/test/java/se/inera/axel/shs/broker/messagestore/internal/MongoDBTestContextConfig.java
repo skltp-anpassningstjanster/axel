@@ -18,9 +18,7 @@
  */
 package se.inera.axel.shs.broker.messagestore.internal;
 
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.mongo.tests.MongodForTestsFactory;
