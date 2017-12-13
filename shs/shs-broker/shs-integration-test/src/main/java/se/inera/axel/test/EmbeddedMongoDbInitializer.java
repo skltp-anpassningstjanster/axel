@@ -58,7 +58,7 @@ public class EmbeddedMongoDbInitializer implements ApplicationContextInitializer
     public void startMongoDb(Environment environment) throws IOException {
         final MongodStarter runtime = MongodStarter.getInstance(new RuntimeConfigBuilder()
                 .defaults(Command.MongoD)
-                .artifactStore(new ArtifactStoreBuilder()
+                .artifactStore(new ExtractedArtifactStoreBuilder()
                 .defaults(Command.MongoD)
                 .executableNaming(new FixedTempNaming("shs-integration-mongodb"))
                 )

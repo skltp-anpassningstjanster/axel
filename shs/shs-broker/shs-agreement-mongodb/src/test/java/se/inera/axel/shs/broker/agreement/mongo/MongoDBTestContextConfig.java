@@ -51,7 +51,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
         IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
                 .defaults(Command.MongoD)
-                .artifactStore(new ArtifactStoreBuilder()
+                .artifactStore(new ExtractedArtifactStoreBuilder()
                         .defaults(Command.MongoD)
                         .executableNaming(new FixedTempNaming("shs-agreement-mongodb"))
                 )
