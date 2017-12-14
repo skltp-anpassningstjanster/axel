@@ -4,7 +4,7 @@
     <parent>
         <artifactId>axel</artifactId>
         <groupId>se.inera.axel</groupId>
-         <version>2.0.0-SNAPSHOT</version>
+         <version>2.0.0-RC1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -14,7 +14,7 @@
     <name>Axel :: Docs</name>
     <description>Provides configuration, installation and documentation files, e.g. scripts for creating indexes in MongoDB.</description>
 
-    <modules></modules>
+    <modules />
 
     <build>
         <plugins>
