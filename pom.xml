@@ -752,73 +752,73 @@
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>axel-test-support</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>itintegration-monitoring-service</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>monitoring</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-agreement-mongodb</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-broker-api</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-camel</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-directory-ldap</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-messagestore-mongodb</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-product-mongodb</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-protocol</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>shs-router</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>
                 <groupId>se.inera.axel</groupId>
                 <artifactId>ssek-common</artifactId>
-                <version>${axel.version}</version>
+                <version>${${project.version}}</version>
             </dependency>
 
             <dependency>

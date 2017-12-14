@@ -125,14 +125,14 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>common-services</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>docs</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -164,7 +164,7 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-cmdline</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -184,14 +184,14 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-messagelog-mongodb</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-messagestore-mongodb</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -211,7 +211,7 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-receiveservice</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
