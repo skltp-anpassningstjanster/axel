@@ -94,7 +94,7 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>axel-webconsole</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
@@ -110,12 +110,11 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
