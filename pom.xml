@@ -97,7 +97,7 @@
     <scm>
         <connection>scm:git:git://github.com/skltp-incubator/axel.git</connection>
         <developerConnection>scm:git:git://github.com/skltp-incubator/axel.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0-SP1-RC3</tag>
         <url>https://github.com/skltp-incubator/axel</url>
     </scm>
 
@@ -190,6 +190,8 @@
         <unitils-core.version>3.3</unitils-core.version>
         <wicket.version>6.7.0</wicket.version>
         <xml-apis.version>1.0.b2</xml-apis.version>
+		<!-- Turn off strict checking of javadoc tags for Java 8 -->
+        <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
     <dependencyManagement>
