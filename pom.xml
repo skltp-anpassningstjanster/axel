@@ -9,7 +9,7 @@
     </parent>
     <groupId>se.inera.axel</groupId>
     <artifactId>axel</artifactId>
-    <version>1.0-SP1-RC3-SNAPSHOT</version>
+    <version>1.0-SP1-RC3</version>
     <packaging>pom</packaging>
     <name>Axel</name>
     <url>https://github.com/skltp-incubator/axel</url>
@@ -82,16 +82,16 @@
     </prerequisites>
 
     <modules>
+        <module>riv</module>
+        <module>ssek</module>
+        <module>test/test-support</module>
         <module>webconsole</module>
         <module>shs</module>
         <module>riv-shs</module>
         <module>riv-ssek</module>
-        <module>riv</module>
-        <module>ssek</module>
         <module>platforms</module>
         <module>docs</module>
         <module>monitoring</module>
-        <module>test/test-support</module>
     </modules>
 
     <scm>
@@ -122,6 +122,8 @@
     <properties>
         <activation.version>1.1</activation.version>
         <activemq.version>5.9.0</activemq.version>
+        <!-- Turn off strict checking of javadoc tags for Java 8 -->
+        <additionalparam>-Xdoclint:none</additionalparam>
         <aopalliance.version>1.0</aopalliance.version>
         <build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
         <camel.version>2.15.6</camel.version>
@@ -190,8 +192,6 @@
         <unitils-core.version>3.3</unitils-core.version>
         <wicket.version>6.7.0</wicket.version>
         <xml-apis.version>1.0.b2</xml-apis.version>
-		<!-- Turn off strict checking of javadoc tags for Java 8 -->
-        <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
     <dependencyManagement>
@@ -1038,7 +1038,7 @@
                             </systemProperty>
                             <systemProperty>
                                 <name>com.sun.management.jmxremote</name>
-                                <value />
+                                <value></value>
                             </systemProperty>
                         </systemProperties>
                     </configuration>
@@ -1209,7 +1209,7 @@
                 </property>
             </activation>
             <build>
-                <plugins />
+                <plugins></plugins>
             </build>
         </profile>
     </profiles>
