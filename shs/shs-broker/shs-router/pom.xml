@@ -4,7 +4,7 @@
     <parent>
         <artifactId>shs-broker</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>1.0-SP1-RC3</version>
+        <version>1.0-SP1-RC4-SNAPSHOT</version>
     </parent>
 
     <artifactId>shs-router</artifactId>
