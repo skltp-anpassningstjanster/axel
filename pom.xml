@@ -89,10 +89,10 @@
     </modules>
 
     <scm>
-        <connection>scm:git:git://github.com/sklaxel/inera-axel.git</connection>
-        <developerConnection>scm:git:git://github.com/sklaxel/inera-axel.git</developerConnection>
+        <connection>scm:git:git://github.com/skltp-anpassningstjanster/axel.git</connection>
+        <developerConnection>scm:git:git://github.com/skltp-anpassningstjanster/axel.git</developerConnection>
         <tag>HEAD</tag>
-        <url>http://github.com/sklaxel/inera-axel</url>
+        <url>https://github.com/skltp-anpassningstjanster/axel</url>
     </scm>
 
     <distributionManagement>
