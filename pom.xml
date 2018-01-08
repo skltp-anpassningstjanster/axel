@@ -95,10 +95,10 @@
     </modules>
 
     <scm>
-        <connection>scm:git:git://github.com/skltp-incubator/axel.git</connection>
-        <developerConnection>scm:git:git://github.com/skltp-incubator/axel.git</developerConnection>
+        <connection>scm:git:git://github.com/skltp-anpassningstjanster/axel.git</connection>
+        <developerConnection>scm:git:git://github.com/skltp-anpassningstjanster/axel.git</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/skltp-incubator/axel</url>
+        <url>https://github.com/skltp-anpassningstjanster/axel</url>
     </scm>
 
     <distributionManagement>
