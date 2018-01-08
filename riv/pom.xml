@@ -4,7 +4,7 @@
     <parent>
         <artifactId>axel</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>1.0-SP1-RC3-SNAPSHOT</version>
+        <version>1.0-SP1-RC3</version>
         <relativePath>..</relativePath>
     </parent>
 

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>shs</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>1.0-SP1-RC3-SNAPSHOT</version>
+        <version>1.0-SP1-RC3</version>
     </parent>
 
     <artifactId>shs-protocol</artifactId>
