@@ -4,14 +4,14 @@
     <parent>
         <artifactId>axel</artifactId>
         <groupId>se.inera.axel</groupId>
-         <version>2.0.0-RC2-SNAPSHOT</version>
+         <version>2.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>se.inera.axel</groupId>
     <artifactId>platforms</artifactId>
 
-     <version>2.0.0-RC2-SNAPSHOT</version>
+     <version>2.0.0</version>
     <packaging>pom</packaging>
     <name>Axel :: Platforms</name>
 
