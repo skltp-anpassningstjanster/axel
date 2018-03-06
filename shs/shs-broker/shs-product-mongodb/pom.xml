@@ -4,14 +4,14 @@
 
     <parent>
         <artifactId>shs-broker</artifactId>
-        <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <groupId>se.inera.axel</groupId>
+         <version>2.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>shs-product-mongodb</artifactId>
     <packaging>bundle</packaging>
 
-    <name>SHS :: Core :: Broker :: Product (MongoDB)</name>
+    <name>Axel :: SHS :: Broker :: Product (MongoDB)</name>
     <description>Provides an implementation of the ProductServices using MongoDB as backend.</description>
 
     <dependencies>
@@ -41,6 +41,10 @@
             <artifactId>camel-spring-javaconfig</artifactId>
             <version>${camel.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-spring</artifactId>
         </dependency>
 
         <dependency>
@@ -108,19 +112,17 @@
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-broker-api</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>

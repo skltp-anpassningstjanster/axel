@@ -5,14 +5,14 @@
 
     <parent>
         <artifactId>shs-broker</artifactId>
-        <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <groupId>se.inera.axel</groupId>
+         <version>2.0.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>shs-receiveservice</artifactId>
     <packaging>bundle</packaging>
 
-    <name>SHS :: Core :: Broker :: ReceiveService</name>
+    <name>Axel :: SHS :: Broker :: ReceiveService</name>
     <description>Main Axel SHS Broker ReceiveService endpoint and dispatcher.</description>
 
     <dependencies>
@@ -123,13 +123,12 @@
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-broker-api</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-broker-api</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
@@ -137,19 +136,17 @@
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-camel</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
@@ -157,9 +154,8 @@
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-router</artifactId>
-            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

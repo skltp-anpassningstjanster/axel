@@ -128,14 +128,10 @@ public class MongoMessageLogService implements MessageLogService {
 
         try {
             newEntry = messageLogRepository.save(entry);
-        } catch (MongoDataIntegrityViolationException e) {
-            if (e.getWriteResult().getCachedLastError().getException() instanceof MongoException.DuplicateKey) {
-               throw new MessageAlreadyExistsException(label, new Date(0));
-            } else {
-               throw e;
-            }
         } catch (DuplicateKeyException e) {
             throw new MessageAlreadyExistsException(label, new Date(0));
+        } catch (MongoDataIntegrityViolationException e) {
+           throw e;
         }
 
         return newEntry;

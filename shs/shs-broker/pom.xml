@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>core</artifactId>
-        <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <artifactId>shs</artifactId>
+        <groupId>se.inera.axel</groupId>
+         <version>2.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>shs-broker</artifactId>
     <packaging>pom</packaging>
 
-    <name>SHS :: Core :: Broker</name>
+    <name>Axel :: SHS :: Broker</name>
     <description>Contains components that make up the SHS message broker functionality.</description>
 
     <modules>
@@ -27,7 +27,6 @@
         <module>shs-receiveservice</module>
         <module>shs-deliveryservice</module>
         <module>shs-scheduler</module>
-        <module>shs-certificate</module>
     </modules>
 
 </project>

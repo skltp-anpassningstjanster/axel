@@ -4,16 +4,14 @@
 
     <parent>
         <artifactId>war</artifactId>
-        <groupId>se.skltp.shs.war</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <groupId>se.inera.axel.war</groupId>
+         <version>2.0.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
-    <groupId>se.skltp.shs.war</groupId>
     <artifactId>riv-mocks-war</artifactId>
-    <version>1.0-RC3-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>SHS :: Platforms :: WAR :: RIV Mocks</name>
+     <packaging>war</packaging>
+    <name>Axel :: Platforms :: WAR :: RIV Mocks</name>
     <description>Inera Axel RIV Mock Services</description>
 
     <dependencies>
@@ -30,24 +28,23 @@
             <artifactId>spring-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>common-services</artifactId>
-            <version>${axel.version}</version>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>fk-vardgivare-sjukvard-mocks</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>insuranceprocess-healthreporting-mocks</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>
     <build>
-        <finalName>shs-riv-mocks-${project.version}</finalName>
+        <finalName>axel-riv-mocks-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>

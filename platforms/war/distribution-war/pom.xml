@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>war</artifactId>
-        <groupId>se.skltp.shs.war</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <groupId>se.inera.axel.war</groupId>
+         <version>2.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>distribution-war</artifactId>
     <packaging>pom</packaging>
-    <name>SHS :: Platforms :: WAR :: Distribution</name>
+    <name>Axel :: Platforms :: WAR :: Distribution</name>
     <description>Creates a WAR distribution of Axel with an SHS Broker, RIV/SHS bridge, RIV/SSEK bridge, SHS Command Line and Docs included.</description>
 
     <dependencies>
@@ -19,33 +19,33 @@
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>docs</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>tar.gz</type>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-cmdline</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>tar.gz</type>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs.war</groupId>
+            <groupId>se.inera.axel.war</groupId>
             <artifactId>riv-shs-war</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs.war</groupId>
+            <groupId>se.inera.axel.war</groupId>
             <artifactId>riv-ssek-war</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs.war</groupId>
+            <groupId>se.inera.axel.war</groupId>
             <artifactId>shs-broker-war</artifactId>
-            <version>${axel.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
     </dependencies>
@@ -65,13 +65,13 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>se.skltp.shs</groupId>
+                                    <groupId>se.inera.axel</groupId>
                                     <artifactId>shs-cmdline</artifactId>
                                     <type>tar.gz</type>
                                     <outputDirectory>target/dependencies</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>se.skltp.shs</groupId>
+                                    <groupId>se.inera.axel</groupId>
                                     <artifactId>docs</artifactId>
                                     <type>tar.gz</type>
                                     <outputDirectory>target/dependencies/</outputDirectory>
@@ -96,35 +96,35 @@
                                     <type>war</type>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>se.skltp.shs.war</groupId>
+                                    <groupId>se.inera.axel.war</groupId>
                                     <artifactId>shs-broker-war</artifactId>
                                     <version>${project.version}</version>
                                     <outputDirectory>target/dependencies</outputDirectory>
                                     <type>war</type>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>se.skltp.shs.war</groupId>
+                                    <groupId>se.inera.axel.war</groupId>
                                     <artifactId>monitoring-war</artifactId>
                                     <version>${project.version}</version>
                                     <outputDirectory>target/dependencies</outputDirectory>
                                     <type>war</type>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>se.skltp.shs.war</groupId>
+                                    <groupId>se.inera.axel.war</groupId>
                                     <artifactId>riv-shs-war</artifactId>
                                     <version>${project.version}</version>
                                     <outputDirectory>target/dependencies</outputDirectory>
                                     <type>war</type>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>se.skltp.shs.war</groupId>
+                                    <groupId>se.inera.axel.war</groupId>
                                     <artifactId>riv-ssek-war</artifactId>
                                     <version>${project.version}</version>
                                     <outputDirectory>target/dependencies</outputDirectory>
                                     <type>war</type>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>se.skltp.shs.war</groupId>
+                                    <groupId>se.inera.axel.war</groupId>
                                     <artifactId>riv-mocks-war</artifactId>
                                     <version>${project.version}</version>
                                     <outputDirectory>target/dependencies</outputDirectory>
@@ -151,7 +151,7 @@
                             </descriptors>
                             <appendAssemblyId>false</appendAssemblyId>
                             <tarLongFileMode>gnu</tarLongFileMode>
-                            <finalName>shs-war-${project.version}</finalName>
+                            <finalName>axel-war-${project.version}</finalName>
                         </configuration>
                     </execution>
                 </executions>

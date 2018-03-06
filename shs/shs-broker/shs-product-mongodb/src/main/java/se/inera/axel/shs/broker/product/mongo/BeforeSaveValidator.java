@@ -19,6 +19,7 @@
 package se.inera.axel.shs.broker.product.mongo;
 
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
+import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.DBObject;
@@ -30,7 +31,7 @@ public class BeforeSaveValidator extends AbstractMongoEventListener<Object> {
 //    private Validator validator;
  
     @Override
-    public void onBeforeSave(Object source, DBObject dbo) {
+    public void onBeforeSave(BeforeSaveEvent event) {
 //        Set<ConstraintViolation<Object>> violations = validator.validate(source);
 // 
 //        if (violations.size() > 0) {

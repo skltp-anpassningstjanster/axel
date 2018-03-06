@@ -4,14 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>riv</artifactId>
-        <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <groupId>se.inera.axel</groupId>
+         <version>2.0.1-SNAPSHOT</version>
         <relativePath>../../../../pom.xml</relativePath>
     </parent>
+    <groupId>se.riv.fk</groupId>
     <artifactId>fk-vardgivare-sjukvard-schemas-1.0</artifactId>
 
     <packaging>bundle</packaging>
-    <name>SHS :: RIV :: fk-vardgivare-sjukvard-schemas-1.0</name>
+    <name>RIV :: fk-vardgivare-sjukvard-schemas-1.0</name>
     <description>Schema and JAXB generated resources packaged in an OSGi bundle.</description>
 
     <properties>

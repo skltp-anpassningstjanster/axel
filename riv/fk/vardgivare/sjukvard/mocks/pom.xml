@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>riv</artifactId>
-        <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <groupId>se.inera.axel</groupId>
+         <version>2.0.1-SNAPSHOT</version>
         <relativePath>../../../../pom.xml</relativePath>
     </parent>
 
     <artifactId>fk-vardgivare-sjukvard-mocks</artifactId>
 
     <packaging>bundle</packaging>
-    <name>SHS :: RIV :: fk-vardgivare-sjukvard-mocks</name>
+    <name>Axel :: RIV :: fk-vardgivare-sjukvard-mocks</name>
     <description>A mock implementation of the fk-vardgivare-sjukvard-mocks services for testing purposes.</description>
 
     <dependencies>
@@ -29,7 +29,7 @@
             <artifactId>cxf-rt-transports-http</artifactId>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.riv.fk</groupId>
             <artifactId>fk-vardgivare-sjukvard-schemas-1.0</artifactId>
             <version>${project.version}</version>
         </dependency>

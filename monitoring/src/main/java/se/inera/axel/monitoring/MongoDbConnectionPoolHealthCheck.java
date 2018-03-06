@@ -23,20 +23,18 @@ public class MongoDbConnectionPoolHealthCheck extends JmxHealthCheck {
     @Override
     protected void checkAdditional(List<HealthStatus> healthStatuses, Set<ObjectInstance> foundMBeans, MBeanServer mBeanServer) throws Exception {
         for (ObjectInstance foundMBean : foundMBeans) {
-            Object statistics = mBeanServer.getAttribute(foundMBean.getObjectName(), "Statistics");
             Integer maxSize = (Integer) mBeanServer.getAttribute(foundMBean.getObjectName(), "MaxSize");
-            if (statistics instanceof CompositeData) {
-                CompositeData statisticsData = (CompositeData)statistics;
-                if (maxSize.equals(statisticsData.get("inUse"))) {
-                    healthStatuses.add(
-                        new HealthStatus(
+            Integer size = (Integer) mBeanServer.getAttribute(foundMBean.getObjectName(), "Size");
+            if(size>=maxSize){
+                healthStatuses.add(
+                    new HealthStatus(
                             getHealthCheckId(),
                             SeverityLevel.WARNING,
-                            String.format("All %1s available connections to MongoDB in use.", statisticsData.get("total")),
+                            String.format("All %d available connections to MongoDB in use.",maxSize),
                             foundMBean.getObjectName().getCanonicalName(),
                             1.0));
-                }
             }
+
         }
     }
 }

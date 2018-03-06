@@ -23,7 +23,6 @@ import com.mongodb.DBCursor;
 import com.mongodb.MongoException;
 import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSInputFile;
-import org.apache.camel.spring.javaconfig.test.JavaConfigContextLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -50,11 +49,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
+import static org.testng.Assert.fail;
 import static se.inera.axel.shs.mime.ShsMessageMaker.ShsMessage;
 
-@ContextConfiguration(locations =
-        {"se.inera.axel.shs.broker.messagestore.internal.MongoDBTestContextConfig"},
-        loader = JavaConfigContextLoader.class)
+@ContextConfiguration(
+        classes = {se.inera.axel.shs.broker.messagestore.internal.MongoDBTestContextConfig.class}
+        )
 public class MongoMessageStoreServiceIT extends AbstractTestNGSpringContextTests {
 
 	@Autowired
@@ -104,8 +104,13 @@ public class MongoMessageStoreServiceIT extends AbstractTestNGSpringContextTests
     }
 
     @Test(groups = "largeTests", enabled = true)
-    public void deletingNonExistingFileShouldBeANoOp() {
-        messageStore.delete(make(a(ShsMessageEntryMaker.ShsMessageEntry)));
+    public void deletingNonExistingFileShouldDoNothing() {
+
+	    try {
+            messageStore.delete(make(a(ShsMessageEntryMaker.ShsMessageEntry)));
+            fail("messageStore.delete should throw exception for not existing file");
+        } catch(IllegalArgumentException e){
+        }
 
         mongoOperations.execute(new DbCallback<Object>() {
             @Override
@@ -113,7 +118,7 @@ public class MongoMessageStoreServiceIT extends AbstractTestNGSpringContextTests
                 GridFS gridFs = new GridFS(db);
                 DBCursor dbCursor = gridFs.getFileList();
 
-                assertThat(dbCursor.count(), is(0));
+                assertThat(dbCursor.count(), is(1));
 
                 return null;
             }

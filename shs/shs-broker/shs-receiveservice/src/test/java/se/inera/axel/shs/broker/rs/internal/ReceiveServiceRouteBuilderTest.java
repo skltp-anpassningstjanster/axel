@@ -19,9 +19,10 @@
 package se.inera.axel.shs.broker.rs.internal;
 
 import com.natpryce.makeiteasy.Maker;
-
 import org.apache.camel.*;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.camel.test.AvailablePortFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.annotation.DirtiesContext;
@@ -29,30 +30,23 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import se.inera.axel.shs.broker.messagestore.MessageAlreadyExistsException;
 import se.inera.axel.shs.broker.messagestore.MessageLogService;
 import se.inera.axel.shs.broker.messagestore.ShsMessageEntry;
 import se.inera.axel.shs.broker.messagestore.ShsMessageEntryMaker;
-import se.inera.axel.shs.broker.validation.SenderValidationService;
-import se.inera.axel.shs.exception.IllegalSenderException;
 import se.inera.axel.shs.exception.UnknownReceiverException;
 import se.inera.axel.shs.mime.ShsMessage;
-import se.inera.axel.shs.processor.AxelHeaders;
 import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.processor.TimestampConverter;
 import se.inera.axel.shs.xml.label.TransferType;
 
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.Properties;
 
 import static com.natpryce.makeiteasy.MakeItEasy.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static se.inera.axel.shs.mime.ShsMessageMaker.ShsMessage;
@@ -63,15 +57,12 @@ import static se.inera.axel.shs.xml.label.ShsLabelMaker.To;
 import static se.inera.axel.shs.xml.label.ShsLabelMaker.ToInstantiator.value;
 
 @ContextConfiguration
-public class ReceiveServiceRouteBuilderTest extends AbstractTestNGSpringContextTests {
+    public class ReceiveServiceRouteBuilderTest extends AbstractTestNGSpringContextTests {
 
     static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ReceiveServiceRouteBuilderTest.class);
 
     @Autowired
     MessageLogService messageLogService;
-
-    @Autowired
-    SenderValidationService senderValidationService;
 
     @Produce(context = "shs-broker-main-test", uri = "direct:in-vm")
     ProducerTemplate camel;
@@ -86,64 +77,8 @@ public class ReceiveServiceRouteBuilderTest extends AbstractTestNGSpringContextT
     private String pathPrefix;
 
     static {
-        System.setProperty("shsRsHttpEndpoint",
-                String.format("jetty://http://localhost:%s", org.apache.camel.test.AvailablePortFinder.getNextAvailable()));
-    }
 
-    @DirtiesContext
-    @Test
-    public void sendingSynchRequestWithInvalidSenderShouldThrowException() throws Exception {
-        doThrow(new IllegalSenderException("sender not valid")).when(
-                senderValidationService).validateSender(any(String.class), any(String.class), any(String.class));
-
-        final String CERTIFICATE_VALUE = "certificateValue";
-        final String IP_ADDRESS_VALUE = "ipAddressValue";
-        ShsMessage testMessage = make(createSynchMessageWithKnownReceiver());
-        try {
-
-            Map<String, Object> headers = new HashMap<String, Object>();
-            headers.put(AxelHeaders.SENDER_CERTIFICATE, CERTIFICATE_VALUE );
-            headers.put(AxelHeaders.CALLER_IP, IP_ADDRESS_VALUE);
-
-            camel.sendBodyAndHeaders("direct:in-vm", testMessage, headers );
-
-            Assert.fail("request should throw exception");
-        } catch (CamelExecutionException e) {
-            Throwable cause = e.getCause();
-            
-            Assert.assertNotNull(cause);
-            Assert.assertTrue(cause instanceof IllegalSenderException, "exception should be 'IllegalSenderException'");
-        }
-        
-        verify(senderValidationService).validateSender(IP_ADDRESS_VALUE, CERTIFICATE_VALUE, testMessage.getLabel().getFrom().getValue());
-    }
-
-    @DirtiesContext
-    @Test
-    public void sendingAsynchRequestWithInvalidSenderShouldThrowException() throws Exception {
-        doThrow(new IllegalSenderException("sender not valid")).when(
-                senderValidationService).validateSender(any(String.class), any(String.class), any(String.class));
-
-        final String CERTIFICATE_VALUE = "certificateValue";
-        final String IP_ADDRESS_VALUE = "ipAddressValue";
-        ShsMessage testMessage = make(createAsynchMessageWithKnownReceiver());
-        try {
-
-            Map<String, Object> headers = new HashMap<String, Object>();
-            headers.put(AxelHeaders.SENDER_CERTIFICATE, CERTIFICATE_VALUE );
-            headers.put(AxelHeaders.CALLER_IP, IP_ADDRESS_VALUE);
-
-            camel.sendBodyAndHeaders("direct:in-vm", testMessage, headers );
-
-            Assert.fail("request should throw exception");
-        } catch (CamelExecutionException e) {
-            Throwable cause = e.getCause();
-            
-            Assert.assertNotNull(cause);
-            Assert.assertTrue(cause instanceof IllegalSenderException, "exception should be 'IllegalSenderException'");
-        }
-        
-        verify(senderValidationService).validateSender(IP_ADDRESS_VALUE, CERTIFICATE_VALUE, testMessage.getLabel().getFrom().getValue());
+        System.setProperty("shsRsHttpEndpoint", String.format("jetty://http://localhost:%s", AvailablePortFinder.getNextAvailable()) );
     }
 
     @DirtiesContext
@@ -281,7 +216,7 @@ public class ReceiveServiceRouteBuilderTest extends AbstractTestNGSpringContextT
 
         Message out = response.getOut();
 
-        assertEquals(out.getMandatoryBody(String.class), testMessage.getLabel().getTxId());
+//        assertEquals(out.getMandatoryBody(String.class), testMessage.getLabel().getTxId());
         assertEquals(out.getHeader(ShsHeaders.X_SHS_TXID), testMessage.getLabel().getTxId());
         assertEquals(out.getHeader(ShsHeaders.X_SHS_TXID), MockConfig.DUPLICATE_TX_ID);
         assertEquals(out.getHeader(ShsHeaders.X_SHS_CORRID), testMessage.getLabel().getCorrId());

@@ -30,7 +30,6 @@ import static se.inera.axel.shs.xml.label.ShsLabelMaker.ShsLabelInstantiator.tra
 
 import java.util.Iterator;
 
-import org.apache.camel.spring.javaconfig.test.JavaConfigContextLoader;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -48,9 +47,9 @@ import se.inera.axel.shs.xml.label.ShsLabelMaker;
 import se.inera.axel.shs.xml.label.To;
 import se.inera.axel.shs.xml.label.TransferType;
 
-@ContextConfiguration(locations =
-        {"se.inera.axel.shs.broker.messagestore.internal.MongoDBTestContextConfig"},
-        loader = JavaConfigContextLoader.class)
+@ContextConfiguration(
+        classes = {se.inera.axel.shs.broker.messagestore.internal.MongoDBTestContextConfig.class}
+       )
 public class MongoMessageLogAdminServiceIT extends AbstractMongoMessageLogTest {
 
     @Autowired

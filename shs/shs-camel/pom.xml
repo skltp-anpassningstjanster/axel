@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>core</artifactId>
-        <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <artifactId>shs</artifactId>
+        <groupId>se.inera.axel</groupId>
+         <version>2.0.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>shs-camel</artifactId>
     <packaging>bundle</packaging>
 
-    <name>SHS :: Core :: Camel</name>
+    <name>Axel :: SHS :: Camel</name>
     <description>Contains Camel processors, marshallers and type converters to make it easy
         to integrate SHS into a Camel context.</description>
 
@@ -124,13 +124,12 @@
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>se.skltp.shs</groupId>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>

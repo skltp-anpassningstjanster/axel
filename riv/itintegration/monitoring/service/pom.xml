@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>riv</artifactId>
-        <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <groupId>se.inera.axel</groupId>
+         <version>2.0.1-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <artifactId>itintegration-monitoring-service</artifactId>
 
     <packaging>bundle</packaging>
-    <name>SHS :: RIV :: PingForConfigurationResponder</name>
+    <name>Axel :: RIV :: PingForConfigurationResponder</name>
     <description>An implementation of the service for local ping and testing purposes.</description>
 
     <dependencies>
@@ -27,13 +27,12 @@
             <artifactId>cxf-rt-transports-http</artifactId>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs</groupId>
-            <artifactId>itintegration-monitoring-schemas-1.0</artifactId>
-            <version>${project.version}</version>
+            <groupId>se.inera.axel</groupId>
+            <artifactId>monitoring</artifactId>
         </dependency>
         <dependency>
-            <groupId>se.skltp.shs</groupId>
-            <artifactId>monitoring</artifactId>
+            <groupId>se.riv.itintegration.monitoring</groupId>
+            <artifactId>itintegration-monitoring-schemas-1.0</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

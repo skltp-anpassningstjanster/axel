@@ -23,7 +23,6 @@ package se.inera.axel.shs.broker.messagestore.internal;
 
 import com.natpryce.makeiteasy.Maker;
 
-import org.apache.camel.spring.javaconfig.test.JavaConfigContextLoader;
 import org.hamcrest.*;
 import org.hamcrest.collection.IsIterableWithSize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +53,8 @@ import static se.inera.axel.shs.xml.label.ShsLabelMaker.ShsLabelInstantiator.txI
  * @author Jan Hallonstén, R2M
  *
  */
-@ContextConfiguration(locations =
-        {"se.inera.axel.shs.broker.messagestore.internal.MongoDBTestContextConfig"},
-        loader = JavaConfigContextLoader.class)
+@ContextConfiguration(classes =
+        {se.inera.axel.shs.broker.messagestore.internal.MongoDBTestContextConfig.class})
 public class MessageLogRepositoryIT extends AbstractTestNGSpringContextTests {
 	
 	@Autowired(required = true)

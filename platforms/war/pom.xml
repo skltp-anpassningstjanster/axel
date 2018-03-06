@@ -3,16 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>platforms</artifactId>
-        <groupId>se.skltp.shs</groupId>
-        <version>1.0-RC3-SNAPSHOT</version>
+        <groupId>se.inera.axel</groupId>
+         <version>2.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>se.skltp.shs.war</groupId>
+    <groupId>se.inera.axel.war</groupId>
     <artifactId>war</artifactId>
 
-    <version>1.0-RC3-SNAPSHOT</version>
+     <version>2.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>SHS :: Platforms :: WAR</name>
+    <name>Axel :: Platforms :: WAR</name>
 
     <modules>
         <module>monitoring-war</module>
