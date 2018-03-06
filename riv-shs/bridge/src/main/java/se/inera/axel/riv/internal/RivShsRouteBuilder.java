@@ -73,7 +73,7 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .setHeader(ShsHeaders.STATUS, simple("{{shs.label.status}}"))
                       
                 .setProperty("AxelXslScript", method("rivShsMapper", "mapRivServiceToXslScript"))
-                .choice().when(property("AxelXslScript").isNotNull())
+                .choice().when(exchangeProperty("AxelXslScript").isNotNull())
                 	.process(xslTransformer)
                 .end()
                 .setHeader(ShsHeaders.CORRID, header(RivShsMappingService.HEADER_RIV_CORRID))

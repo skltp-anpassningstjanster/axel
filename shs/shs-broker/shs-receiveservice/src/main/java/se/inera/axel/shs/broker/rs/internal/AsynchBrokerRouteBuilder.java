@@ -82,7 +82,7 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
 			.when().simple("${body.label.product.value} == 'confirm'")
 		        .beanRef("messageLogService", "acknowledgeCorrelatedMessages")
 			.end()
-	        .setBody(property("ShsMessageEntry"))
+	        .setBody(exchangeProperty("ShsMessageEntry"))
         .end()
         .choice()
         .when().method("shsRouter", "isLocal(${body.label})")
@@ -110,16 +110,22 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
         .setProperty("ShsMessageEntry", body())
         .beanRef("messageLogService", "loadMessage")
         .choice().when(startsWith(header(Exchange.HTTP_URI), constant("https")))
-            .to("https4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true&sslContextParameters=shsRsSslContext&x509HostnameVerifier=allowAllHostnameVerifier")
+    		.to("https4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true&sslContextParameters=shsRsSslContext&x509HostnameVerifier=allowAllHostnameVerifier")
         .otherwise()
             .to("http4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true")
         .end()
-        .setBody(property("ShsMessageEntry"))
+        .setBody(exchangeProperty("ShsMessageEntry"))
         .beanRef("messageLogService", "messageSent");
 
 
         from("direct:sendAsynchLocal").routeId("direct:sendAsynchLocal")
         .errorHandler(noErrorHandler())
+        // Start For debug
+        // .setProperty("ShsMessageEntry", body())
+        // .beanRef("messageLogService", "loadMessage")
+        // .log("To: ${body}")
+        // .setBody(exchangeProperty("ShsMessageEntry"))
+        // End For debug
         .beanRef("messageLogService", "messageReceived");
 
 

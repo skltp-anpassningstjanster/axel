@@ -19,6 +19,7 @@
 package se.inera.axel.shs.broker.rs.internal;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.ExchangeProperty;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Property;
 import org.apache.camel.builder.PredicateBuilder;
@@ -93,7 +94,7 @@ public class SynchBrokerRouteBuilder extends RouteBuilder {
     }
 
     static public class ReplyLabelProcessor {
-        public ShsLabel fixReply(@Property(ShsHeaders.LABEL) ShsLabel label) {
+        public ShsLabel fixReply(@ExchangeProperty(ShsHeaders.LABEL) ShsLabel label) {
             if (label.getSequenceType() != SequenceType.REPLY
                     && label.getSequenceType() != SequenceType.ADM) {
                 label.setSequenceType(SequenceType.REPLY);
