@@ -50,6 +50,7 @@ public class ShsMessageMaker {
 		public static final Property<ShsMessage, ShsLabel> label = newProperty();
 		public static final Property<ShsMessage, List<se.inera.axel.shs.mime.DataPart>> dataParts = newProperty();
 		
+		@SuppressWarnings("unchecked")
 		@Override
 		public ShsMessage instantiate(
 				PropertyLookup<ShsMessage> lookup) {

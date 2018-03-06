@@ -78,13 +78,13 @@ public class DeliveryServiceRouteBuilderTest extends AbstractCamelTestNGSpringCo
 
     public static String DEFAULT_OUTBOX = "urn:x-shs:" + ShsLabelMaker.DEFAULT_TEST_TO;
 
-    public static String DEFAULT_SHS_DS_URL = "http://0.0.0.0:{{shsDsHttpEndpoint.port}}/shs/ds/";
+    public static String DEFAULT_SHS_DS_URL = "http://localhost:{{shsDsHttpEndpoint.port}}/shs/ds/";
 
     public DeliveryServiceRouteBuilderTest() {
         if (System.getProperty("shsDsHttpEndpoint.port") == null) {
             int port = AvailablePortFinder.getNextAvailable();
             System.setProperty("shsDsHttpEndpoint.port", Integer.toString(port));
-            System.setProperty("shsDsHttpEndpoint", String.format("jetty://http://0.0.0.0:%s", port));
+            System.setProperty("shsDsHttpEndpoint", String.format("jetty://http://localhost:%s", port));
         }
     }
 
@@ -335,7 +335,7 @@ public class DeliveryServiceRouteBuilderTest extends AbstractCamelTestNGSpringCo
 		Assert.assertNotNull(out.getDatetime());
 
 		// Content content;
-		Content inContent = in.getContent();
+		//Content inContent = in.getContent();
 		Content outContent = out.getContent();
 		Assert.assertNotNull(outContent);
 		Assert.assertNull(outContent.getComment());
@@ -388,7 +388,8 @@ public class DeliveryServiceRouteBuilderTest extends AbstractCamelTestNGSpringCo
 //        verify(messageLogService).releaseStaleFetchingInProgress();
 //    }
 
-    @DirtiesContext
+    @SuppressWarnings("unchecked")
+	@DirtiesContext
     @Test
     public void listMessagesWithQueryParams() throws Exception {
 

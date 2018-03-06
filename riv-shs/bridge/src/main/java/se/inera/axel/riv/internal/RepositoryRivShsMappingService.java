@@ -83,6 +83,33 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
 	}
 
     @Override
+	public String mapShsProductToXslScript(@Property(ShsHeaders.LABEL) ShsLabel shsLabel) {
+		String productId = shsLabel.getProduct().getValue();
+		log.debug("mapShsProductToXslScript({})", productId);
+		
+		RivShsServiceMapping mapping = findByShsProductId(productId);
+		
+		if (mapping == null) {
+			throw new RuntimeException("No RIV Service found for SHS ProductId: " + productId);
+		}
+		String response = mapping.getXslScript();
+		return StringUtils.isEmpty(response) ? null : response;
+	}
+
+    @Override
+	public String mapRivServiceToXslScript(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+		log.debug("mapShsProductToXslScript({})", rivServiceNamespace);
+		
+        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
+		
+		if (mapping == null) {
+            throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace);
+		}
+		String response = mapping.getXslScript();
+		return StringUtils.isEmpty(response) ? null : response;
+	}
+
+    @Override
     public String mapRivServiceToResponseBody(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
         log.debug("mapRivServiceToResponseBody({})", rivServiceNamespace);
 

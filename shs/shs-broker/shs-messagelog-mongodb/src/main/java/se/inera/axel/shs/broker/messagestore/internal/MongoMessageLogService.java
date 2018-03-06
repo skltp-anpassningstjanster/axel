@@ -18,7 +18,6 @@
  */
 package se.inera.axel.shs.broker.messagestore.internal;
 
-import com.mongodb.MongoException;
 import com.mongodb.WriteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

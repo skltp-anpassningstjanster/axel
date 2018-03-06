@@ -72,7 +72,10 @@ public class MessageViewPanel extends Panel {
         add(new Label("label.content.comment"));
 
         add(new ListView<Object>("label.content.dataOrCompound") {
-            @Override
+
+			private static final long serialVersionUID = -2722838260234666821L;
+
+			@Override
             protected void populateItem(ListItem<Object> item) {
                 if (item.getModelObject() instanceof Data) {
                     item.setModel(new CompoundPropertyModel<Object>(item.getModelObject()));
@@ -88,7 +91,10 @@ public class MessageViewPanel extends Panel {
         });
 
         add(new ListView<Meta>("label.meta") {
-            @Override
+
+			private static final long serialVersionUID = 7038739279188821826L;
+
+			@Override
             protected void populateItem(ListItem<Meta> item) {
                 item.setModel(new CompoundPropertyModel<Meta>(item.getModelObject()));
                 item.add(new Label("name"));
@@ -97,7 +103,10 @@ public class MessageViewPanel extends Panel {
         });
 
         add(new ListView<History>("label.history") {
-            @Override
+
+			private static final long serialVersionUID = 1653466654958961925L;
+
+			@Override
             protected void populateItem(ListItem<History> item) {
                 item.setModel(new CompoundPropertyModel<History>(item.getModelObject()));
                 item.add(DateLabel.forDatePattern("datetime", Constant.DATETIME_FORMAT));
@@ -111,7 +120,10 @@ public class MessageViewPanel extends Panel {
 		add(new ListView<ShsMessageEntry>("related",
                 Lists.newArrayList(messageLogAdminService.findRelatedEntries(messageModel.getObject(), maxRelatedEntries )))
         {
-            @Override
+
+			private static final long serialVersionUID = 6755952024686310408L;
+
+			@Override
             protected void populateItem(ListItem<ShsMessageEntry> item) {
                 item.setModel(new CompoundPropertyModel<ShsMessageEntry>(item.getModelObject()));
                 String messageId = item.getModelObject().getId();

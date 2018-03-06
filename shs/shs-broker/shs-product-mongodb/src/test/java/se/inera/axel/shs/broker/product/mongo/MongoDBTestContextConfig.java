@@ -19,6 +19,7 @@
 package se.inera.axel.shs.broker.product.mongo;
 
 import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
@@ -27,8 +28,9 @@ import de.flapdoodle.embed.mongo.MongodStarter;
 import de.flapdoodle.embed.mongo.config.*;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
-import de.flapdoodle.embed.process.extract.UUIDTempNaming;
 import de.flapdoodle.embed.process.runtime.Network;
+import se.inera.axel.test.flapdoodle.FixedTempNaming;
+
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,9 +51,9 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
         IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
                 .defaults(Command.MongoD)
-                .artifactStore(new ArtifactStoreBuilder()
+                .artifactStore(new ExtractedArtifactStoreBuilder()
                         .defaults(Command.MongoD)
-                        .executableNaming(new UUIDTempNaming())
+                        .executableNaming(new FixedTempNaming("shs-product-mongodb"))
                 )
                 .build();
 
@@ -70,7 +72,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
     public @Bean(destroyMethod = "close") Mongo mongo() throws Exception {
         MongodProcess mongodProcess = mongodProcess();
 
-        return new Mongo(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
+        return new MongoClient(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
     }
 
     public @Bean MongoDbFactory mongoDbFactory() throws Exception {
@@ -104,5 +106,11 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
         if (mongodProcess != null)
             mongodProcess.stop();
+        
+        MongodExecutable mongodExecutable = mongodExecutable();
+        
+        if(mongodExecutable != null)
+        	mongodExecutable.stop();
     }
+    
 }

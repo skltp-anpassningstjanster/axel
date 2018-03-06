@@ -18,6 +18,9 @@
  */
 package se.inera.axel.riv.webconsole;
 
+import org.apache.wicket.Application;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -91,6 +94,7 @@ public class RivShsServiceMappingEditPage extends BasePage {
 		form.add(new ControlGroupContainer(new TextField<String>("rivServiceEndpoint")));
         form.add(new ControlGroupContainer(new CheckBox("useAsynchronousShs")));
         form.add(new ControlGroupContainer(new TextArea<String>("asynchronousResponseSoapBody")));
+        form.add(new ControlGroupContainer(new TextArea<String>("xslScript")));
 		form.add(new SubmitLink("submit"));
 		add(form);
 	}
@@ -105,4 +109,12 @@ public class RivShsServiceMappingEditPage extends BasePage {
 		return idList;
 	}
 
+	   @Override
+	   protected void onConfigure() {
+	      super.onConfigure();
+	      AuthenticatedWebApplication app = (AuthenticatedWebApplication)Application.get();
+	      //if user is not signed in, redirect him to sign in page
+	      if(!AuthenticatedWebSession.get().isSignedIn())
+	         app.restartResponseAtSignInPage();
+	   }
 }

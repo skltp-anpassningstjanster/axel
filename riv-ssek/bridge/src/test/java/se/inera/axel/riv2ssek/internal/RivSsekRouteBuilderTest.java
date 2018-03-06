@@ -110,7 +110,7 @@ public class RivSsekRouteBuilderTest extends AbstractCamelTestNGSpringContextTes
     private static final String RIV_RECEIVER_TESTVALUE = "TEST_RECEIVER";
     private static final String RIV_PAYLOAD_TESTVALUE = "TEST_PAYLOAD";
     public static final String RIV_SENDER = "x-rivta-original-serviceconsumer-hsaid";
-    public static final String RIV_CORR_ID = "x-vp-correlation-id";
+    public static final String RIV_CORR_ID = "x-skltp-correlation-id";
     
     @Produce(context = "riv-ssek-bridge-test")
     ProducerTemplate camel;
@@ -126,7 +126,7 @@ public class RivSsekRouteBuilderTest extends AbstractCamelTestNGSpringContextTes
     static {
         // Needs to be put into constructor instead of beforeTest method because the camel context needs it.
         riv2ssekPort = AvailablePortFinder.getNextAvailable();
-        System.setProperty("riv2ssekEndpoint", String.format("jetty://http://0.0.0.0:%s", riv2ssekPort));
+        System.setProperty("riv2ssekEndpoint", String.format("jetty://http://localhost:%s", riv2ssekPort));
         System.setProperty("riv2ssekEndpoint.path", "/rivSsekEndpoint");
         System.setProperty("ssekEndpoint.port", Integer.toString(AvailablePortFinder.getNextAvailable()));
         System.setProperty(Exchange.LOG_DEBUG_BODY_MAX_CHARS, "0");
@@ -280,7 +280,7 @@ public class RivSsekRouteBuilderTest extends AbstractCamelTestNGSpringContextTes
     }
 
     /**
-     * Injects RIV request with "x-vp-correlation-id" HTTP header.
+     * Injects RIV request with "x-skltp-correlation-id" HTTP header.
      * Make sure that this is used.
      *
      * @throws InterruptedException
@@ -304,7 +304,7 @@ public class RivSsekRouteBuilderTest extends AbstractCamelTestNGSpringContextTes
     }
 
     /**
-     * Injects RIV request without the "x-vp-correlation-id" HTTP header.
+     * Injects RIV request without the "x-skltp-correlation-id" HTTP header.
      * Make sure that a generated TxId is filled in by the route builder.
      *
      * @throws InterruptedException

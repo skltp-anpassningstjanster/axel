@@ -2,7 +2,6 @@ package se.inera.axel.riv2ssek.internal;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.builder.xml.Namespaces;
 import org.springframework.stereotype.Component;
 
 /**

@@ -18,7 +18,10 @@
  */
 package se.inera.axel.riv.webconsole;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -77,6 +80,26 @@ public class RivShsServiceMappingsPage extends BasePage {
 		dataView.setItemsPerPage(10000);
 //		add(new PagingNavigator("navigator", dataView));
 
+	      add(new Link<Object>("goToHomePage") {
+
+			private static final long serialVersionUID = -487251702906160739L;
+
+			@Override
+	         public void onClick() {
+	            setResponsePage(getApplication().getHomePage());
+	         }
+	      });
+
+	      add(new Link<Object>("logOut") {
+
+			private static final long serialVersionUID = -4098155213067116843L;
+
+			@Override
+	         public void onClick() {
+	            AuthenticatedWebSession.get().invalidate();
+	            setResponsePage(getApplication().getHomePage());
+	         }
+	      });
 		add(new BookmarkablePageLink<RivShsServiceMappingEditPage>("add",
 				RivShsServiceMappingEditPage.class, new PageParameters()));
 
@@ -90,4 +113,14 @@ public class RivShsServiceMappingsPage extends BasePage {
 		link.add(new Label(labelId));
 		return link;
 	}
+	
+	   @Override
+	   protected void onConfigure() {
+	      super.onConfigure();
+	      AuthenticatedWebApplication app = (AuthenticatedWebApplication)Application.get();
+	      //if user is not signed in, redirect him to sign in page
+	      if(!AuthenticatedWebSession.get().isSignedIn())
+	         app.restartResponseAtSignInPage();
+	   }
+
 }

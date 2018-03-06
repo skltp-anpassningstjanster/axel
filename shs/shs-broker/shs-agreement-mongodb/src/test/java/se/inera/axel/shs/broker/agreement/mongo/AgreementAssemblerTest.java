@@ -73,7 +73,7 @@ import se.inera.axel.shs.xml.agreement.Starttime;
 import com.natpryce.makeiteasy.Maker;
 
 @SuppressWarnings("unchecked")
-public class AgreementAssemblerTest {
+public class AgreementAssemblerTest  extends AbstractAgreementIT {
 	private AgreementAssembler agreementAssembler = new AgreementAssembler();
 	private DozerBeanMapper mapper;
 

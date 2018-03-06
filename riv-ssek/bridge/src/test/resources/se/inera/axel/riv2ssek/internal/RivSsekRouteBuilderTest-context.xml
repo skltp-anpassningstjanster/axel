@@ -66,10 +66,10 @@
         <property name="properties">
             <props>
 				<prop key="CamelLogDebugBodyMaxChars">0</prop>
-				<prop key="riv2ssekEndpoint">jetty://http://0.0.0.0</prop>
+				<prop key="riv2ssekEndpoint">jetty://http://localhost</prop>
 				<prop key="riv2ssekEndpoint.path">riv2ssek</prop>
 
-				<prop key="ssekEndpoint.server">http://0.0.0.0</prop>
+				<prop key="ssekEndpoint.server">http://localhost</prop>
 				<prop key="ssekEndpoint.port"></prop>
 				<prop key="ssekEndpoint.path">ssek</prop>
 

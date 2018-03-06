@@ -55,7 +55,7 @@ import static se.inera.axel.shs.xml.label.ShsLabelMaker.ShsLabelInstantiator.ori
 import static se.inera.axel.shs.xml.label.ShsLabelMaker.ShsLabelInstantiator.to;
 import static se.inera.axel.shs.xml.label.ShsLabelMaker.ToInstantiator.emptyTo;
 
-public class MongoAgreementServiceTest {
+public class MongoAgreementServiceTest  extends AbstractAgreementIT {
 	private Agreement anyAgreement;
 	private Agreement synchAgreement;
 	private Agreement publicAgreement;

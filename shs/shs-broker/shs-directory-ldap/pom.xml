@@ -5,7 +5,7 @@
     <parent>
         <artifactId>shs-broker</artifactId>
         <groupId>se.inera.axel</groupId>
-         <version>2.0.1-SNAPSHOT</version>
+        <version>2.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>shs-directory-ldap</artifactId>
@@ -111,6 +111,7 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>common-services</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
