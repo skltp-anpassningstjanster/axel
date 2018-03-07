@@ -18,7 +18,6 @@
  */
 package se.inera.axel.shs.processor;
 
-import se.inera.axel.shs.processor.ShsXmlMarshaller;
 import se.inera.axel.shs.xml.product.ShsProduct;
 
 public class ShsProductMarshaller extends ShsXmlMarshaller<ShsProduct> {
