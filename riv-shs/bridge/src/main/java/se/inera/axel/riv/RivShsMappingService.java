@@ -35,5 +35,7 @@ public interface RivShsMappingService {
     Boolean useAsynchronousShs(String rivServiceNamespace);
 	String mapShsProductToXslScript(ShsLabel shsLabel);
 	String mapRivServiceToXslScript(String rivServiceNamespace);
+	Boolean mapRivServiceToUseBOM(String rivServiceNamespace);
+	Boolean mapRivServiceToUseCrLf(String rivServiceNamespace);
 
 }

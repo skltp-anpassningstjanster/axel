@@ -13,12 +13,20 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 
-
+/**
+ * This class performs a custom XSL-transformation of the payload of the incoming message.
+ * Included is also a separate transformation of newlines and the addition of a UTF-8 BOM (Byte order mark)
+ * since these are difficult to do with XSLT.
+ * 
+ * @author hanwik
+ *
+ */
 public class XslTransformer implements Processor {
 
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(XslTransformer.class);
 	private static TransformerFactory factory = TransformerFactory.newInstance();
 	
+	private static final char BOM = '\ufeff';
 
 	@Override
 	public void process(Exchange exchange) throws Exception {
@@ -26,15 +34,44 @@ public class XslTransformer implements Processor {
 		String status = (String) exchange.getIn().getHeader(ShsHeaders.STATUS);
 		String productId = (String) exchange.getIn().getHeader(ShsHeaders.PRODUCT_ID);
 		
-		String xslScript = (String) exchange.getProperty("AxelXslScript");
-		String payload = null;
+		String xslScript = (String) exchange.getProperty(ShsHeaders.X_SHS_XSL);
+		Boolean useXsl = isTrue(xslScript);
+		Boolean useBOM = isTrue((Boolean)exchange.getProperty(ShsHeaders.X_SHS_USE_BOM));
+		Boolean useCrlf = isTrue((Boolean)exchange.getProperty(ShsHeaders.X_SHS_CRLF));
 		
-		if (xslScript != null) {
-			log.info("Found xslt-script for product {}. Will make transformation.", productId);
-			payload = transform(exchange.getIn().getBody(String.class), xslScript);
+		/* 
+		 * Check if any transformation should be done. If so log information about it.
+		 * Otherwise just return.
+		 */
+		if(useXsl || useBOM || useCrlf) {
+			log.info("The following transformations will be made for message with product {}"
+					+ ": XSLT={}"
+					+ ", UTF8BOM={} "
+					+ ", ToCRLF={}", new Object[]{productId, useXsl, useBOM, useCrlf});
+		} else {
+			return;
+		}
+
+		/*
+		 * Do the transformations.
+		 */
+		String payload = exchange.getIn().getBody(String.class);
+		
+		if (useXsl) {
+			payload = transform(payload, xslScript);
+		}
+		if(useCrlf) {
+			payload = convertToCrLf(payload);
+		}
+		if(useBOM) {
+			payload = addBom(payload);
 		}
 		
+		/*
+		 * Update the payload in the exchange.
+		 */
 		if(payload != null) {
+						
 			exchange.getIn().setBody(payload);
 			
 			// Log transformed payload i test environment
@@ -51,6 +88,9 @@ public class XslTransformer implements Processor {
 	}
 
 	private String transform(String s, String xslString) throws IOException, URISyntaxException, TransformerException {
+		if(s == null)
+			return null;
+		
 	    Transformer transformer = factory.newTransformer(new StringSource(xslString));
 
 	    return transform(transformer, s);
@@ -63,4 +103,31 @@ public class XslTransformer implements Processor {
 		return outWriter.toString();
 	}
 
+	private boolean isTrue(String s) {
+		if(s == null || s.trim().length() == 0)
+			return false;
+		else
+			return true;
+	}
+	
+	private boolean isTrue(Boolean b) {
+		if(b == null)
+			return false;
+		else
+			return b;
+	}
+	
+	private String addBom(String s) {
+		if(s == null)
+			return null;
+		else
+			return BOM + s;
+	}
+	
+	private String convertToCrLf(String s) {
+		if(s == null)
+			return null;
+		else
+			return s.replace("\n", "\r\n");
+	}
 }

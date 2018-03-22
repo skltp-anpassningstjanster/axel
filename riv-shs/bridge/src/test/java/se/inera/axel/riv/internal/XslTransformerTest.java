@@ -60,10 +60,8 @@ public class XslTransformerTest extends CamelTestSupport {
 				from("direct:xsltransform")
 					.setBody().simple("resource:classpath:xslt/SE-SEBRA-22.xml")
 					.setHeader(ShsHeaders.PRODUCT_ID, simple("SE-SEBRA"))
-				    .setProperty("AxelXslScript", simple("resource:classpath:xslt/SE-SEBRA.xsl"))
-	                .choice().when(property("AxelXslScript").isNotNull())
-			        	.process(xslTransformer)
-					.end()
+				    .setProperty(ShsHeaders.X_SHS_XSL, simple("resource:classpath:xslt/SE-SEBRA.xsl"))
+		        	.process(xslTransformer)
 					.to("mock:xsltransform");
 			}
     		

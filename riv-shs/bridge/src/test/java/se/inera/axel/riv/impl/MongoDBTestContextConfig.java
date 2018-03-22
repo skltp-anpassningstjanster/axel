@@ -18,7 +18,6 @@
  */
 package se.inera.axel.riv.impl;
 
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import de.flapdoodle.embed.mongo.Command;
@@ -43,7 +42,7 @@ import org.springframework.data.mongodb.repository.support.MongoRepositoryFactor
 @Configuration
 public class MongoDBTestContextConfig implements DisposableBean {
 
-    Mongo mongo;
+    MongoClient mongo;
     MongodProcess mongodProcess;
     
     public @Bean(destroyMethod = "stop") MongodExecutable mongodExecutable() throws Exception {
@@ -75,7 +74,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
         return  mongodProcess;
     }
 
-    public @Bean(destroyMethod = "close") Mongo mongo() throws Exception {
+    public @Bean(destroyMethod = "close") MongoClient mongo() throws Exception {
         MongodProcess mongodProcess = mongodProcess();
 
         mongo = new MongoClient(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));

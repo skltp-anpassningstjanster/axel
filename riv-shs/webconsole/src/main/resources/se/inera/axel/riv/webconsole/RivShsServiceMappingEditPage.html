@@ -66,6 +66,23 @@
                         <textarea class="span9" rows="15" size="150" wicket:id="asynchronousResponseSoapBody" />
                     </div>
                 </div>
+                <h2>Transformations</h2>
+                <div wicket:id="control.useBOM" class="control-group">
+                    <label for="useBOM" class="control-label nowrap">
+                        Use UTF-8 BOM
+                    </label>
+                    <div class="controls">
+                        <input type="checkbox" wicket:id="useBOM" />
+                    </div>
+                </div>
+                <div wicket:id="control.useWindowsCRLF" class="control-group">
+                    <label for="useWindowsCRLF" class="control-label nowrap">
+                        Use Windows (CR-LF)
+                    </label>
+                    <div class="controls">
+                        <input type="checkbox" wicket:id="useWindowsCRLF" />
+                    </div>
+                </div>                
                  <div wicket:id="control.xslScript" class="control-group">
                     <label for="xslScript" class="control-label">
                         Xslt script

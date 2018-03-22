@@ -42,6 +42,10 @@ public class RivShsServiceMapping implements Serializable {
 	String asynchronousResponseSoapBody;
 
     Boolean useAsynchronousShs = Boolean.TRUE;
+    
+    Boolean useBOM = Boolean.FALSE;
+    
+    Boolean useWindowsCRLF = Boolean.FALSE;
 
     String xslScript;
 
@@ -92,6 +96,22 @@ public class RivShsServiceMapping implements Serializable {
 	
 	public void setXslScript(String xslScript) {
 		this.xslScript = xslScript;
+	}
+	
+	public Boolean getUseBOM() {
+		return useBOM;
+	}
+	
+	public void setuseWindowsCRLF(Boolean useBOM) {
+		this.useBOM = useBOM;
+	}
+
+	public Boolean getUseWindowsCRLF() {
+		return useWindowsCRLF;
+	}
+	
+	public void setUseWindowsCRLF(Boolean useWindowsCRLF) {
+		this.useWindowsCRLF = useWindowsCRLF;
 	}
 
     @Override

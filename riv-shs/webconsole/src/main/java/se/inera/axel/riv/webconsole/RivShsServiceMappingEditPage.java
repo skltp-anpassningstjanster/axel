@@ -94,6 +94,8 @@ public class RivShsServiceMappingEditPage extends BasePage {
 		form.add(new ControlGroupContainer(new TextField<String>("rivServiceEndpoint")));
         form.add(new ControlGroupContainer(new CheckBox("useAsynchronousShs")));
         form.add(new ControlGroupContainer(new TextArea<String>("asynchronousResponseSoapBody")));
+        form.add(new ControlGroupContainer(new CheckBox("useBOM")));
+        form.add(new ControlGroupContainer(new CheckBox("useWindowsCRLF")));
         form.add(new ControlGroupContainer(new TextArea<String>("xslScript")));
 		form.add(new SubmitLink("submit"));
 		add(form);
