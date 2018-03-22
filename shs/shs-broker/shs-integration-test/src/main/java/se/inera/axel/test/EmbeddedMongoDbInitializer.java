@@ -42,7 +42,7 @@ public class EmbeddedMongoDbInitializer implements ApplicationContextInitializer
 
         String shsRsPort = String.valueOf(AvailablePortFinder.getNextAvailable());
         System.setProperty("shsRsPort", shsRsPort);
-        System.setProperty("shsRsHttpEndpoint", String.format("jetty://http://0.0.0.0:%s", shsRsPort));
+        System.setProperty("shsRsHttpEndpoint", String.format("jetty://http://localhost:%s", shsRsPort));
         System.setProperty("mongodb.uri", String.format("mongodb://localhost:%s/axel?w=1", mongodProcess.getConfig().net().getPort()));
         System.setProperty("remoteShsBrokerPort", String.valueOf(AvailablePortFinder.getNextAvailable()));
 
