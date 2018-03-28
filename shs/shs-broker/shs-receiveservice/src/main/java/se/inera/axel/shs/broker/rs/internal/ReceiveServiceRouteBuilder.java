@@ -84,8 +84,9 @@ public class ReceiveServiceRouteBuilder extends RouteBuilder {
             .handled(true)
         .end()
         .setProperty(ShsHeaders.LABEL, method(ShsMessageMarshaller.class, "parseLabel"))
+        .bean(MessageInfoLogger.class, "log(*,${property.ShsLabel},'req-in')")
         .choice().when().simple("${property.ShsLabel.transferType} == 'SYNCH'")
-            .to("direct-vm:shs:synch")
+              .to("direct-vm:shs:synch")
         .when(header("AxelRobustAsynchShs").isNotNull())
                 .bean(SaveMessageProcessor.class)
                 .transform(method("labelHistoryTransformer"))
@@ -96,7 +97,7 @@ public class ReceiveServiceRouteBuilder extends RouteBuilder {
             .bean(SaveMessageProcessor.class)
             .transform(method("labelHistoryTransformer"))
             .transform(method("fromValueTransformer"))
-            .to("direct-vm:shs:asynch")
+                .to("direct-vm:shs:asynch")
             .setHeader(ShsHeaders.X_SHS_CORRID, simple("${body.label.corrId}"))
             .setHeader(ShsHeaders.X_SHS_CONTENTID, simple("${body.label.content.contentId}"))
             .setHeader(ShsHeaders.X_SHS_NODEID, simple("${properties:nodeId}"))
@@ -108,7 +109,9 @@ public class ReceiveServiceRouteBuilder extends RouteBuilder {
                             + ":" + TimestampConverter.DATETIME_FORMAT + "}"))
             .setHeader(ShsHeaders.X_SHS_DUPLICATEMSG, constant("no"))
             .transform(simple("${body.label.txId}"))
-        .end();
+        .end()
+        .bean(MessageInfoLogger.class, "log(*,'resp-out')");
+
     }
 
 }
