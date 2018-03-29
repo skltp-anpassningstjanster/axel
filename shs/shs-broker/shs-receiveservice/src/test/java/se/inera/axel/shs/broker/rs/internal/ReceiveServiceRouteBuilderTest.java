@@ -29,6 +29,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import se.inera.axel.shs.broker.messagestore.MessageAlreadyExistsException;
 import se.inera.axel.shs.broker.messagestore.MessageLogService;
@@ -36,8 +37,11 @@ import se.inera.axel.shs.broker.messagestore.ShsMessageEntry;
 import se.inera.axel.shs.broker.messagestore.ShsMessageEntryMaker;
 import se.inera.axel.shs.exception.UnknownReceiverException;
 import se.inera.axel.shs.mime.ShsMessage;
+import se.inera.axel.shs.processor.ResponseMessageBuilder;
 import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.processor.TimestampConverter;
+import se.inera.axel.shs.xml.label.SequenceType;
+import se.inera.axel.shs.xml.label.ShsLabel;
 import se.inera.axel.shs.xml.label.TransferType;
 
 import java.io.InputStream;
@@ -80,6 +84,63 @@ import static se.inera.axel.shs.xml.label.ShsLabelMaker.ToInstantiator.value;
 
         System.setProperty("shsRsHttpEndpoint", String.format("jetty://http://localhost:%s", AvailablePortFinder.getNextAvailable()) );
     }
+    /**
+     * Builds a reply ShsMessage from a request ShsMessage.
+     */
+    final Expression replyShsMessageBuilder = new Expression() {
+
+        /**
+         * Creates new instance of reply ShsLabel and ShsMessage which is required so that
+         * the unit tests can verify both the request and the reply object. Otherwise,
+         * the reply would overwrite the request.
+         */
+        @Override
+        public <T> T evaluate(Exchange exchange, Class<T> type) {
+
+            ShsMessage request = exchange.getIn().getBody(ShsMessage.class);
+            se.inera.axel.shs.xml.label.ShsLabel requestLabel = request.getLabel();
+
+            // Create new instance of ShsLabel
+            ResponseMessageBuilder rmb = new ResponseMessageBuilder();
+            ShsLabel replyLabel = rmb.buildReplyLabel(requestLabel);
+
+            // Create new instance of ShsMessage
+            ShsMessage replyShsMessage = make(a(ShsMessage, with(label, replyLabel)));
+            replyShsMessage.getLabel().setSequenceType(SequenceType.REPLY);
+
+            T reply = exchange.getContext().getTypeConverter().convertTo(type, replyShsMessage);
+
+            return reply;
+        }
+    };
+
+    @BeforeMethod
+    public void beforeMethod() {
+        synchronEndpoint.returnReplyBody(replyShsMessageBuilder);
+    }
+
+    @DirtiesContext
+    @Test
+    public void sendingSynchRequestWithKnownReceiverShouldWork() throws Exception {
+
+        ShsMessage testMessage = make(createSynchMessageWithKnownReceiver());
+        synchronEndpoint.expectedMessageCount(1);
+
+        Exchange exchange = camel.getDefaultEndpoint().createExchange(ExchangePattern.InOut);
+        Message in = exchange.getIn();
+        in.setBody(testMessage);
+
+        Exchange response = camel.send("direct:in-http", exchange);
+        Assert.assertNotNull(response);
+
+        ShsMessage shsMessageResult = response.getOut().getBody(ShsMessage.class);
+        Assert.assertEquals(shsMessageResult.getLabel().getTxId(), testMessage.getLabel().getTxId());
+        Assert.assertEquals(shsMessageResult.getLabel().getTo().getValue(), testMessage.getLabel().getFrom().getValue());
+        Assert.assertEquals(shsMessageResult.getLabel().getFrom().getValue(), testMessage.getLabel().getTo().getValue());
+
+        MockEndpoint.assertIsSatisfied(synchronEndpoint);
+    }
+
 
     @DirtiesContext
     @Test

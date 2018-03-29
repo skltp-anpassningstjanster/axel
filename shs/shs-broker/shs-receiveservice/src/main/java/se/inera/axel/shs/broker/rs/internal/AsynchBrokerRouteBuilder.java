@@ -19,6 +19,7 @@
 package se.inera.axel.shs.broker.rs.internal;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.http.HttpOperationFailedException;
@@ -97,6 +98,7 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
         .to("direct-vm:shs:rs");
 
         from("direct:sendAsynchRemote").routeId("direct:sendAsynchRemote")
+        .streamCaching()
         .errorHandler(noErrorHandler())
         .onException(IOException.class)
                 .useExponentialBackOff()
@@ -110,9 +112,13 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
         .setProperty("ShsMessageEntry", body())
         .beanRef("messageLogService", "loadMessage")
         .choice().when(startsWith(header(Exchange.HTTP_URI), constant("https")))
-    		.to("https4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true&sslContextParameters=shsRsSslContext&x509HostnameVerifier=allowAllHostnameVerifier")
+                .bean(MessageInfoLogger.class, "log(*,'asynch.req-out')")
+                .to("https4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true&sslContextParameters=shsRsSslContext&x509HostnameVerifier=allowAllHostnameVerifier")
+                .bean(MessageInfoLogger.class, "log(*,'asynch.resp-in')")
         .otherwise()
-            .to("http4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true")
+                .bean(MessageInfoLogger.class, "log(*,'asynch.req-out')")
+                .to("http4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true")
+                .bean(MessageInfoLogger.class, "log(*,'asynch.resp-in')")
         .end()
         .setBody(exchangeProperty("ShsMessageEntry"))
         .beanRef("messageLogService", "messageSent");
@@ -126,6 +132,7 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
         // .log("To: ${body}")
         // .setBody(exchangeProperty("ShsMessageEntry"))
         // End For debug
+        .bean(MessageInfoLogger.class, "log(*,'asynch.local')")
         .beanRef("messageLogService", "messageReceived");
 
 
