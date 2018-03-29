@@ -28,6 +28,7 @@ import org.apache.camel.test.AvailablePortFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import se.inera.axel.shs.broker.agreement.AgreementService;
@@ -37,6 +38,8 @@ import se.inera.axel.shs.broker.routing.ShsRouter;
 import se.inera.axel.shs.exception.MissingAgreementException;
 import se.inera.axel.shs.mime.DataPart;
 import se.inera.axel.shs.mime.ShsMessage;
+import se.inera.axel.shs.mime.ShsMessageMaker;
+import se.inera.axel.shs.processor.ResponseMessageBuilder;
 import se.inera.axel.shs.xml.label.*;
 
 import java.util.concurrent.TimeUnit;
@@ -79,6 +82,23 @@ public class AsynchBrokerRouteBuilderTest extends AbstractCamelTestNGSpringConte
     @EndpointInject(uri = "mock:end")
     MockEndpoint endEndpoint;
 
+    /**
+     * Builds a reply ShsMessage from a request ShsMessage.
+     */
+    final Expression asynchReplyBuilder = new Expression() {
+
+        /**
+         * Creates new instance of reply ShsLabel and ShsMessage which is required so that
+         * the unit tests can verify both the request and the reply object. Otherwise,
+         * the reply would overwrite the request.
+         */
+        @Override
+        public <T> T evaluate(Exchange exchange, Class<T> type) {
+            T reply = exchange.getContext().getTypeConverter().convertTo(type, " Message received ");
+            return reply;
+        }
+    };
+
     public AsynchBrokerRouteBuilderTest() {
         if (System.getProperty("shsRsHttpEndpoint.port") == null) {
             int port = AvailablePortFinder.getNextAvailable(9100);
@@ -86,8 +106,14 @@ public class AsynchBrokerRouteBuilderTest extends AbstractCamelTestNGSpringConte
         }
     }
 
+    @BeforeMethod
+    public void beforeMethod() {
+        sentMessagesEndpoint.returnReplyBody(asynchReplyBuilder);
+    }
+
     @Test
     public void sendingAsynchMessageToLocal() throws Exception {
+
 
         ShsMessageEntry testMessage = make(createMessageEntryToSelf());
 
@@ -98,6 +124,7 @@ public class AsynchBrokerRouteBuilderTest extends AbstractCamelTestNGSpringConte
         when(shsRouter.isLocal(any(ShsLabel.class))).thenReturn(true);
 
         Exchange response = camel.send("direct:in-vm-asynch", exchange);
+
 
         assertNotNull(response);
 
@@ -111,7 +138,6 @@ public class AsynchBrokerRouteBuilderTest extends AbstractCamelTestNGSpringConte
 
     @Test
     public void sendingAsynchMessageToRemote() throws Exception {
-
         final ShsMessageEntry testMessage = make(createMessageEntry());
 
         Exchange exchange = camel.getDefaultEndpoint().createExchange(ExchangePattern.InOut);

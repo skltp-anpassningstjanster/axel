@@ -3,6 +3,7 @@ package se.inera.axel.shs.broker.rs.internal;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.converter.stream.InputStreamCache;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.text.StrBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import se.inera.axel.shs.processor.TimestampConverter;
 import se.inera.axel.shs.xml.label.*;
 
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -31,9 +33,17 @@ public class MessageInfoLogger {
                 LOG.info(createMessageToLog(exchange, ((ShsMessageEntry) body).getLabel(), messageType));
             }else if (body instanceof String) {
                 LOG.info(createMessageToLog(exchange, (String)body, messageType));
-            }else if(body instanceof InputStreamCache && exchange.getContext().isStreamCaching()) {
+            }else if(body instanceof InputStreamCache) {
                 ShsMessageMarshaller shsMessageMarshaller = new ShsMessageMarshaller();
-                LOG.info(createMessageToLog(exchange, shsMessageMarshaller.parseLabel((InputStreamCache)body), messageType));
+                byte[] buffer  = shsMessageMarshaller.getBytesFromInputStream((InputStreamCache)body);
+                String bodyAsString = new String(buffer);
+                if( bodyAsString.contains("<shs.label")) {
+                    LOG.info(createMessageToLog(exchange, shsMessageMarshaller.unmarshalLabel(buffer), messageType));
+                }else{
+                    LOG.info(createMessageToLog(exchange, bodyAsString, messageType));
+                }
+            } else {
+                LOG.info(createMessageToLog(exchange, (ShsLabel)null, messageType));
             }
 
         }catch(Exception e){
@@ -66,7 +76,7 @@ public class MessageInfoLogger {
         logBuilder.appendln("ExchangeId="+exchange.getExchangeId());
 
         addMessageHeaders(exchange.getIn(), logBuilder);
-        logBuilder.appendln("Message.body="+message);
+        logBuilder.appendln("Message.body="+message.trim());
 
         return logBuilder.toString();
     }
