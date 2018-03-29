@@ -53,6 +53,8 @@ import se.riv.itintegration.monitoring.v1.PingForConfigurationType;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.natpryce.makeiteasy.MakeItEasy.*;
@@ -126,12 +128,16 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
         mockEndpoint.expectedMessagesMatches(
                 xpath("/soapenv:Envelope/soapenv:Body[count(*) = 1]/ping:PingForConfigurationResponse/ping:pingDateTime")
                 .namespaces(NAMESPACES));
+        
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(RivShsMappingService.HEADER_SOAP_ACTION, "urn:riv:itintegration:monitoring:PingForConfigurationResponder:1");
+        headers.put(RivShsMappingService.HEADER_RIV_CORRID, "test-corr-id");
 
-        template().requestBodyAndHeader(
+        template().requestBodyAndHeaders(
                 "direct:testRiv2Shs",
                 String.format(SOAP_PING_REQUEST, "0000000000", "urn:riv:itintegration:monitoring:PingForConfigurationResponder:1"),
-                RivShsMappingService.HEADER_SOAP_ACTION,
-                "urn:riv:itintegration:monitoring:PingForConfigurationResponder:1");
+                headers
+                );
 
         mockEndpoint.assertIsSatisfied(TimeUnit.SECONDS.toMillis(10));
     }
@@ -239,6 +245,7 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
                 .thenReturn(PING_NAMESPACE + ":PingForConfiguration");
         when(rivShsMapper.mapRivServiceToRivEndpoint(anyString())).thenReturn(PING_ENDPOINT);
         when(rivShsMapper.mapRivServiceToShsProduct(anyString())).thenReturn(ShsLabelMaker.DEFAULT_TEST_PRODUCT_ID);
+        when(rivShsMapper.mapRivShsFileNameTemplate(anyString())).thenReturn("req-${in.header.x-skltp-correlation-id}.xml");
         mockTestShs2Riv = getMockEndpoint("mock:testShs2riv");
         mockTestShs2Riv.reset();
     }

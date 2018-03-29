@@ -163,6 +163,25 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
         return mapping.getUseAsynchronousShs();
     }
 
+	@Override
+	public String mapRivShsFileNameTemplate(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+		
+		log.debug("mapRivServiceToRivEndpoint({})", rivServiceNamespace);
+		
+		RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
+		
+		if (mapping == null) {
+			throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace);
+		}
+		
+		String fileNameTemplate = mapping.getFileNameTemplate();
+		if(fileNameTemplate == null || fileNameTemplate.trim().length() == 0)
+			fileNameTemplate = "req-.xml";
+		
+		return fileNameTemplate;
+	}
+	
+    
     private RivShsServiceMapping findByRivServiceNamespace(String rivServiceNamespace) {
 		return repository.findByRivServiceNamespace(rivServiceNamespace);
 	}
