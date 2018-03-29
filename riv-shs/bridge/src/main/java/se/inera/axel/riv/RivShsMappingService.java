@@ -24,6 +24,7 @@ import se.inera.axel.shs.xml.label.ShsLabel;
 public interface RivShsMappingService {
 
 	final static String HEADER_RIV_CORRID ="x-skltp-correlation-id";
+	final static String USE_HEADER_RIV_CORRID ="x-use-skltp-correlation-id";
 	final static String HEADER_SOAP_ACTION ="SOAPAction";
 	final static String HEADER_FILENAME = String.format("req-${in.header.%s}.xml", HEADER_RIV_CORRID);
 	final static String CONTENT_TYPE = "application/xml";
@@ -37,5 +38,6 @@ public interface RivShsMappingService {
 	String mapRivServiceToXslScript(String rivServiceNamespace);
 	Boolean mapRivServiceToUseBOM(String rivServiceNamespace);
 	Boolean mapRivServiceToUseCrLf(String rivServiceNamespace);
+	String mapRivShsFileNameTemplate(String rivServiceNamespace);
 
 }

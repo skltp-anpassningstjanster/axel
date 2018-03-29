@@ -64,4 +64,5 @@ public class ShsHeaders {
     public static final String X_SHS_USE_BOM = "X-shs-use-bom";
     public static final String X_SHS_CRLF = "X-shs-crlf";
     public static final String X_SHS_XSL = "X-shs-xsl";
+    public static final String X_SHS_FILETEMPLATE = "X-shs-filetemplate";
 }

@@ -43,6 +43,8 @@ public class RivShsServiceMapping implements Serializable {
 
     Boolean useAsynchronousShs = Boolean.TRUE;
     
+    String fileNameTemplate = "req-.xml";
+    
     Boolean useBOM = Boolean.FALSE;
     
     Boolean useWindowsCRLF = Boolean.FALSE;
@@ -114,7 +116,20 @@ public class RivShsServiceMapping implements Serializable {
 		this.useWindowsCRLF = useWindowsCRLF;
 	}
 
-    @Override
+    public String getFileNameTemplate() {
+		return fileNameTemplate;
+	}
+	public void setFileNameTemplate(String fileNameTemplate) {
+		this.fileNameTemplate = fileNameTemplate;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public void setUseBOM(Boolean useBOM) {
+		this.useBOM = useBOM;
+	}
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
