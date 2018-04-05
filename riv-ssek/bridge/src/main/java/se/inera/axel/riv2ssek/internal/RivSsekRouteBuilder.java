@@ -38,6 +38,7 @@ public class RivSsekRouteBuilder extends RouteBuilder {
             .add("soap", "http://schemas.xmlsoap.org/soap/envelope/")
             .add("ssek", "http://schemas.ssek.org/ssek/2006-05-10/");
     private final String SSEK_MAPPING = "ssekMapping";
+    public static final String RIV_CORR_ID = "x-skltp-correlation-id";
 
     @Override
     public void configure() throws Exception {
@@ -53,7 +54,7 @@ public class RivSsekRouteBuilder extends RouteBuilder {
             .setHeader("receiver").xpath("//add:To", String.class, namespaces)
         .end()
         .validate(not(header("receiver").isEqualTo("")))
-        .setHeader("txId", header("x-vp-correlation-id"))
+        .setHeader("txId", header(RIV_CORR_ID))
         .choice().when(or(header("txId").isNull(), header("txId").isEqualTo("")))
             .process(new Processor() {
                 @Override

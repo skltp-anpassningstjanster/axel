@@ -66,6 +66,39 @@
                         <textarea class="span9" rows="15" size="150" wicket:id="asynchronousResponseSoapBody" />
                     </div>
                 </div>
+                 <div wicket:id="control.fileNameTemplate" class="control-group">
+                    <label for="fileNameTemplate" class="control-label">
+                        Filename template
+                    </label>
+                    <div class="controls">
+                        <input class="span9" type="text" size="150" wicket:id="fileNameTemplate" />
+                    </div>
+                </div>
+                <h2>Transformations</h2>
+                <div wicket:id="control.useBOM" class="control-group">
+                    <label for="useBOM" class="control-label nowrap">
+                        Use UTF-8 BOM
+                    </label>
+                    <div class="controls">
+                        <input type="checkbox" wicket:id="useBOM" />
+                    </div>
+                </div>
+                <div wicket:id="control.useWindowsCRLF" class="control-group">
+                    <label for="useWindowsCRLF" class="control-label nowrap">
+                        Use Windows (CR-LF)
+                    </label>
+                    <div class="controls">
+                        <input type="checkbox" wicket:id="useWindowsCRLF" />
+                    </div>
+                </div>                
+                 <div wicket:id="control.xslScript" class="control-group">
+                    <label for="xslScript" class="control-label">
+                        Xslt script
+                    </label>
+                    <div class="controls">
+                        <textarea class="span9" rows="15" size="150" wicket:id="xslScript" />
+                    </div>
+                </div>
                 <div class="form-actions">
                     <input type="submit" class="btn" wicket:id="submit" value="Save" />
                     <wicket:link>

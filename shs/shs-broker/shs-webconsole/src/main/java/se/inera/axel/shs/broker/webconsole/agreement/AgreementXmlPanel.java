@@ -56,7 +56,7 @@ public class AgreementXmlPanel extends Panel {
     @SpringBean(name = "agreementAdminService")
 	AgreementAdminService agreementAdminService;
 	
-	private ShsAgreementMarshaller marshaller;
+	private transient ShsAgreementMarshaller marshaller;
 
 	/**
 	 * Constructor

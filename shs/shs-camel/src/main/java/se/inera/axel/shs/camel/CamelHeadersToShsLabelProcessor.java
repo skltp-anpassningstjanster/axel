@@ -69,7 +69,10 @@ public class CamelHeadersToShsLabelProcessor implements Processor {
 		label.setCorrId(in.getHeader(ShsHeaders.CORRID, label.getTxId(), String.class));
 		label.setDatetime(in.getHeader(ShsHeaders.DATETIME, new Date(), Date.class));
 		
-		label.setStatus(in.getHeader(ShsHeaders.STATUS, Status.PRODUCTION, Status.class));
+		String status = in.getHeader(ShsHeaders.STATUS, Status.PRODUCTION.toString(), String.class);
+		label.setStatus(Status.valueOf(status.toUpperCase()));
+		
+		label.setVersion(label.getVersion());
 		
 		SequenceType sequenceType = in.getHeader(ShsHeaders.SEQUENCETYPE, SequenceType.class);
 		if (sequenceType == null) {

@@ -19,6 +19,15 @@
 		</layout> 
 	</appender>
 
+	<appender name="ROLLINGFILE_MESSAGELOG" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="${catalina.base}/logs/axel-shs-broker-messages.log"/>
+		<param name="MaxFileSize" value="50MB"/>
+		<param name="MaxBackupIndex" value="10"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] %-30c - %m%n"/>
+		</layout>
+	</appender>
+
 	<!--
 		Loglevels: {OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL} See:
 		http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html
@@ -34,6 +43,11 @@
 
 	<logger name="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<level value="INFO"/>
+	</logger>
+
+	<logger name="se.inera.axel.shs.broker.rs.internal.MessageInfoLogger" additivity="false">
+		<level value="INFO"/>
+		<appender-ref ref="ROLLINGFILE_MESSAGELOG"/>
 	</logger>
 
 	<logger name="se.inera.axel">

@@ -28,9 +28,12 @@ import se.inera.axel.shs.broker.messagestore.MessageLogService;
 import se.inera.axel.shs.broker.messagestore.MessageState;
 import se.inera.axel.shs.broker.messagestore.ShsMessageEntry;
 import se.inera.axel.shs.broker.messagestore.ShsMessageEntryMaker;
+import se.inera.axel.shs.broker.messagestore.ShsMessageEntryMaker.ShsMessageEntryInstantiator;
 import se.inera.axel.shs.mime.ShsMessage;
 import se.inera.axel.shs.mime.ShsMessageMaker;
 import se.inera.axel.shs.xml.label.*;
+import se.inera.axel.shs.xml.label.ShsLabelMaker.EndRecipientInstantiator;
+import se.inera.axel.shs.xml.label.ShsLabelMaker.ToInstantiator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,12 +61,13 @@ public class MockConfig {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Bean
+    @SuppressWarnings("unchecked")
+	@Bean
     public MessageLogService messageLogService() {
         final List<ShsMessageEntry> entries = new ArrayList<ShsMessageEntry>();
 
         ShsLabel label1 = make(a(ShsLabel,
-                with(endRecipient, a(EndRecipient, with(EndRecipient.value,
+                with(endRecipient, a(EndRecipient, with(EndRecipientInstantiator.value,
                         ShsLabelMaker.DEFAULT_TEST_ENDRECIPIENT))),
                 with(subject, SUBJECT_WITH_SPECIAL_CHARS),
                 with(transferType, TransferType.SYNCH)));
@@ -87,26 +91,26 @@ public class MockConfig {
         label1.getOriginatorOrFrom().add(from);
         
         entries.add(make(a(ShsMessageEntryMaker.ShsMessageEntry,
-                with(ShsMessageEntryMaker.ShsMessageEntry.state, MessageState.RECEIVED),
-                with(ShsMessageEntryMaker.ShsMessageEntry.label, label1))));
+                with(ShsMessageEntryInstantiator.state, MessageState.RECEIVED),
+                with(ShsMessageEntryInstantiator.label, label1))));
         
         entries.add(make(a(ShsMessageEntryMaker.ShsMessageEntry,
-                with(ShsMessageEntryMaker.ShsMessageEntry.state, MessageState.RECEIVED),
-                with(ShsMessageEntryMaker.ShsMessageEntry.label, a(ShsLabel,
-                        with(endRecipient, a(EndRecipient, with(EndRecipient.value,
+                with(ShsMessageEntryInstantiator.state, MessageState.RECEIVED),
+                with(ShsMessageEntryInstantiator.label, a(ShsLabel,
+                        with(endRecipient, a(EndRecipient, with(EndRecipientInstantiator.value,
                                 ShsLabelMaker.DEFAULT_TEST_ENDRECIPIENT))),
                         with(transferType, TransferType.ASYNCH))))));
 
         entries.add(make(a(ShsMessageEntryMaker.ShsMessageEntry,
-                with(ShsMessageEntryMaker.ShsMessageEntry.state, MessageState.RECEIVED),
-                with(ShsMessageEntryMaker.ShsMessageEntry.label, a(ShsLabel,
-                        with(to, a(To, with(To.value, ShsLabelMaker.DEFAULT_TEST_TO))),
+                with(ShsMessageEntryInstantiator.state, MessageState.RECEIVED),
+                with(ShsMessageEntryInstantiator.label, a(ShsLabel,
+                        with(to, a(To, with(ToInstantiator.value, ShsLabelMaker.DEFAULT_TEST_TO))),
                         with(transferType, TransferType.ASYNCH))))));
 
         entries.add(make(a(ShsMessageEntryMaker.ShsMessageEntry,
-                with(ShsMessageEntryMaker.ShsMessageEntry.state, MessageState.RECEIVED),
-                with(ShsMessageEntryMaker.ShsMessageEntry.label, a(ShsLabel,
-                        with(to, a(To, with(To.value, ShsLabelMaker.DEFAULT_TEST_TO))),
+                with(ShsMessageEntryInstantiator.state, MessageState.RECEIVED),
+                with(ShsMessageEntryInstantiator.label, a(ShsLabel,
+                        with(to, a(To, with(ToInstantiator.value, ShsLabelMaker.DEFAULT_TEST_TO))),
                         with(transferType, TransferType.ASYNCH))))));
 
 

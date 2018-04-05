@@ -88,7 +88,7 @@ public class ReceiveServiceRouteBuilder extends RouteBuilder {
             .handled(true)
         .end()
         .setProperty(ShsHeaders.LABEL, method(ShsMessageMarshaller.class, "parseLabel"))
-        .beanRef("senderValidationService", "validateSender(${header.AxelCallerIp}, ${header.AxelSenderCertificate}, ${property.ShsLabel.from.value})")
+        .bean(MessageInfoLogger.class, "log(*,${property.ShsLabel},'req-in')")
         .choice().when().simple("${property.ShsLabel.transferType} == 'SYNCH'")
             .to("direct-vm:shs:synch")
         .when(header(AxelHeaders.ROBUST_ASYNCH_SHS).isNotNull())
@@ -113,7 +113,9 @@ public class ReceiveServiceRouteBuilder extends RouteBuilder {
                             + ":" + TimestampConverter.DATETIME_FORMAT + "}"))
             .setHeader(ShsHeaders.X_SHS_DUPLICATEMSG, constant("no"))
             .transform(simple("${body.label.txId}"))
-        .end();
+        .end()
+        .bean(MessageInfoLogger.class, "log(*,'resp-out')");
+
     }
 
 }

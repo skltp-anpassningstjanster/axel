@@ -28,7 +28,6 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import se.inera.axel.shs.broker.product.ProductAdminService;
 import se.inera.axel.shs.broker.product.ProductService;
 import se.inera.axel.shs.broker.product.mongo.model.MongoShsProduct;
 import se.inera.axel.shs.xml.product.ShsProduct;

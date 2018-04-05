@@ -18,8 +18,8 @@
  */
 package se.inera.axel.riv.internal;
 
+import org.apache.camel.ExchangeProperty;
 import org.apache.camel.Header;
-import org.apache.camel.Property;
 import org.apache.commons.lang.StringUtils;
 import se.inera.axel.riv.RivShsMappingService;
 import se.inera.axel.riv.RivShsServiceMapping;
@@ -69,7 +69,7 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
 	}
 	
 	@Override
-	public String mapShsProductToRivService(@Property(ShsHeaders.LABEL) ShsLabel shsLabel) {
+	public String mapShsProductToRivService(@ExchangeProperty(ShsHeaders.LABEL) ShsLabel shsLabel) {
 		String productId = shsLabel.getProduct().getValue();
 		log.debug("mapShsProductToRivService({})", productId);
 		
@@ -80,6 +80,59 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
 		}
 		
 		return mapping.getRivServiceNamespace();
+	}
+
+    @Override
+	public String mapShsProductToXslScript(@ExchangeProperty(ShsHeaders.LABEL) ShsLabel shsLabel) {
+		String productId = shsLabel.getProduct().getValue();
+		log.debug("mapShsProductToXslScript({})", productId);
+		
+		RivShsServiceMapping mapping = findByShsProductId(productId);
+		
+		if (mapping == null) {
+			throw new RuntimeException("No RIV Service found for SHS ProductId: " + productId);
+		}
+		String response = mapping.getXslScript();
+		return StringUtils.isEmpty(response) ? null : response;
+	}
+
+    @Override
+	public String mapRivServiceToXslScript(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+		log.debug("mapShsProductToXslScript({})", rivServiceNamespace);
+		
+        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
+		
+		if (mapping == null) {
+            throw new RuntimeException("No mapping for XslScript found for RIV Service " + rivServiceNamespace);
+		}
+		String response = mapping.getXslScript();
+		return StringUtils.isEmpty(response) ? null : response;
+	}
+
+    @Override
+	public Boolean mapRivServiceToUseBOM(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+		log.debug("mapShsProductToXslScript({})", rivServiceNamespace);
+		
+        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
+		
+		if (mapping == null) {
+            throw new RuntimeException("No mapping for BOM found for RIV Service " + rivServiceNamespace);
+		}
+		Boolean response = mapping.getUseBOM();
+		return response == null ? Boolean.FALSE : response;
+	}
+
+    @Override
+	public Boolean mapRivServiceToUseCrLf(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+		log.debug("mapShsProductToXslScript({})", rivServiceNamespace);
+		
+        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
+		
+		if (mapping == null) {
+            throw new RuntimeException("No mapping for CrLf found for RIV Service " + rivServiceNamespace);
+		}
+		Boolean response = mapping.getUseWindowsCRLF();
+		return response == null ? Boolean.FALSE : response;
 	}
 
     @Override
@@ -110,6 +163,25 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
         return mapping.getUseAsynchronousShs();
     }
 
+	@Override
+	public String mapRivShsFileNameTemplate(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+		
+		log.debug("mapRivServiceToRivEndpoint({})", rivServiceNamespace);
+		
+		RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
+		
+		if (mapping == null) {
+			throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace);
+		}
+		
+		String fileNameTemplate = mapping.getFileNameTemplate();
+		if(fileNameTemplate == null || fileNameTemplate.trim().length() == 0)
+			fileNameTemplate = "req-.xml";
+		
+		return fileNameTemplate;
+	}
+	
+    
     private RivShsServiceMapping findByRivServiceNamespace(String rivServiceNamespace) {
 		return repository.findByRivServiceNamespace(rivServiceNamespace);
 	}

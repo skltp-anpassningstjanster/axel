@@ -19,6 +19,7 @@
 package se.inera.axel.shs.broker.rs.internal;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.ExchangeProperty;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Property;
 import org.apache.camel.builder.PredicateBuilder;
@@ -34,7 +35,8 @@ import se.inera.axel.shs.xml.label.ShsLabel;
  */
 public class SynchBrokerRouteBuilder extends RouteBuilder {
 
-    private boolean enableStreamCaching = false;
+    @SuppressWarnings("unused")
+	private boolean enableStreamCaching = false;
 
     public void setEnableStreamCaching(boolean enabled) {
         this.enableStreamCaching = enabled;
@@ -80,19 +82,24 @@ public class SynchBrokerRouteBuilder extends RouteBuilder {
         .setHeader(Exchange.HTTP_URI, method("shsRouter", "resolveEndpoint(${property.ShsLabel})"))
         .choice().when(PredicateBuilder.startsWith(header(Exchange.HTTP_URI), constant("https")))
             .convertBodyTo(String.class)
-            .to("https4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true&sslContextParameters=shsRsSslContext&x509HostnameVerifier=allowAllHostnameVerifier")
+                .bean(MessageInfoLogger.class, "log(*,'req-out')")
+                .to("https4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true&sslContextParameters=shsRsSslContext&x509HostnameVerifier=allowAllHostnameVerifier")
+                .bean(MessageInfoLogger.class, "log(*,'resp-in')")
         .otherwise()
-            .to("http4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true")
+                .bean(MessageInfoLogger.class, "log(*,'req-out')")
+                .to("http4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true")
+                .bean(MessageInfoLogger.class, "log(*,'resp-in')")
         .end();
 
 
         from("direct:sendSynchLocal").routeId("direct:sendSynchLocal")
         .setHeader(ShsHeaders.DESTINATION_URI, method("shsRouter", "resolveEndpoint(${property.ShsLabel})"))
+        .bean(MessageInfoLogger.class, "log(*,'synch.local')")
         .to("shs:local");
     }
 
     static public class ReplyLabelProcessor {
-        public ShsLabel fixReply(@Property(ShsHeaders.LABEL) ShsLabel label) {
+        public ShsLabel fixReply(@ExchangeProperty(ShsHeaders.LABEL) ShsLabel label) {
             if (label.getSequenceType() != SequenceType.REPLY
                     && label.getSequenceType() != SequenceType.ADM) {
                 label.setSequenceType(SequenceType.REPLY);

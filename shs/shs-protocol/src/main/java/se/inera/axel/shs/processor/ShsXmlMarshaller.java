@@ -26,19 +26,27 @@ import se.inera.axel.shs.xml.XmlException;
 import javax.xml.bind.*;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class ShsXmlMarshaller<T> {
     protected org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
 	
     protected JAXBContext jaxbContext;
+    private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
 
     private static class XmlReaderPool extends ConcurrentLinkedQueue<XMLReader> {
-        protected org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(XmlReaderPool.class);
+
+		private static final long serialVersionUID = 716395789526610701L;
+		protected org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(XmlReaderPool.class);
 
         @Override
         public XMLReader poll() {
@@ -102,14 +110,17 @@ public abstract class ShsXmlMarshaller<T> {
 		marshaller = jaxbContext.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.setProperty(Marshaller.JAXB_FRAGMENT, false);
 		
+		//Create fragment and set xml headers manually. since we do not wish standalone="yes" in <?xml ...
+		marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+		
+		/* Does not seem to get expected result
 		try {
             marshaller.setProperty("com.sun.xml.bind.xmlHeaders", getDoctypeHeader());
 		} catch (PropertyException pex) {
             marshaller.setProperty("com.sun.xml.internal.bind.xmlHeaders", getDoctypeHeader());
 		}
-		
+		*/
 		return marshaller;
 	}
 	
@@ -163,18 +174,21 @@ public abstract class ShsXmlMarshaller<T> {
 		Marshaller marshaller;
 		try {
 			marshaller = createMarshaller();
-
+			setXmlHeader(writer);
 			marshaller.marshal(object, new StreamResult(writer));
 		} catch (JAXBException e) {
 			throw new XmlException("Failed to marshal", e);
 		}
-			
-		return writer.toString();
+
+		String xml = writer.toString();
+
+		return xml;
 	}
 	
 	public void marshal(T object, OutputStream out) throws XmlException {
 		try {
 			Marshaller marshaller = createMarshaller();
+			setXmlHeader(out);
 			marshaller.marshal(object, out);
 		} catch (JAXBException e) {
 			throw new XmlException("Failed to marshal", e);
@@ -184,9 +198,23 @@ public abstract class ShsXmlMarshaller<T> {
 	public void marshal(T object, OutputStream out, String encoding) throws XmlException {
 		try {
 			Marshaller marshaller = createMarshaller(encoding);
+			setXmlHeader(out);
 			marshaller.marshal(object, out);
 		} catch (JAXBException e) {
 			throw new XmlException("Failed to marshal", e);
 		}
+	}
+
+	private void setXmlHeader(Writer writer) throws JAXBException {
+		try {
+			writer.append(XML_HEADER);
+			writer.append(getDoctypeHeader());
+		} catch (IOException e) {
+			throw new JAXBException("Can not append string to writer");
+		}
+	}
+
+	private void setXmlHeader(OutputStream out) throws JAXBException {
+		setXmlHeader(new PrintWriter(out));
 	}
 }

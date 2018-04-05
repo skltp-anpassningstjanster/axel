@@ -273,25 +273,35 @@ public class ShsMessageMarshaller {
      * reset after the label has been parsed.
      */
     public ShsLabel parseLabel(InputStream inputStream) throws IllegalMessageStructureException {
-
         try {
-            // Mark might not be supported
-            inputStream.mark(4096);
-            byte[] buffer = new byte[4096];
-            IOUtils.read(inputStream, buffer, 0, 4096);
-
-            // Will throw IOException if the InputStream mark has been invalidated
-            // or if the stream does not support mark and is not a StreamCache
-            inputStream.reset();
-
-            String xml = StringUtils.substringBetween(new String(buffer, Charset.forName("ISO-8859-1")), "<shs.label ", "</shs.label>");
-            if (xml == null) {
-                throw new IllegalMessageStructureException("shs label not found in: " + new String(buffer));
-            }
-            ShsLabel label = shsLabelMarshaller.unmarshal("<shs.label " + xml + "</shs.label>");
+			byte[] buffer = getBytesFromInputStream(inputStream);
+			ShsLabel label = unmarshalLabel(buffer);
             return label;
         } catch (IOException e) {
             throw new IllegalMessageStructureException("Error parsing label xml", e);
         }
     }
+
+	public ShsLabel unmarshalLabel(byte[] buffer) {
+		String xml = StringUtils.substringBetween(new String(buffer, Charset.forName("ISO-8859-1")), "<shs.label ", "</shs.label>");
+		if (xml == null) {
+			throw new IllegalMessageStructureException("shs label not found in: " + new String(buffer));
+		}
+		return shsLabelMarshaller.unmarshal("<shs.label " + xml + "</shs.label>");
+	}
+
+	public byte[] getBytesFromInputStream(InputStream inputStream) throws IOException {
+		// Mark might not be supported
+		inputStream.mark(4096);
+		byte[] buffer = new byte[4096];
+		IOUtils.read(inputStream, buffer, 0, 4096);
+
+		// Will throw IOException if the InputStream mark has been invalidated
+		// or if the stream does not support mark and is not a StreamCache
+		inputStream.reset();
+
+		return buffer;
+	}
+
+
 }

@@ -24,13 +24,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import se.inera.axel.shs.broker.messagestore.MessageNotFoundException;
 import se.inera.axel.shs.broker.messagestore.MessageStoreService;
 import se.inera.axel.shs.broker.messagestore.ShsMessageEntry;
 import se.inera.axel.shs.mime.ShsMessage;
 import se.inera.axel.shs.processor.ShsMessageMarshaller;
-import se.inera.axel.shs.xml.label.ShsLabel;
-
 import javax.mail.util.SharedFileInputStream;
 import java.io.BufferedInputStream;
 import java.io.File;

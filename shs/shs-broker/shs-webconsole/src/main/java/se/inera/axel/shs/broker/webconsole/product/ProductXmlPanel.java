@@ -56,8 +56,8 @@ public class ProductXmlPanel extends Panel {
     @Named("productService")
     @SpringBean(name = "productAdminService")
 	ProductAdminService productAdminService;
-	
-	private ShsProductMarshaller marshaller;
+
+	private transient ShsProductMarshaller marshaller;
 
 	/**
 	 * Constructor

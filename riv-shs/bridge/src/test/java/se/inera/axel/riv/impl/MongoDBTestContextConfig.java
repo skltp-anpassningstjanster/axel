@@ -18,7 +18,7 @@
  */
 package se.inera.axel.riv.impl;
 
-import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
@@ -27,8 +27,9 @@ import de.flapdoodle.embed.mongo.MongodStarter;
 import de.flapdoodle.embed.mongo.config.*;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
-import de.flapdoodle.embed.process.extract.UUIDTempNaming;
 import de.flapdoodle.embed.process.runtime.Network;
+import se.inera.axel.test.flapdoodle.FixedTempNaming;
+
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +42,13 @@ import org.springframework.data.mongodb.repository.support.MongoRepositoryFactor
 @Configuration
 public class MongoDBTestContextConfig implements DisposableBean {
 
+    MongoClient mongo;
+    MongodProcess mongodProcess;
+    
     public @Bean(destroyMethod = "stop") MongodExecutable mongodExecutable() throws Exception {
+    	
+    	
+    	
         IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.V3_4)
                 .net(new Net(Network.getFreeServerPort(), Network.localhostIsIPv6()))
@@ -49,9 +56,9 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
         IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
                 .defaults(Command.MongoD)
-                .artifactStore(new ArtifactStoreBuilder()
+                .artifactStore(new ExtractedArtifactStoreBuilder()
                         .defaults(Command.MongoD)
-                        .executableNaming(new UUIDTempNaming())
+                        .executableNaming(new FixedTempNaming("riv-shs-bridge"))
                 )
                 .build();
 
@@ -62,15 +69,16 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
     public @Bean(destroyMethod = "stop") MongodProcess mongodProcess() throws Exception {
 
-        MongodProcess mongod = mongodExecutable().start();
+    	mongodProcess = mongodExecutable().start();
 
-        return  mongod;
+        return  mongodProcess;
     }
 
-    public @Bean(destroyMethod = "close") Mongo mongo() throws Exception {
+    public @Bean(destroyMethod = "close") MongoClient mongo() throws Exception {
         MongodProcess mongodProcess = mongodProcess();
 
-        return new Mongo(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
+        mongo = new MongoClient(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
+        return mongo;
     }
 
     public @Bean MongoDbFactory mongoDbFactory() throws Exception {
@@ -87,14 +95,12 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-        Mongo mongo = mongo();
 
         if (mongo != null)
             mongo.close();
-
-        MongodProcess mongodProcess = mongodProcess();
-
+        
         if (mongodProcess != null)
             mongodProcess.stop();
     }
+    
 }

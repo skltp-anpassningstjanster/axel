@@ -36,10 +36,17 @@ import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.xml.label.SequenceType;
 import se.inera.axel.shs.xml.label.TransferType;
 
+import java.util.UUID;
+
 import javax.xml.transform.OutputKeys;
 
 public class RivShsRouteBuilder extends RouteBuilder {
 
+	private XslTransformer xslTransformer;
+	public void setXslTransformer(XslTransformer xslTransformer) {
+		this.xslTransformer = xslTransformer;
+	}
+	
     @Override
     public void configure() throws Exception {
 
@@ -66,7 +73,13 @@ public class RivShsRouteBuilder extends RouteBuilder {
                 .validate(header(ShsHeaders.TO).isNotEqualTo(""))
                 .transform().xpath("/soapenv:Envelope/soapenv:Body/*", soapenv)
                 .setHeader(ShsHeaders.PRODUCT_ID, method("rivShsMapper", "mapRivServiceToShsProduct"))
+                .setHeader(ShsHeaders.STATUS, simple("{{shs.label.status}}"))                    
+                .setProperty(ShsHeaders.X_SHS_USE_BOM, method("rivShsMapper", "mapRivServiceToUseBOM"))
+                .setProperty(ShsHeaders.X_SHS_CRLF, method("rivShsMapper", "mapRivServiceToUseCrLf"))
+                .setProperty(ShsHeaders.X_SHS_XSL, method("rivShsMapper", "mapRivServiceToXslScript"))
+               	.process(xslTransformer)
                 .setHeader(ShsHeaders.CORRID, header(RivShsMappingService.HEADER_RIV_CORRID))
+                .setHeader(ShsHeaders.TXID, header(UUID.randomUUID().toString()))
                 .choice().when(method("rivShsMapper", "useAsynchronousShs").isEqualTo(Boolean.TRUE))
                     .setHeader(ShsHeaders.SEQUENCETYPE, constant(SequenceType.EVENT))
                     .setHeader(ShsHeaders.TRANSFERTYPE, constant(TransferType.ASYNCH))
@@ -76,8 +89,9 @@ public class RivShsRouteBuilder extends RouteBuilder {
                     .setHeader(ShsHeaders.TRANSFERTYPE, constant(TransferType.SYNCH))
                 .end()
                 .setHeader(ShsHeaders.DATAPART_TYPE, constant("xml"))
-                .setHeader(ShsHeaders.DATAPART_FILENAME, simple("req-${in.header.ShsLabelCorrId}.xml"))
-                .setHeader(ShsHeaders.DATAPART_CONTENTTYPE, constant("application/xml"))
+                .setProperty(ShsHeaders.X_SHS_FILETEMPLATE, method("rivShsMapper", "mapRivShsFileNameTemplate"))
+                .process(new FileNameProcessor())
+                .setHeader(ShsHeaders.DATAPART_CONTENTTYPE, constant(RivShsMappingService.CONTENT_TYPE))
                 .setHeader(ShsHeaders.DATAPART_TRANSFERENCODING, constant(TransferEncoding.BASE64))
                 .setHeader(org.apache.camel.converter.jaxp.XmlConverter.OUTPUT_PROPERTIES_PREFIX + OutputKeys.OMIT_XML_DECLARATION, constant("no"))
                 .beanRef("camelToShsConverter")
