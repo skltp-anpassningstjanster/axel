@@ -38,12 +38,14 @@ import se.inera.axel.shs.xml.product.ShsProduct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @PaxWicketMountPoint(mountPoint = "/riv-shs/mappings/edit")
 public class RivShsServiceMappingEditPage extends BasePage {
 	private static final long serialVersionUID = 1L;
+	private List<String> labelStatusList = Arrays.asList("default", "test", "production");
 
     @Inject
 	@Named("rivShsServiceMappingRepository")
@@ -94,7 +96,10 @@ public class RivShsServiceMappingEditPage extends BasePage {
 		form.add(new ControlGroupContainer(new TextField<String>("rivServiceEndpoint")));
         form.add(new ControlGroupContainer(new CheckBox("useAsynchronousShs")));
         form.add(new ControlGroupContainer(new TextArea<String>("asynchronousResponseSoapBody")));
-        form.add(new ControlGroupContainer(new TextField("fileNameTemplate")));        
+        form.add(new ControlGroupContainer(new TextField("fileNameTemplate")));    
+        
+        form.add(new ControlGroupContainer(new DropDownChoice("labelStatus", labelStatusList)));  
+        
         form.add(new ControlGroupContainer(new CheckBox("useBOM")));
         form.add(new ControlGroupContainer(new CheckBox("useWindowsCRLF")));
         form.add(new ControlGroupContainer(new TextArea<String>("xslScript")));

@@ -45,6 +45,8 @@ public class RivShsServiceMapping implements Serializable {
     
     String fileNameTemplate = "req-.xml";
     
+    String labelStatus = "default";
+    
     Boolean useBOM = Boolean.FALSE;
     
     Boolean useWindowsCRLF = Boolean.FALSE;
@@ -127,6 +129,12 @@ public class RivShsServiceMapping implements Serializable {
 	}
 	public void setUseBOM(Boolean useBOM) {
 		this.useBOM = useBOM;
+	}	
+	public String getLabelStatus() {
+		return labelStatus;
+	}
+	public void setLabelStatus(String labelStatus) {
+		this.labelStatus = labelStatus;
 	}
 	
 	@Override

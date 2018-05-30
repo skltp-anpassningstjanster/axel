@@ -28,6 +28,7 @@ public interface RivShsMappingService {
 	final static String HEADER_SOAP_ACTION ="SOAPAction";
 	final static String HEADER_FILENAME = String.format("req-${in.header.%s}.xml", HEADER_RIV_CORRID);
 	final static String CONTENT_TYPE = "application/xml";
+	final static String DEFAULT_LABEL_STATUS = "default";
 	
 	String mapRivServiceToShsProduct(String rivServiceNamespace);
 	String mapShsProductToRivService(ShsLabel shsLabel);
@@ -39,5 +40,6 @@ public interface RivShsMappingService {
 	Boolean mapRivServiceToUseBOM(String rivServiceNamespace);
 	Boolean mapRivServiceToUseCrLf(String rivServiceNamespace);
 	String mapRivShsFileNameTemplate(String rivServiceNamespace);
+	String mapRivShsLabelStatus(String rivServiceNamespace);
 
 }

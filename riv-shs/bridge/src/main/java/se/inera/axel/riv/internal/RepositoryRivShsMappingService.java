@@ -181,7 +181,24 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
 		return fileNameTemplate;
 	}
 	
-    
+	@Override
+	public String mapRivShsLabelStatus(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+		
+		log.debug("mapRivServiceToRivEndpoint({})", rivServiceNamespace);
+		
+		RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
+		
+		if (mapping == null) {
+			throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace);
+		}
+		
+		String labelStatus = mapping.getLabelStatus();
+		if(labelStatus == null || labelStatus.trim().length() == 0)
+			labelStatus = DEFAULT_LABEL_STATUS;
+		
+		return labelStatus;
+	}
+	    
     private RivShsServiceMapping findByRivServiceNamespace(String rivServiceNamespace) {
 		return repository.findByRivServiceNamespace(rivServiceNamespace);
 	}
