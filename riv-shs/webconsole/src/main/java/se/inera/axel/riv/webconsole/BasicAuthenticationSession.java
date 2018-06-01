@@ -14,13 +14,24 @@ import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import se.inera.axel.riv.authentication.LoginService;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 public class BasicAuthenticationSession extends AuthenticatedWebSession {
-
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BasicAuthenticationSession.class);
 	private static final long serialVersionUID = 4391047631182868491L;
 	private static final Properties props = new Properties();
 	private static String [] whitelist;
+	private String username;
+
+
+//    @Inject
+//    @Named("loginService")
+	@SpringBean(name = "loginService")
+    LoginService loginService;
 
 	public BasicAuthenticationSession(Request request) {
 		super(request);		
@@ -28,6 +39,7 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
 
 	@Override
 	public boolean authenticate(String username, String password) {
+		log.info("!!!!");
 		
 		if(username == null || password == null)
 			return false;
@@ -53,7 +65,8 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
 			log.error("The password is not valid for user {}.", username);
 		else
 			log.info("User {} logged in.", username);
-		
+
+//		return loginService.authenticate();
 		return pwd != null && password.equals(pwd);
 	}
 

@@ -18,6 +18,7 @@
         <module>shs-camel</module>
         <module>shs-cmdline</module>
         <module>shs-broker</module>
+        <module>shs-authentication</module>
     </modules>
 
     <dependencies>

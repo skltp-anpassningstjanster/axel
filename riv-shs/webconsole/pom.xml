@@ -31,6 +31,11 @@
             <artifactId>riv-shs-bridge</artifactId>
 			<version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>se.inera.axel</groupId>
+            <artifactId>shs-authentication</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
