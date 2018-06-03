@@ -33,7 +33,7 @@ import javax.annotation.Resource;
 public class RepositoryRivShsMappingService implements RivShsMappingService {
 
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RepositoryRivShsMappingService.class);
-	
+
 	@Resource
 	RivShsServiceMappingRepository repository;
 	
@@ -41,30 +41,22 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
 	 * @see se.inera.axel.riv.mongo.RivShsMappingService#mapRivServiceToShsProduct(java.lang.String)
 	 */
 	@Override
-	public String mapRivServiceToShsProduct(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+	public String mapRivServiceToShsProduct(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
 		
 		log.debug("mapRivServiceToShsProduct({})", rivServiceNamespace);
 		
-		RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
-		
-		if (mapping == null) {
-			throw new RuntimeException("No SHS ProductId found for RIV Service " + rivServiceNamespace);
-		}
-		
+		RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
+
 		return mapping.getShsProductId();
 	}
 
 	@Override
-	public String mapRivServiceToRivEndpoint(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+	public String mapRivServiceToRivEndpoint(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
 		
 		log.debug("mapRivServiceToRivEndpoint({})", rivServiceNamespace);
 		
-		RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
-		
-		if (mapping == null) {
-			throw new RuntimeException("No RIV Endpoint found for RIV Service " + rivServiceNamespace);
-		}
-		
+		RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
+
 		return mapping.getRivServiceEndpoint();
 	}
 	
@@ -83,67 +75,40 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
 	}
 
     @Override
-	public String mapShsProductToXslScript(@ExchangeProperty(ShsHeaders.LABEL) ShsLabel shsLabel) {
-		String productId = shsLabel.getProduct().getValue();
-		log.debug("mapShsProductToXslScript({})", productId);
+	public String mapRivServiceToXslScript(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
+		log.debug("mapShsProductToXslScript({})", rivServiceNamespace);
 		
-		RivShsServiceMapping mapping = findByShsProductId(productId);
-		
-		if (mapping == null) {
-			throw new RuntimeException("No RIV Service found for SHS ProductId: " + productId);
-		}
+		RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
+
 		String response = mapping.getXslScript();
 		return StringUtils.isEmpty(response) ? null : response;
 	}
 
     @Override
-	public String mapRivServiceToXslScript(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+	public Boolean mapRivServiceToUseBOM(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
 		log.debug("mapShsProductToXslScript({})", rivServiceNamespace);
 		
-        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
-		
-		if (mapping == null) {
-            throw new RuntimeException("No mapping for XslScript found for RIV Service " + rivServiceNamespace);
-		}
-		String response = mapping.getXslScript();
-		return StringUtils.isEmpty(response) ? null : response;
-	}
+		RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
 
-    @Override
-	public Boolean mapRivServiceToUseBOM(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
-		log.debug("mapShsProductToXslScript({})", rivServiceNamespace);
-		
-        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
-		
-		if (mapping == null) {
-            throw new RuntimeException("No mapping for BOM found for RIV Service " + rivServiceNamespace);
-		}
 		Boolean response = mapping.getUseBOM();
 		return response == null ? Boolean.FALSE : response;
 	}
 
     @Override
-	public Boolean mapRivServiceToUseCrLf(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+	public Boolean mapRivServiceToUseCrLf(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
 		log.debug("mapShsProductToXslScript({})", rivServiceNamespace);
 		
-        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
+		RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
 		
-		if (mapping == null) {
-            throw new RuntimeException("No mapping for CrLf found for RIV Service " + rivServiceNamespace);
-		}
 		Boolean response = mapping.getUseWindowsCRLF();
 		return response == null ? Boolean.FALSE : response;
 	}
 
     @Override
-    public String mapRivServiceToResponseBody(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+    public String mapRivServiceToResponseBody(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
         log.debug("mapRivServiceToResponseBody({})", rivServiceNamespace);
 
-        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
-
-        if (mapping == null) {
-            throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace);
-        }
+		RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
 
         String response = mapping.getAsynchronousResponseSoapBody();
 
@@ -151,29 +116,21 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
     }
 
     @Override
-    public Boolean useAsynchronousShs(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+    public Boolean useAsynchronousShs(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
         log.debug("useAsynchronousShs({})", rivServiceNamespace);
 
-        RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
-
-        if (mapping == null) {
-            throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace);
-        }
+        RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
 
         return mapping.getUseAsynchronousShs();
     }
 
 	@Override
-	public String mapRivShsFileNameTemplate(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
+	public String mapRivShsFileNameTemplate(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
 		
 		log.debug("mapRivServiceToRivEndpoint({})", rivServiceNamespace);
 		
-		RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
-		
-		if (mapping == null) {
-			throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace);
-		}
-		
+		RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
+
 		String fileNameTemplate = mapping.getFileNameTemplate();
 		if(fileNameTemplate == null || fileNameTemplate.trim().length() == 0)
 			fileNameTemplate = "req-.xml";
@@ -182,16 +139,12 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
 	}
 	
 	@Override
-	public String mapRivShsLabelStatus(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace) {
-		
+	public String mapRivShsLabelStatus(@Header(RivShsMappingService.HEADER_SOAP_ACTION) String rivServiceNamespace, @ExchangeProperty(ShsHeaders.TO) String logicalAddress) {
+	    
 		log.debug("mapRivServiceToRivEndpoint({})", rivServiceNamespace);
 		
-		RivShsServiceMapping mapping = findByRivServiceNamespace(StringUtils.remove(rivServiceNamespace, '"'));
-		
-		if (mapping == null) {
-			throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace);
-		}
-		
+		RivShsServiceMapping mapping = findByRivServiceNamespaceAndlogicalAddress(rivServiceNamespace, logicalAddress);
+				
 		String labelStatus = mapping.getLabelStatus();
 		if(labelStatus == null || labelStatus.trim().length() == 0)
 			labelStatus = DEFAULT_LABEL_STATUS;
@@ -199,12 +152,26 @@ public class RepositoryRivShsMappingService implements RivShsMappingService {
 		return labelStatus;
 	}
 	    
-    private RivShsServiceMapping findByRivServiceNamespace(String rivServiceNamespace) {
-		return repository.findByRivServiceNamespace(rivServiceNamespace);
+    @SuppressWarnings("unused")
+	private RivShsServiceMapping findByRivServiceNamespace(String rivServiceNamespace) {
+		return repository.findByRivServiceNamespace(clean(rivServiceNamespace));
+	}
+
+    private RivShsServiceMapping findByRivServiceNamespaceAndlogicalAddress(String rivServiceNamespace, String logicalAddress) {
+		RivShsServiceMapping mapping = repository.findByRivServiceNamespaceAndLogicalAddress(clean(rivServiceNamespace), clean(logicalAddress));
+		if (mapping == null) {
+            throw new RuntimeException("No mapping found for RIV Service " + rivServiceNamespace +" and logical address " + logicalAddress);
+		}
+		return mapping;
 	}
 
 	private RivShsServiceMapping findByShsProductId(String shsProductId) {
-		return repository.findByShsProductId(shsProductId);
+		return repository.findByShsProductId(clean(shsProductId));
 	}
 
+	private String clean(String s) {
+		if(s == null)
+			return "";
+		return StringUtils.remove(s, '"').trim();
+	}
 }

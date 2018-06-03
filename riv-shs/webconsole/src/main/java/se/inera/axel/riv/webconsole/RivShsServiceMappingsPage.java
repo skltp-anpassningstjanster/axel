@@ -63,6 +63,7 @@ public class RivShsServiceMappingsPage extends BasePage {
 			protected void populateItem(final Item<RivShsServiceMapping> item) {
 				item.setModel(new CompoundPropertyModel<>(item.getModel()));
 				String id = item.getModelObject().getId();
+				item.add(labelWithLink("logicalAddress", id));
 				item.add(labelWithLink("rivServiceNamespace", id));
 				item.add(labelWithLink("shsProductId", id));
 //				item.add(labelWithLink("rivServiceEndpoint", id));

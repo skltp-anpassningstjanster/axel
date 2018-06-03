@@ -243,10 +243,10 @@ public class RivShsRouteBuilderTest extends CamelTestSupport {
         reset(rivShsMapper);
         when(rivShsMapper.mapShsProductToRivService(any(ShsLabel.class)))
                 .thenReturn(PING_NAMESPACE + ":PingForConfiguration");
-        when(rivShsMapper.mapRivServiceToRivEndpoint(anyString())).thenReturn(PING_ENDPOINT);
-        when(rivShsMapper.mapRivServiceToShsProduct(anyString())).thenReturn(ShsLabelMaker.DEFAULT_TEST_PRODUCT_ID);
-        when(rivShsMapper.mapRivShsFileNameTemplate(anyString())).thenReturn("req-${in.header.x-skltp-correlation-id}.xml");
-        when(rivShsMapper.mapRivShsLabelStatus(anyString())).thenReturn(se.inera.axel.riv.RivShsMappingService.DEFAULT_LABEL_STATUS);
+        when(rivShsMapper.mapRivServiceToRivEndpoint(anyString(),anyString())).thenReturn(PING_ENDPOINT);
+        when(rivShsMapper.mapRivServiceToShsProduct(anyString(),anyString())).thenReturn(ShsLabelMaker.DEFAULT_TEST_PRODUCT_ID);
+        when(rivShsMapper.mapRivShsFileNameTemplate(anyString(),anyString())).thenReturn("req-${in.header.x-skltp-correlation-id}.xml");
+        when(rivShsMapper.mapRivShsLabelStatus(anyString(),anyString())).thenReturn(se.inera.axel.riv.RivShsMappingService.DEFAULT_LABEL_STATUS);
         mockTestShs2Riv = getMockEndpoint("mock:testShs2riv");
         mockTestShs2Riv.reset();
     }

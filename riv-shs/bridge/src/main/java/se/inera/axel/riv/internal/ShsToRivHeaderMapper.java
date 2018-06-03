@@ -19,7 +19,7 @@
 package se.inera.axel.riv.internal;
 
 import org.apache.camel.Body;
-import org.apache.camel.Property;
+import org.apache.camel.ExchangeProperty;
 import org.apache.camel.component.cxf.CxfPayload;
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
@@ -52,7 +52,7 @@ public class ShsToRivHeaderMapper {
     }
 
     public CxfPayload<SoapHeader> addRivHeaders(@Body CxfPayload<SoapHeader> body,
-                                                @Property(ShsHeaders.LABEL) ShsLabel label) {
+                                                @ExchangeProperty(ShsHeaders.LABEL) ShsLabel label) {
         List<SoapHeader> soapHeaders = body.getHeaders();
 
         if (label == null) {
