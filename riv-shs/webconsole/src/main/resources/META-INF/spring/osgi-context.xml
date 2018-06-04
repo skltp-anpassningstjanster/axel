@@ -27,7 +27,7 @@
 
 	<osgi:reference id="rivShsServiceMappingRepository" interface="se.inera.axel.riv.RivShsServiceMappingRepository" />
 	<osgi:reference id="productService" interface="se.inera.axel.shs.broker.product.ProductService" />
-	<!--<osgi:reference id="loginService" interface="se.inera.axel.riv.authentication.LoginService" />-->
+	<osgi:reference id="loginService" interface="se.inera.axel.riv.authentication.LoginService" />
 
 	<osgi:service interface="org.ops4j.pax.wicket.api.WebApplicationFactory">
 	  <osgi:service-properties>

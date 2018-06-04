@@ -1,39 +1,49 @@
 package se.inera.axel.riv.authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.sql.Driver;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 @Component
 public class LoginService {
-    public LoginService() {
-        AbstractApplicationContext context = new ClassPathXmlApplicationContext("META-INF/spring/spring-context.xml");
-        DriverManagerDataSource dataSource = (DriverManagerDataSource)context.getBean("dataSource");
-    }
-//
+    private ApplicationContext appContext;
+
 //    @Autowired
 //    private JpaTransactionManager transactionManager;
 //
-//    @Autowired
-//    private DriverManagerDataSource dataSource;
+    private DriverManagerDataSource dataSource;
+
+    public LoginService() {
+    }
+
+    @Autowired
+    public LoginService(DriverManagerDataSource dataSource, ApplicationContext appContext) {
+        this.appContext = appContext;
+        this.dataSource = dataSource;
+    }
 
     public boolean authenticate()  {
-//        Connection conn = dataSource.getConnection();
-//        Statement stmt = conn.createStatement();
-//         ResultSet rs = stmt.executeQuery("SELECT NAME FROM TEST");
-//        while (rs.next()) {
-//            System.out.println(rs.getString("name"));
-//        }
+        try {
+            Connection conn = dataSource.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT anvandarnamn FROM Anvandare");
+            while (rs.next()) {
+                System.out.println(rs.getString("anvandarnamn"));
+            }
 
 
-
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return true;
     }
 

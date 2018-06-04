@@ -15,6 +15,8 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import se.inera.axel.riv.authentication.LoginService;
 
 import javax.inject.Inject;
@@ -28,14 +30,15 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
 	private String username;
 
 
-//    @Inject
-//    @Named("loginService")
-	@SpringBean(name = "loginService")
-    LoginService loginService;
-
 	public BasicAuthenticationSession(Request request) {
-		super(request);		
+		super(request);
 	}
+
+	@Inject
+	@Named("loginService")
+	@SpringBean(name = "loginService")
+	private LoginService loginService;
+
 
 	@Override
 	public boolean authenticate(String username, String password) {

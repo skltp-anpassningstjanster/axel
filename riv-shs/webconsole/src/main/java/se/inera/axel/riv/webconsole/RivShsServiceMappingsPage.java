@@ -34,6 +34,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import se.inera.axel.riv.RivShsServiceMapping;
 import se.inera.axel.riv.RivShsServiceMappingRepository;
+import se.inera.axel.riv.authentication.LoginService;
 import se.inera.axel.riv.webconsole.base.BasePage;
 
 import javax.inject.Inject;
@@ -47,6 +48,11 @@ public class RivShsServiceMappingsPage extends BasePage {
 	@Named("rivShsServiceMappingRepository")
     @SpringBean(name = "rivShsServiceMappingRepository")
 	RivShsServiceMappingRepository mappingRepository;
+
+	@Inject
+	@Named("loginService")
+	@SpringBean(name = "loginService")
+	private LoginService loginService;
 
 	IDataProvider<RivShsServiceMapping> mappingData;
 
