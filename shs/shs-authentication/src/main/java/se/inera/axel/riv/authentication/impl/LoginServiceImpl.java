@@ -1,4 +1,4 @@
-package se.inera.axel.riv.authentication;
+package se.inera.axel.riv.authentication.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -8,28 +8,25 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
+import se.inera.axel.riv.authentication.LoginService;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 @Component
-public class LoginService {
+public class LoginServiceImpl implements LoginService {
+	
+	@Autowired
     private ApplicationContext appContext;
 
 //    @Autowired
 //    private JpaTransactionManager transactionManager;
 //
+	@Autowired
     private DriverManagerDataSource dataSource;
 
-    public LoginService() {
-    }
-
-    @Autowired
-    public LoginService(DriverManagerDataSource dataSource, ApplicationContext appContext) {
-        this.appContext = appContext;
-        this.dataSource = dataSource;
-    }
-
+    @Override
     public boolean authenticate()  {
         try {
             Connection conn = dataSource.getConnection();

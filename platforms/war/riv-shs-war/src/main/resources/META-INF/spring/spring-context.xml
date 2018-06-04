@@ -59,6 +59,9 @@
         <property name="address" value="${productServiceRestEndpoint}"/>
     </bean>
 
+    <bean id="loginService" class="se.inera.axel.riv.authentication.impl.LoginServiceImpl" >
+    </bean>
+
     <bean id="nodeInfo" class="se.inera.axel.webconsole.NodeInfo">
             <property name="nodeId" value="${nodeId}" />
             <property name="organizationNumber" value="${orgId}" />
