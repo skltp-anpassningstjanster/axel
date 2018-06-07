@@ -12,6 +12,7 @@ import java.util.Properties;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -32,6 +33,7 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
 
 	public BasicAuthenticationSession(Request request) {
 		super(request);
+		Injector.get().inject(this);
 	}
 
 	@Inject
@@ -42,11 +44,9 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
 
 	@Override
 	public boolean authenticate(String username, String password) {
-		log.info("!!!!");
-		
 		if(username == null || password == null)
 			return false;
-		
+
 		if(props.isEmpty())
 			try {
 				loadProperties();
@@ -57,20 +57,8 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
 
 		if(!isWhiteListed())
 			return false;
-		
-		String pwd = props.getProperty(username + ".password");
-		
-		boolean status = pwd != null && password.equals(pwd);
-		
-		if(pwd==null)
-			log.error("No user {} exists.", username);
-		else if(!status)
-			log.error("The password is not valid for user {}.", username);
-		else
-			log.info("User {} logged in.", username);
 
-//		return loginService.authenticate();
-		return pwd != null && password.equals(pwd);
+		return loginService.authenticate(username, password);
 	}
 
 	

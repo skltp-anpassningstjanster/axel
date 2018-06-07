@@ -59,8 +59,10 @@
         <property name="address" value="${productServiceRestEndpoint}"/>
     </bean>
 
-    <bean id="loginService" class="se.inera.axel.riv.authentication.impl.LoginServiceImpl" >
-    </bean>
+    <bean id="loginService" class="se.inera.axel.riv.authentication.impl.LoginServiceImpl" />
+
+
+    <bean id="matcher" class="org.apache.shiro.authc.credential.Sha1CredentialsMatcher"/>
 
     <bean id="nodeInfo" class="se.inera.axel.webconsole.NodeInfo">
             <property name="nodeId" value="${nodeId}" />

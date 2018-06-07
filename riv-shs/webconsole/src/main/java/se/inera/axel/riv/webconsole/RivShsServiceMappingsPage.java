@@ -49,11 +49,6 @@ public class RivShsServiceMappingsPage extends BasePage {
     @SpringBean(name = "rivShsServiceMappingRepository")
 	RivShsServiceMappingRepository mappingRepository;
 
-	@Inject
-	@Named("loginService")
-	@SpringBean(name = "loginService")
-	private LoginService loginService;
-
 	IDataProvider<RivShsServiceMapping> mappingData;
 
 	public RivShsServiceMappingsPage(final PageParameters parameters) {

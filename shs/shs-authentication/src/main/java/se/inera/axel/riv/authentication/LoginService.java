@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface LoginService {
  
-    public boolean authenticate();
+    public boolean authenticate(String username, String password);
 
 }
