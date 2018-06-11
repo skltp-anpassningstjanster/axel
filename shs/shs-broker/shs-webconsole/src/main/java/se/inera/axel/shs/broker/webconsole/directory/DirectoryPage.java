@@ -18,6 +18,9 @@
  */
 package se.inera.axel.shs.broker.webconsole.directory;
 
+import org.apache.wicket.Application;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -61,5 +64,17 @@ public class DirectoryPage extends BasePage {
 		add(new ListDirectoryPanel("list"));
 
 	}
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        Application app = Application.get();
+        if(app instanceof  AuthenticatedWebApplication){
+            AuthenticatedWebApplication myApp = (AuthenticatedWebApplication) Application.get();
+            //if user is not signed in, redirect him to sign in page
+            if(!AuthenticatedWebSession.get().isSignedIn())
+                myApp.restartResponseAtSignInPage();
+        }
+    }
 
 }

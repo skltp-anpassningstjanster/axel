@@ -19,6 +19,7 @@
 package se.inera.axel.webconsole;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -58,6 +59,14 @@ public class HeaderPanel extends Panel {
 				listItem.add(link);
 			}
 		};
+		add(new Link<Object>("logOut") {
+			private static final long serialVersionUID = -4098155213067116843L;
+			@Override
+			public void onClick() {
+				AuthenticatedWebSession.get().invalidate();
+				setResponsePage(getApplication().getHomePage());
+			}
+		});
 
 		add(linkList);
 	}

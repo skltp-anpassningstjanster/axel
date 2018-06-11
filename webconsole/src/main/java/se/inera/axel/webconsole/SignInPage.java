@@ -1,4 +1,4 @@
-package se.inera.axel.riv.webconsole;
+package se.inera.axel.webconsole;
 
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;

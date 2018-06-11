@@ -1,4 +1,4 @@
-package se.inera.axel.riv.webconsole;
+package se.inera.axel.webconsole;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

@@ -68,4 +68,15 @@
 
 
     <import resource="${axel.home}/deploy/*context.xml"/>
+
+    <bean id="loginService" class="se.inera.axel.riv.authentication.impl.LoginServiceImpl" />
+
+    <bean id="matcher" class="org.apache.shiro.authc.credential.Sha1CredentialsMatcher"/>
+
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/tp_admin?autoReconnect=true" />
+        <property name="username" value="tpadminuser" />
+        <property name="password" value="tpadminpassword" />
+    </bean>
 </beans>

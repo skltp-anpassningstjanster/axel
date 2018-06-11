@@ -21,11 +21,15 @@ package se.inera.axel.shs.broker.webconsole;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.Session;
-import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.authroles.authentication.pages.SignInPage;
+import org.apache.wicket.markup.html.WebPage;
 import se.inera.axel.shs.broker.webconsole.product.ProductPage;
+import se.inera.axel.webconsole.BasicAuthenticationSession;
 
 
-public class WicketApplication extends WebApplication {
+public class WicketApplication extends AuthenticatedWebApplication {
     public static MetaDataKey<String> DIRECTORY_SERVER_NAME_KEY = new MetaDataKey<String>() {};
 
 	@Override
@@ -36,8 +40,17 @@ public class WicketApplication extends WebApplication {
 	@Override
 	public void init() {
 		super.init();
-
 	}
+
+    @Override
+    protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass(){
+        return BasicAuthenticationSession.class;
+    }
+
+    @Override
+    protected Class<? extends WebPage> getSignInPageClass() {
+        return SignInPage.class;
+    }
 
     public static String getDirectoryServerName() {
         return Session.get().getMetaData(DIRECTORY_SERVER_NAME_KEY);

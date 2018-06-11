@@ -18,8 +18,10 @@
  */
 package se.inera.axel.webconsole;
 
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public abstract class BasePage extends WebPage {
@@ -33,7 +35,6 @@ public abstract class BasePage extends WebPage {
 		HeaderPanel header = new HeaderPanel("header");
 		header.add(new Label("title", getTitle()));
 		add(header);
-
 		add(new FooterPanel("footer"));
 	}
 

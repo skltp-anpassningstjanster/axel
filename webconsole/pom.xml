@@ -64,6 +64,10 @@
             <artifactId>axel-test-support</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>se.inera.axel</groupId>
+            <artifactId>shs-authentication</artifactId>
+        </dependency>
 
     </dependencies>
 

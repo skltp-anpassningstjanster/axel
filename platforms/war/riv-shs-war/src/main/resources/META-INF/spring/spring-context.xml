@@ -61,8 +61,15 @@
 
     <bean id="loginService" class="se.inera.axel.riv.authentication.impl.LoginServiceImpl" />
 
-
     <bean id="matcher" class="org.apache.shiro.authc.credential.Sha1CredentialsMatcher"/>
+
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${tak.db.url}" />
+        <property name="username" value="${tak.db.login}" />
+        <property name="password" value="${tak.db.password}" />
+
+    </bean>
 
     <bean id="nodeInfo" class="se.inera.axel.webconsole.NodeInfo">
             <property name="nodeId" value="${nodeId}" />
@@ -72,25 +79,4 @@
             <property name="artifactId" value="axel-webconsole" />
     </bean>
 
-    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/tp_admin?autoReconnect=true" />
-        <property name="username" value="tpadminuser" />
-        <property name="password" value="tpadminpassword" />
-    </bean>
-
-    <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
-        <!--<property name="dataSource" ref="dataSource" />-->
-        <!--<property name="jpaVendorAdapter">-->
-            <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
-                <!--<property name="showSql" value="false" />-->
-                <!--<property name="generateDdl" value="false" />-->
-                <!--<property name="database" value="MYSQL" />-->
-            <!--</bean>-->
-        <!--</property>-->
-    <!--</bean>-->
-
-    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
-        <!--<property name="entityManagerFactory" ref="entityManagerFactory" />-->
-    <!--</bean>-->
 </beans>
