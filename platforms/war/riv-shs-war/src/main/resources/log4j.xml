@@ -39,13 +39,21 @@
 	<logger name="se.inera.axel">
 		<level value="INFO"/>
 	</logger>
-	
+
+	<logger name="org.apache.wicket">
+		<level value="INFO"/>
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="INFO"/>
+	</logger>
+
 	<root>
 		<!-- TODO: change to WARN when message tracing is in place -->
 		<priority value="INFO"/>
-		<!--
+
 		<appender-ref ref="CONSOLE" />
-		-->
+
 		<appender-ref ref="ROLLINGFILE"/>
 	</root>
 </log4j:configuration>
