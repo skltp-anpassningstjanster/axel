@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             hash = getPasswordHashForUser(username);
         } catch (SQLException e) {
-            log.error("Exception while connect to database. {}", e.getMessage());
+            log.error("Exception while connect to database. {}", e);
             return false;
         }
 
