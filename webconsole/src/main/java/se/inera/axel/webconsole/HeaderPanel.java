@@ -1,24 +1,26 @@
 /**
  * Copyright (C) 2013 Inera AB (http://www.inera.se)
- *
+ * <p>
  * This file is part of Inera Axel (http://code.google.com/p/inera-axel).
- *
+ * <p>
  * Inera Axel is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * Inera Axel is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package se.inera.axel.webconsole;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Page;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -52,24 +54,32 @@ public class HeaderPanel extends Panel {
         add(new Label("nodeId", nodeInfo.getNodeId()));
         add(new Label("organizationNumber", nodeInfo.getOrganizationNumber()));
 
-		ListView<Link<Page>> linkList = new ListView<Link<Page>>("linkList", navModel) {
-			@Override
-			protected void populateItem(ListItem<Link<Page>> listItem) {
-				Link<Page> link = listItem.getModelObject();
-				listItem.add(link);
-			}
-		};
-		add(new Link<Object>("logOut") {
-			private static final long serialVersionUID = -4098155213067116843L;
-			@Override
-			public void onClick() {
-				AuthenticatedWebSession.get().invalidate();
-				setResponsePage(getApplication().getHomePage());
-			}
-		});
+        ListView<Link<Page>> linkList = new ListView<Link<Page>>("linkList", navModel) {
+            @Override
+            protected void populateItem(ListItem<Link<Page>> listItem) {
+                Link<Page> link = listItem.getModelObject();
+                listItem.add(link);
+            }
+        };
+        add(linkList);
+            add(new Link<Object>("logOut") {
+                @Override
+                public void onClick() {
+                    AuthenticatedWebSession.get().invalidate();
+                    setResponsePage(getApplication().getHomePage());
+                }
 
-		add(linkList);
-	}
+                @Override
+                public boolean isVisible() {
+                    if(Application.get() instanceof AuthenticatedWebApplication) {
+                        return AuthenticatedWebSession.get().isSignedIn();
+                    }else{
+                        return false;
+                    }
+                }
+            });
+
+    }
 
 
 	LoadableDetachableModel<List<Link<Page>>> navModel = new LoadableDetachableModel<List<Link<Page>>>() {
