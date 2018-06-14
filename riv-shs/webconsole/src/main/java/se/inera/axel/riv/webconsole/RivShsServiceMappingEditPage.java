@@ -86,6 +86,7 @@ public class RivShsServiceMappingEditPage extends BasePage {
 
 			private static final long serialVersionUID = 1L;
 		};
+		form.add(new ControlGroupContainer(new TextField<String>("logicalAddress").setRequired(true)));
 		form.add(new ControlGroupContainer(new TextField<String>("rivServiceNamespace").setRequired(true)));
 
 		List<ShsProduct> products = productService.findAll();

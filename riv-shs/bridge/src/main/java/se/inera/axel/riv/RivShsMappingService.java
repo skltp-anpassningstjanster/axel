@@ -30,16 +30,15 @@ public interface RivShsMappingService {
 	final static String CONTENT_TYPE = "application/xml";
 	final static String DEFAULT_LABEL_STATUS = "default";
 	
-	String mapRivServiceToShsProduct(String rivServiceNamespace);
+	String mapRivServiceToShsProduct(String rivServiceNamespace, String logicalAddress);
 	String mapShsProductToRivService(ShsLabel shsLabel);
-	String mapRivServiceToRivEndpoint(String rivServiceNamespace);
-    String mapRivServiceToResponseBody(String rivServiceNamespace);
-    Boolean useAsynchronousShs(String rivServiceNamespace);
-	String mapShsProductToXslScript(ShsLabel shsLabel);
-	String mapRivServiceToXslScript(String rivServiceNamespace);
-	Boolean mapRivServiceToUseBOM(String rivServiceNamespace);
-	Boolean mapRivServiceToUseCrLf(String rivServiceNamespace);
-	String mapRivShsFileNameTemplate(String rivServiceNamespace);
-	String mapRivShsLabelStatus(String rivServiceNamespace);
+	String mapRivServiceToRivEndpoint(String rivServiceNamespace, String logicalAddress);
+    String mapRivServiceToResponseBody(String rivServiceNamespace, String logicalAddress);
+    Boolean useAsynchronousShs(String rivServiceNamespace, String logicalAddress);
+	String mapRivServiceToXslScript(String rivServiceNamespace, String logicalAddress);
+	Boolean mapRivServiceToUseBOM(String rivServiceNamespace, String logicalAddress);
+	Boolean mapRivServiceToUseCrLf(String rivServiceNamespace, String logicalAddress);
+	String mapRivShsFileNameTemplate(String rivServiceNamespace, String logicalAddress);
+	String mapRivShsLabelStatus(String rivServiceNamespace, String logicalAddress);
 
 }

@@ -26,5 +26,5 @@ public interface RivShsServiceMappingRepository extends PagingAndSortingReposito
 
 	RivShsServiceMapping findByRivServiceNamespace(String rivServiceNamespace);
 	RivShsServiceMapping findByShsProductId(String shsProductId);
-
+	RivShsServiceMapping findByRivServiceNamespaceAndLogicalAddress(String rivServiceNamespace, String logicalAddress);
 }
