@@ -57,7 +57,6 @@ public class LoginServiceImpl implements LoginService {
 
     private String getPasswordHashForUser(String username) throws SQLException {
         String hash;
-        log.info("Connect to database. Data base url {}, user namn - {}", dataSource.getUrl(), dataSource.getUsername());
         Connection conn = dataSource.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * from Anvandare WHERE  anvandarnamn = ?");
         stmt.setString(1, username);

@@ -75,8 +75,8 @@
 
     <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/tp_admin?autoReconnect=true" />
-        <property name="username" value="tpadminuser" />
-        <property name="password" value="tpadminpassword" />
-    </bean>
+        <property name="url" value="${tak.db.url}" />
+        <property name="username" value="${tak.db.login}" />
+        <property name="password" value="${tak.db.password}" />
+   </bean>
 </beans>
