@@ -18,6 +18,9 @@
  */
 package se.inera.axel.shs.broker.webconsole.message;
 
+import org.apache.wicket.Application;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import se.inera.axel.shs.broker.messagestore.MessageLogAdminService;
@@ -44,4 +47,15 @@ public class MessageListPage extends BasePage {
 		add(list);
 
 	}
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        Application app = Application.get();
+        if(app instanceof  AuthenticatedWebApplication){
+            AuthenticatedWebApplication myApp = (AuthenticatedWebApplication) Application.get();
+            //if user is not signed in, redirect him to sign in page
+            if(!AuthenticatedWebSession.get().isSignedIn())
+                myApp.restartResponseAtSignInPage();
+        }
+    }
 }

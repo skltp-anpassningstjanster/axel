@@ -22,6 +22,17 @@
             <version>1.2</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-auth-roles</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.wicket</groupId>
@@ -55,10 +66,15 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            </dependency>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -75,6 +91,10 @@
         </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
+            <artifactId>shs-authentication</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>se.inera.axel</groupId>
             <artifactId>shs-broker-api</artifactId>
         </dependency>
         <dependency>
@@ -85,7 +105,7 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-directory-ldap</artifactId>
-            </dependency>
+        </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-messagelog-mongodb</artifactId>
@@ -94,11 +114,11 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-messagestore-mongodb</artifactId>
-            </dependency>
+        </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-product-mongodb</artifactId>
-            </dependency>
+        </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-receiveservice</artifactId>
@@ -107,7 +127,7 @@
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-router</artifactId>
-            </dependency>
+        </dependency>
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-scheduler</artifactId>

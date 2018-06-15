@@ -25,22 +25,12 @@
                "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
-	<osgi:reference id="rivShsServiceMappingRepository" interface="se.inera.axel.riv.RivShsServiceMappingRepository" />
-	<osgi:reference id="productService" interface="se.inera.axel.shs.broker.product.ProductService" />
-	<osgi:reference id="loginService" interface="se.inera.axel.riv.authentication.LoginService" />
 
-	<osgi:service interface="org.ops4j.pax.wicket.api.WebApplicationFactory">
-	  <osgi:service-properties>
-	    <entry key="pax.wicket.applicationname" value="RIV/SHS Bridge WebConsole" />
-	    <entry key="pax.wicket.mountpoint" value="riv-shs" />
-	  </osgi:service-properties>
-	  <bean class="org.ops4j.pax.wicket.api.support.SimpleWebApplicationFactory">
-	    <property name="wicketApplication" value="se.inera.axel.riv.webconsole.WicketApplication" />
-	  </bean>
-	</osgi:service>
+    <!--<osgix:cm-properties id="props" persistent-id="se.inera.axel.shs.broker">-->
+		<!--<prop key="orgId">0000000000</prop>-->
+	<!--</osgix:cm-properties>-->
 
-    <osgi:service interface="se.inera.axel.webconsole.NavigationProvider">
-        <bean class="se.inera.axel.riv.webconsole.ShsRivAdminNavigationProvider"></bean>
-    </osgi:service>
+    <!--<ctx:property-placeholder properties-ref="props" ignore-unresolvable="true" />-->
 
 </beans>
+
