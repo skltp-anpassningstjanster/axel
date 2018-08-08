@@ -2,11 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>oss-parent</artifactId>
-        <groupId>org.sonatype.oss</groupId>
-        <version>9</version>
-    </parent>
     <groupId>se.inera.axel</groupId>
     <artifactId>axel</artifactId>
     <version>2.1.1-RC2-SNAPSHOT</version>
@@ -103,21 +98,17 @@
 
     <distributionManagement>
         <repository>
-            <id>axel-nexus-releases</id>
-            <name>Axel Maven Repository</name>
-            <url>${axel.release.repo}</url>
+            <id>release-nexus</id>
+            <name>Release Nexus</name>
+            <url>${releases-nexus-url}</url>
         </repository>
         <snapshotRepository>
-            <id>axel-nexus-snapshots</id>
-            <name>Axel Maven Snapshot Repository</name>
-            <url>${axel.snapshot.repo}</url>
+            <id>snapshot-nexus</id>
+            <name>Snapshot Nexus</name>
+            <url>${snapshot-nexus-url}</url>
         </snapshotRepository>
-        <site>
-            <id>axel-site</id>
-            <name>Axel Website</name>
-            <url>${axel.site.repo}</url>
-        </site>
     </distributionManagement>
+
 
     <properties>
         <activation.version>1.1</activation.version>
@@ -129,7 +120,7 @@
         <camel.version>2.15.6</camel.version>
         <cglib.version>2.2.2</cglib.version>
         <commons-codec.version>1.10</commons-codec.version>
-        <commons-collections.version>3.2.1</commons-collections.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
         <commons-io.version>2.4</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
