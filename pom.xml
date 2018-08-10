@@ -1106,8 +1106,9 @@
                     <configuration>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <tagNameFormat>v@{project.version}</tagNameFormat>
-                        <pushChanges>false</pushChanges>
+                        <pushChanges>true</pushChanges>
                         <localCheckout>true</localCheckout>
+                        <useReleaseProfile>false</useReleaseProfile>
                     </configuration>
                 </plugin>
                 <plugin>
