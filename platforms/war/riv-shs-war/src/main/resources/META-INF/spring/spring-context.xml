@@ -59,6 +59,18 @@
         <property name="address" value="${productServiceRestEndpoint}"/>
     </bean>
 
+    <bean id="loginService" class="se.inera.axel.riv.authentication.impl.LoginServiceImpl" />
+
+    <bean id="matcher" class="org.apache.shiro.authc.credential.Sha1CredentialsMatcher"/>
+
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${tak.db.url}" />
+        <property name="username" value="${tak.db.login}" />
+        <property name="password" value="${tak.db.password}" />
+
+    </bean>
+
     <bean id="nodeInfo" class="se.inera.axel.webconsole.NodeInfo">
             <property name="nodeId" value="${nodeId}" />
             <property name="organizationNumber" value="${orgId}" />

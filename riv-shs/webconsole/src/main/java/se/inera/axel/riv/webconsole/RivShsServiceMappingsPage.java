@@ -34,6 +34,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import se.inera.axel.riv.RivShsServiceMapping;
 import se.inera.axel.riv.RivShsServiceMappingRepository;
+import se.inera.axel.riv.authentication.LoginService;
 import se.inera.axel.riv.webconsole.base.BasePage;
 
 import javax.inject.Inject;
@@ -63,6 +64,7 @@ public class RivShsServiceMappingsPage extends BasePage {
 			protected void populateItem(final Item<RivShsServiceMapping> item) {
 				item.setModel(new CompoundPropertyModel<>(item.getModel()));
 				String id = item.getModelObject().getId();
+				item.add(labelWithLink("logicalAddress", id));
 				item.add(labelWithLink("rivServiceNamespace", id));
 				item.add(labelWithLink("shsProductId", id));
 //				item.add(labelWithLink("rivServiceEndpoint", id));

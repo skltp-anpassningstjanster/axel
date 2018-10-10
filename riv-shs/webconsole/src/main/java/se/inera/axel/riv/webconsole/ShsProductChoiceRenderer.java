@@ -48,8 +48,9 @@ public class ShsProductChoiceRenderer implements IChoiceRenderer<String> {
 		
 		if (productId != null) {
 			ShsProduct product = products.get(productId);
+			String principal = product.getPrincipal().getValue();
 			
-			displayValue = StringUtils.stripToEmpty(product.getCommonName()) + " (" + product.getUuid() + ")";
+			displayValue = principal + " - " + StringUtils.stripToEmpty(product.getCommonName()) + " (" + product.getUuid() + ")";
 		} else {
 			displayValue = "";
 		}

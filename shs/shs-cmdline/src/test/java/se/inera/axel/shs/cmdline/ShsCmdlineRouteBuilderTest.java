@@ -88,7 +88,7 @@ public class ShsCmdlineRouteBuilderTest extends CamelSpringTestSupport {
 
         listMessages.sendBodyAndHeaders(null, headers);
 
-        assertMockEndpointsSatisfied(1, TimeUnit.SECONDS);
+        assertMockEndpointsSatisfied(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ShsCmdlineRouteBuilderTest extends CamelSpringTestSupport {
 
         fetchAll.sendBodyAndHeaders(null, headers);
 
-        assertMockEndpointsSatisfied(1, TimeUnit.SECONDS);
+        assertMockEndpointsSatisfied(10, TimeUnit.SECONDS);
     }
 
     @Test

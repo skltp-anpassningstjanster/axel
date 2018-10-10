@@ -24,7 +24,6 @@ import org.apache.wicket.authroles.authentication.pages.SignInPage;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
-import se.inera.axel.riv.webconsole.BasicAuthenticationSession;
 import se.inera.axel.riv.webconsole.RivShsServiceMappingEditPage;
 import se.inera.axel.riv.webconsole.RivShsServiceMappingsPage;
 

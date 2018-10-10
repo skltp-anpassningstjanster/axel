@@ -30,9 +30,15 @@
             <h1>Edit mapping</h1>
             <div wicket:id="feedback" class="feedback"></div>
             <form wicket:id="form" class="form-horizontal">
+                <div wicket:id="control.logicalAddress" class="control-group">
+                    <label for="logicalAddress" class="control-label">Logical Address&nbsp;*</label>
+                    <div class="controls">
+                        <input class="span9" type="text" size="150" wicket:id="logicalAddress" />
+                    </div>
+                </div>
                 <div wicket:id="control.rivServiceNamespace" class="control-group">
                     <label for="rivServiceNamespace" class="control-label">RIV
-                        Service Namespace&nbsp;*</label>
+                        Service SOAPAction&nbsp;*</label>
                     <div class="controls">
                         <input class="span9" type="text" size="150" wicket:id="rivServiceNamespace" />
                     </div>
@@ -72,6 +78,14 @@
                     </label>
                     <div class="controls">
                         <input class="span9" type="text" size="150" wicket:id="fileNameTemplate" />
+                    </div>
+                </div>
+                 <div wicket:id="control.labelStatus" class="control-group">
+                    <label for="fileNameTemplate" class="control-label">
+                        Label status
+                    </label>
+                    <div class="controls">
+                        <select class="span9" wicket:id="labelStatus"></select>
                     </div>
                 </div>
                 <h2>Transformations</h2>

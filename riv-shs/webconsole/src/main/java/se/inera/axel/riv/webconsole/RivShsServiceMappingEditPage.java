@@ -21,6 +21,7 @@ package se.inera.axel.riv.webconsole;
 import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -38,12 +39,14 @@ import se.inera.axel.shs.xml.product.ShsProduct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @PaxWicketMountPoint(mountPoint = "/riv-shs/mappings/edit")
 public class RivShsServiceMappingEditPage extends BasePage {
 	private static final long serialVersionUID = 1L;
+	private List<String> labelStatusList = Arrays.asList("default", "test", "production");
 
     @Inject
 	@Named("rivShsServiceMappingRepository")
@@ -83,6 +86,7 @@ public class RivShsServiceMappingEditPage extends BasePage {
 
 			private static final long serialVersionUID = 1L;
 		};
+		form.add(new ControlGroupContainer(new TextField<String>("logicalAddress").setRequired(true)));
 		form.add(new ControlGroupContainer(new TextField<String>("rivServiceNamespace").setRequired(true)));
 
 		List<ShsProduct> products = productService.findAll();
@@ -94,7 +98,10 @@ public class RivShsServiceMappingEditPage extends BasePage {
 		form.add(new ControlGroupContainer(new TextField<String>("rivServiceEndpoint")));
         form.add(new ControlGroupContainer(new CheckBox("useAsynchronousShs")));
         form.add(new ControlGroupContainer(new TextArea<String>("asynchronousResponseSoapBody")));
-        form.add(new ControlGroupContainer(new TextField("fileNameTemplate")));        
+        form.add(new ControlGroupContainer(new TextField("fileNameTemplate")));    
+        
+        form.add(new ControlGroupContainer(new DropDownChoice("labelStatus", labelStatusList)));  
+        
         form.add(new ControlGroupContainer(new CheckBox("useBOM")));
         form.add(new ControlGroupContainer(new CheckBox("useWindowsCRLF")));
         form.add(new ControlGroupContainer(new TextArea<String>("xslScript")));

@@ -23,6 +23,7 @@ import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSessio
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.pages.SignInPage;
 import org.apache.wicket.markup.html.WebPage;
+import se.inera.axel.webconsole.BasicAuthenticationSession;
 
 public class WicketApplication extends AuthenticatedWebApplication
 {    	

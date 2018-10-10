@@ -19,22 +19,29 @@
 package se.inera.axel.riv;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+//import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
 @Document
+@CompoundIndexes({
+    @CompoundIndex(name = "riv_service", def = "{'rivServiceNamespace' : 1, 'logicalAddress': 1}", unique = true)
+})
 public class RivShsServiceMapping implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	String id;
 	
-	@Indexed(unique = true)
+	//@Indexed(unique = true)
 	String rivServiceNamespace;
 	
-	@Indexed(unique = true)
+	String logicalAddress;
+	
+	//@Indexed(unique = true)
 	String shsProductId;
 
 	String rivServiceEndpoint;
@@ -44,6 +51,8 @@ public class RivShsServiceMapping implements Serializable {
     Boolean useAsynchronousShs = Boolean.TRUE;
     
     String fileNameTemplate = "req-.xml";
+    
+    String labelStatus = "default";
     
     Boolean useBOM = Boolean.FALSE;
     
@@ -65,6 +74,12 @@ public class RivShsServiceMapping implements Serializable {
 	}
 	public String getRivServiceEndpoint() {
 		return rivServiceEndpoint;
+	}
+	public String getLogicalAddress() {
+		return logicalAddress;
+	}
+	public void setLogicalAddress(String logicalAddress) {
+		this.logicalAddress = logicalAddress;
 	}
 	public void setRivServiceEndpoint(String rivServiceEndpoint) {
 		this.rivServiceEndpoint = rivServiceEndpoint;
@@ -127,6 +142,12 @@ public class RivShsServiceMapping implements Serializable {
 	}
 	public void setUseBOM(Boolean useBOM) {
 		this.useBOM = useBOM;
+	}	
+	public String getLabelStatus() {
+		return labelStatus;
+	}
+	public void setLabelStatus(String labelStatus) {
+		this.labelStatus = labelStatus;
 	}
 	
 	@Override

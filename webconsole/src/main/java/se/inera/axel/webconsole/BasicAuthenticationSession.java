@@ -1,4 +1,4 @@
-package se.inera.axel.riv.webconsole;
+package se.inera.axel.webconsole;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,26 +12,41 @@ import java.util.Properties;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import se.inera.axel.riv.authentication.LoginService;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 public class BasicAuthenticationSession extends AuthenticatedWebSession {
-
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BasicAuthenticationSession.class);
 	private static final long serialVersionUID = 4391047631182868491L;
 	private static final Properties props = new Properties();
 	private static String [] whitelist;
+	private String username;
+
 
 	public BasicAuthenticationSession(Request request) {
-		super(request);		
+		super(request);
+		Injector.get().inject(this);
 	}
+
+	@Inject
+	@Named("loginService")
+	@SpringBean(name = "loginService")
+	private LoginService loginService;
+
 
 	@Override
 	public boolean authenticate(String username, String password) {
-		
 		if(username == null || password == null)
 			return false;
-		
+
 		if(props.isEmpty())
 			try {
 				loadProperties();
@@ -42,19 +57,8 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
 
 		if(!isWhiteListed())
 			return false;
-		
-		String pwd = props.getProperty(username + ".password");
-		
-		boolean status = pwd != null && password.equals(pwd);
-		
-		if(pwd==null)
-			log.error("No user {} exists.", username);
-		else if(!status)
-			log.error("The password is not valid for user {}.", username);
-		else
-			log.info("User {} logged in.", username);
-		
-		return pwd != null && password.equals(pwd);
+
+		return loginService.authenticate(username, password);
 	}
 
 	
