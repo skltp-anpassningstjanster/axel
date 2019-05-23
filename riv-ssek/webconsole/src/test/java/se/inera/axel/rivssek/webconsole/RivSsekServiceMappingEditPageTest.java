@@ -7,10 +7,9 @@ import org.testng.annotations.Test;
 import se.inera.axel.riv2ssek.RivSsekServiceMapping;
 import se.inera.axel.riv2ssek.RivSsekServiceMappingRepository;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Jan Hallonstén, jan.hallonsten@r2m.se
@@ -63,7 +62,7 @@ public class RivSsekServiceMappingEditPageTest extends RivSsekWebconsolePageTest
 
         formTester.submit();
 
-        assertThat(tester.getMessages(FeedbackMessage.ERROR), hasSize(4));
+        assertEquals(tester.getMessages(FeedbackMessage.ERROR).size(), 4);
         verify(rivSsekServiceMappingRepository, never()).save(any(RivSsekServiceMapping.class));
     }
 

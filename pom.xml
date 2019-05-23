@@ -181,7 +181,7 @@
         <spring-orm.version>2.5.1</spring-orm.version>
         <spring.version>4.3.12.RELEASE</spring.version>
         <springockito.version>1.0.4</springockito.version>
-        <testng.version>6.8.1</testng.version>
+        <testng.version>6.8.21</testng.version>
         <unitils-core.version>3.3</unitils-core.version>
         <wicket.version>6.7.0</wicket.version>
         <xml-apis.version>1.0.b2</xml-apis.version>

@@ -29,7 +29,6 @@ public abstract class AbstractPageTest {
     protected WicketTester tester = null;
     protected SimplifiedPaxWicketInjector injector = null;
 
-    @SuppressWarnings("unchecked")
     @BeforeMethod
     public void beforeMethod() {
         tester = new WicketTester();
