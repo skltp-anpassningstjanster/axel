@@ -23,7 +23,7 @@ import com.beust.jcommander.Parameters;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.context.ApplicationContext;
 import se.inera.axel.shs.processor.ShsHeaders;

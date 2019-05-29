@@ -18,7 +18,7 @@
  */
 package se.inera.axel.shs.broker.webconsole.directory;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;

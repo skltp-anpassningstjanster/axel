@@ -29,7 +29,7 @@
        http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
 
-    <osgi:reference id="servletref" interface="org.apache.camel.component.http.CamelServlet">
+    <osgi:reference id="servletref" interface="org.apache.camel.http.common.CamelServlet">
         <osgi:listener bind-method="register" unbind-method="unregister">
             <ref bean="httpRegistry"/>
         </osgi:listener>

@@ -19,7 +19,7 @@
 package se.inera.axel.shs.cmdline;
 
 import org.apache.camel.CamelExecutionException;
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 
 /**
  * @author Jan Hallonstén, jan.hallonsten@r2m.se

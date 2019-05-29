@@ -21,7 +21,7 @@ package se.inera.axel.riv.internal;
 import org.apache.camel.Body;
 import org.apache.camel.ExchangeProperty;
 import org.apache.camel.component.cxf.CxfPayload;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxb.JAXBDataBinding;

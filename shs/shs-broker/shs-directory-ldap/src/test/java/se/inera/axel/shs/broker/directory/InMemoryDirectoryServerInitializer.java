@@ -46,7 +46,13 @@ public class InMemoryDirectoryServerInitializer implements ApplicationContextIni
         int listenPort = directoryServer.getListenPort();
         MockPropertySource mockEnvVars = new MockPropertySource().withProperty("shs.ldap.url",
                 String.format("ldap://localhost:%s/L=SHS", listenPort));
-        propertySources.replace(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, mockEnvVars);
+        
+        // For some reason called more than once in newer versions of camel
+        if(propertySources.contains(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME)) {
+        	propertySources.replace(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, mockEnvVars);
+        } else {
+        	propertySources.replace(MockPropertySource.MOCK_PROPERTIES_PROPERTY_SOURCE_NAME, mockEnvVars);        	
+        }
 
         applicationContext.addApplicationListener(this);
     }

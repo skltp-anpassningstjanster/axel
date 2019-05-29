@@ -19,7 +19,7 @@
 package se.inera.axel.shs.camel;
 
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.annotation.DirtiesContext;

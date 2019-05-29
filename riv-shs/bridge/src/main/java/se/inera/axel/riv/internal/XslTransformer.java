@@ -83,7 +83,7 @@ public class XslTransformer implements Processor {
 	@SuppressWarnings("unused")
 	private String transform(String s, File xslStream) throws IOException, URISyntaxException, TransformerException {
 	    Transformer transformer = factory.newTransformer(new StreamSource(xslStream));
-
+	    transformer.setOutputProperty(OutputKeys.INDENT, "no");
 	    return transform(transformer, s);
 	}
 
@@ -92,6 +92,7 @@ public class XslTransformer implements Processor {
 			return null;
 		
 	    Transformer transformer = factory.newTransformer(new StringSource(xslString));
+	    transformer.setOutputProperty(OutputKeys.INDENT, "no");
 
 	    return transform(transformer, s);
 	}

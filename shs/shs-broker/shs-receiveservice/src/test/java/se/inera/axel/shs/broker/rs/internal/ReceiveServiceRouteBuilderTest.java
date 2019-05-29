@@ -212,6 +212,9 @@ import static se.inera.axel.shs.xml.label.ShsLabelMaker.ToInstantiator.value;
 
         Message out = response.getOut();
 
+        System.out.println(out.getMandatoryBody(String.class));
+        System.out.println(shsMessageEntry.getLabel().getTxId());
+        
         assertEquals(out.getMandatoryBody(String.class), shsMessageEntry.getLabel().getTxId());
         assertEquals(out.getHeader(ShsHeaders.X_SHS_TXID), shsMessageEntry.getLabel().getTxId());
         assertEquals(out.getHeader(ShsHeaders.X_SHS_CORRID), shsMessageEntry.getLabel().getCorrId());

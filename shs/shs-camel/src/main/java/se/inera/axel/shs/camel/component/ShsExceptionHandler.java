@@ -19,9 +19,9 @@
 package se.inera.axel.shs.camel.component;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.spi.ExceptionHandler;
 
-public interface ShsExceptionHandler {
+public interface ShsExceptionHandler extends ExceptionHandler {
 	boolean isException(final Exchange returnedExchange);
 	void handleException(final Exchange inExchange, final Exchange returnedExchange);
-
 }

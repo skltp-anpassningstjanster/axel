@@ -78,12 +78,12 @@
 
     <modules>
         <module>riv</module>
-        <module>ssek</module>
+        <!-- module>ssek</module -->
         <module>test/test-support</module>
         <module>webconsole</module>
         <module>shs</module>
         <module>riv-shs</module>
-        <module>riv-ssek</module>
+        <!--  module>riv-ssek</module-->
         <module>platforms</module>
         <module>docs</module>
         <module>monitoring</module>
@@ -109,7 +109,6 @@
         </snapshotRepository>
     </distributionManagement>
 
-
     <properties>
         <activation.version>1.1</activation.version>
         <activemq.version>5.9.0</activemq.version>
@@ -117,18 +116,18 @@
         <additionalparam>-Xdoclint:none</additionalparam>
         <aopalliance.version>1.0</aopalliance.version>
         <build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
-        <camel.version>2.15.6</camel.version>
+        <camel.version>2.24.0</camel.version>
         <cglib.version>2.2.2</cglib.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
         <commons-io.version>2.4</commons-io.version>
-        <commons-lang.version>2.6</commons-lang.version>
+        <commons-lang.version>3.8.1</commons-lang.version>
         <commons-pool.version>1.6</commons-pool.version>
-        <cxf-xjc-plugin.version>3.0.4</cxf-xjc-plugin.version>
-        <cxf.version>3.0.6</cxf.version>
-        <de.flapdoodle.embed.mongo.version>2.0.0</de.flapdoodle.embed.mongo.version>
-        <de.flapdoodle.embed.process.version>2.0.1</de.flapdoodle.embed.process.version>
+        <cxf-xjc-plugin.version>3.2.3</cxf-xjc-plugin.version>
+        <cxf.version>3.2.7</cxf.version>
+        <de.flapdoodle.embed.mongo.version>2.2.0</de.flapdoodle.embed.mongo.version>
+        <de.flapdoodle.embed.process.version>2.1.2</de.flapdoodle.embed.process.version>
         <dozer.version>5.4.0</dozer.version>
         <ehcache.version>2.5.1</ehcache.version>
         <fitnesse.version>20140201</fitnesse.version>
@@ -138,10 +137,10 @@
         <hawtio.version>1.4.0</hawtio.version>
         <javamail.version>1.4.5</javamail.version>
         <jaxb.version>2.2.11</jaxb.version>
-        <jaxrs.version>2.0.1</jaxrs.version>
+        <jaxrs.version>2.1.1</jaxrs.version>
         <jaxws.version>2.2.12</jaxws.version>
         <jcommander.version>1.30</jcommander.version>
-        <jetty.version>8.1.17.v20150415</jetty.version>
+        <jetty.version>9.4.12.v20180830</jetty.version>
         <joda-time.version>2.2</joda-time.version>
         <karaf.version>2.4.0</karaf.version>
         <make-it-easy.version>3.1.0</make-it-easy.version>
@@ -155,7 +154,7 @@
         <maven-install-plugin.version>2.4</maven-install-plugin.version>
         <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
-        <maven-jetty-plugin.version>8.1.12.v20130726</maven-jetty-plugin.version>
+        <maven-jetty-plugin.version>8.1.16.v20140903</maven-jetty-plugin.version>
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
         <maven-license-plugin.version>1.9.0</maven-license-plugin.version>
         <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
@@ -172,16 +171,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <servicemix.version>4.4.2</servicemix.version>
-        <servlet.version>2.5</servlet.version>
+        <servlet.version>3.0.1</servlet.version>
         <slf4j.version>1.6.6</slf4j.version>
         <smartrics-RestFixture.version>3.0</smartrics-RestFixture.version>
         <spring-data-mongodb.version>1.10.8.RELEASE</spring-data-mongodb.version>
         <spring-data.version>1.13.8.RELEASE</spring-data.version>
-        <spring-ldap.version>2.1.0.RELEASE</spring-ldap.version>
+        <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
         <spring-orm.version>2.5.1</spring-orm.version>
-        <spring.version>4.3.12.RELEASE</spring.version>
+        <spring.version>5.1.2.RELEASE</spring.version>
         <springockito.version>1.0.4</springockito.version>
-        <testng.version>6.8.21</testng.version>
+        <testng.version>6.14.2</testng.version>
         <unitils-core.version>3.3</unitils-core.version>
         <wicket.version>6.7.0</wicket.version>
         <xml-apis.version>1.0.b2</xml-apis.version>
@@ -245,12 +244,6 @@
             </dependency>
 
             <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons-lang.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>commons-pool</groupId>
                 <artifactId>commons-pool</artifactId>
                 <version>${commons-pool.version}</version>
@@ -289,7 +282,7 @@
 
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
+                <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet.version}</version>
                 <scope>provided</scope>
             </dependency>
@@ -469,6 +462,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-velocity</artifactId>
                 <version>${camel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -1037,7 +1036,7 @@
                             </systemProperty>
                             <systemProperty>
                                 <name>com.sun.management.jmxremote</name>
-                                <value />
+                                <value></value>
                             </systemProperty>
                         </systemProperties>
                     </configuration>
@@ -1209,7 +1208,7 @@
                 </property>
             </activation>
             <build>
-                <plugins />
+                <plugins></plugins>
             </build>
         </profile>
     </profiles>

@@ -27,7 +27,7 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
 import org.apache.camel.spi.ExceptionHandler;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import se.inera.axel.shs.mime.DataPart;
 import se.inera.axel.shs.processor.ShsHeaders;
 

@@ -18,7 +18,7 @@
  */
 package se.inera.axel.shs.broker.messagestore;
 
-import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang3.SerializationUtils;
 import se.inera.axel.shs.xml.label.ShsLabel;
 
 import java.io.Serializable;

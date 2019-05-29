@@ -20,7 +20,7 @@ package se.inera.axel.shs.broker.ds.internal;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import se.inera.axel.shs.xml.UrnAddress;
 import se.inera.axel.shs.xml.UrnProduct;
 

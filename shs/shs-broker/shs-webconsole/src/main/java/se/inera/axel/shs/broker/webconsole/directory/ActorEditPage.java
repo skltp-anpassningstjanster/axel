@@ -18,7 +18,7 @@
  */
 package se.inera.axel.shs.broker.webconsole.directory;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 

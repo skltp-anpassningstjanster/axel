@@ -21,10 +21,9 @@ package se.inera.axel.shs.cmdline;
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
 import org.apache.camel.LoggingLevel;
-import org.apache.camel.builder.PredicateBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import org.apache.camel.component.http.SSLContextParametersSecureProtocolSocketFactory;
 import org.apache.camel.util.URISupport;
 import org.apache.camel.util.jsse.SSLContextParameters;
@@ -38,7 +37,6 @@ import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.processor.SimpleLabelValidator;
 import se.inera.axel.shs.xml.message.ShsMessageList;
 
-import javax.xml.transform.OutputKeys;
 import java.net.URISyntaxException;
 import java.util.Map;
 

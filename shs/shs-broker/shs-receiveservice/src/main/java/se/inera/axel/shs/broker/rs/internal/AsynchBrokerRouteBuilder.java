@@ -19,10 +19,9 @@
 package se.inera.axel.shs.broker.rs.internal;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import se.inera.axel.shs.broker.messagestore.ShsMessageEntry;
 import se.inera.axel.shs.exception.MissingDeliveryExecutionException;
 import se.inera.axel.shs.exception.OtherErrorException;
@@ -30,6 +29,7 @@ import se.inera.axel.shs.exception.ShsException;
 import se.inera.axel.shs.mime.ShsMessage;
 import se.inera.axel.shs.processor.ResponseMessageBuilder;
 import se.inera.axel.shs.xml.label.ShsLabel;
+import se.inera.axel.shs.broker.rs.internal.MessageInfoLogger;
 
 import java.io.IOException;
 import java.util.Map;
@@ -67,21 +67,21 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
         .choice()
         .when(simple("${property.PROPERTY_SHS_RECEIVER_LIST.size} > 1"))
         	.to("direct:shs:asynch:one_to_many")
-	        .beanRef("messageLogService", "messageOneToMany")
+	        .bean("messageLogService", "messageOneToMany")
         	.stop()
         .end()
         .bean(RecipientLabelTransformer.class, "transform(${body.label},*)")
-        .beanRef("commonNameTransformer")
-        .beanRef("agreementService", "validateAgreement(${body.label})")
+        .bean("commonNameTransformer")
+        .bean("agreementService", "validateAgreement(${body.label})")
 		.choice()
 		.when().simple("${body.label.sequenceType} == 'ADM'")
 			.setProperty("ShsMessageEntry", body())
-			.beanRef("messageLogService", "loadMessage")
+			.bean("messageLogService", "loadMessage")
 			.choice()
 			.when().simple("${body.label.product.value} == 'error'")
-		        .beanRef("messageLogService", "quarantineCorrelatedMessages")
+		        .bean("messageLogService", "quarantineCorrelatedMessages")
 			.when().simple("${body.label.product.value} == 'confirm'")
-		        .beanRef("messageLogService", "acknowledgeCorrelatedMessages")
+		        .bean("messageLogService", "acknowledgeCorrelatedMessages")
 			.end()
 	        .setBody(exchangeProperty("ShsMessageEntry"))
         .end()
@@ -110,7 +110,7 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
         .setHeader(Exchange.HTTP_URI, method("shsRouter", "resolveEndpoint(${body.label})"))
         .setHeader(Exchange.CONTENT_TYPE, constant("message/rfc822"))
         .setProperty("ShsMessageEntry", body())
-        .beanRef("messageLogService", "loadMessage")
+        .bean("messageLogService", "loadMessage")
         .choice().when(startsWith(header(Exchange.HTTP_URI), constant("https")))
                 .bean(MessageInfoLogger.class, "log(*,'asynch.req-out')")
                 .to("https4://shsServer?httpClient.socketTimeout=300000&disableStreamCache=true&sslContextParameters=shsRsSslContext&x509HostnameVerifier=allowAllHostnameVerifier")
@@ -121,7 +121,7 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
                 .bean(MessageInfoLogger.class, "log(*,'asynch.resp-in')")
         .end()
         .setBody(exchangeProperty("ShsMessageEntry"))
-        .beanRef("messageLogService", "messageSent");
+        .bean("messageLogService", "messageSent");
 
 
         from("direct:sendAsynchLocal").routeId("direct:sendAsynchLocal")
@@ -133,14 +133,14 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
         // .setBody(exchangeProperty("ShsMessageEntry"))
         // End For debug
         .bean(MessageInfoLogger.class, "log(*,'asynch.local')")
-        .beanRef("messageLogService", "messageReceived");
+        .bean("messageLogService", "messageReceived");
 
 
         from("direct:errors").routeId("direct:errors")
         .errorHandler(loggingErrorHandler())
         .log("ERROR: ${exception} for ${body.label}")
         .bean(ExceptionConverter.class)
-        .beanRef("messageLogService", "messageQuarantined")
+        .bean("messageLogService", "messageQuarantined")
         .filter(simple("${body.label.sequenceType} != 'ADM' && ${header.AxelRobustAsynchShs} == null"))
         .bean(ErrorMessageBuilder.class)
         .to("direct-vm:shs:rs");
@@ -169,12 +169,6 @@ public class AsynchBrokerRouteBuilder extends RouteBuilder {
                 exception = new MissingDeliveryExecutionException(exception);
             } else if (exception instanceof HttpOperationFailedException) {
                 HttpOperationFailedException httpOperationFailedException = (HttpOperationFailedException)exception;
-                exception = createMissingDeliveryExecutionException(
-                        exception,
-                        httpOperationFailedException.getResponseHeaders(),
-                        httpOperationFailedException.getResponseBody());
-            } else if (exception instanceof org.apache.camel.component.http4.HttpOperationFailedException) {
-                org.apache.camel.component.http4.HttpOperationFailedException httpOperationFailedException = (org.apache.camel.component.http4.HttpOperationFailedException)exception;
                 exception = createMissingDeliveryExecutionException(
                         exception,
                         httpOperationFailedException.getResponseHeaders(),

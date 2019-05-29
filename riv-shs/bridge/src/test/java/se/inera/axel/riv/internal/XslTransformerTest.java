@@ -32,7 +32,7 @@ public class XslTransformerTest extends CamelTestSupport {
 							+ "\n<!DOCTYPE ichicsr SYSTEM \"http://eudravigilance.ema.europa.eu/dtd/icsr21xml.dtd\">"
 							+ "\n<ichicsr lang=\"se\">"
 							+ "\n<ichicsrmessageheader>"
-							+ "\n  <messagetype>ichicsr</messagetype>";
+							+ "\n<messagetype>ichicsr</messagetype>";
 
         MockEndpoint mockEndpoint = getMockEndpoint("mock:xsltransform");
         mockEndpoint.reset();

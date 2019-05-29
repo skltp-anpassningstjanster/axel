@@ -24,7 +24,7 @@ import org.apache.camel.LoggingLevel;
 import org.apache.camel.Property;
 import org.apache.camel.builder.PredicateBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import se.inera.axel.shs.processor.ShsHeaders;
 import se.inera.axel.shs.processor.ShsMessageMarshaller;
 import se.inera.axel.shs.xml.label.SequenceType;

@@ -14,7 +14,7 @@
     <name>Axel :: SHS :: Broker :: Agreement (MongoDB)</name>
     <description>Provides an implementation of the AgreementService using MongoDB as backend.</description>
 
-    <properties />
+    <properties></properties>
 
     <dependencies>
 
@@ -22,11 +22,6 @@
             <groupId>com.natpryce</groupId>
             <artifactId>make-it-easy</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
         </dependency>
 
         <dependency>
@@ -51,6 +46,11 @@
             <artifactId>camel-spring-javaconfig</artifactId>
             <version>${camel.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <dependency>
