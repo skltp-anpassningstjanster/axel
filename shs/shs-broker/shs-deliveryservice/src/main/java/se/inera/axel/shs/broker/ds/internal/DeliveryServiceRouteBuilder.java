@@ -43,10 +43,7 @@ public class DeliveryServiceRouteBuilder extends RouteBuilder {
         .handled(true);
 
 
-        from("{{shsDsHttpEndpoint}}{{shsDsPathPrefix}}/" +
-                "?" +
-                "httpBindingRef=shsHttpBinding" +
-                "&matchOnUriPrefix=true")
+        from("{{shsDsHttpEndpoint}}{{shsDsPath}}")
         .routeId("/shs/ds")
         .bean("httpPathParamsExtractor")
         .validate(header("outbox").isNotNull())

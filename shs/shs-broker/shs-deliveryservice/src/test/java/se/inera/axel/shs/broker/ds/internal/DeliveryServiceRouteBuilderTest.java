@@ -81,6 +81,7 @@ public class DeliveryServiceRouteBuilderTest extends AbstractCamelTestNGSpringCo
     public static String DEFAULT_SHS_DS_URL = "http://localhost:{{shsDsHttpEndpoint.port}}/shs/ds/";
 
     public DeliveryServiceRouteBuilderTest() {
+    	System.setProperty("shsDsPath", "/shs/ds/?httpBindingRef=shsHttpBinding&matchOnUriPrefix=true");
         if (System.getProperty("shsDsHttpEndpoint.port") == null) {
             int port = AvailablePortFinder.getNextAvailable();
             System.setProperty("shsDsHttpEndpoint.port", Integer.toString(port));
