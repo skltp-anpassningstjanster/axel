@@ -40,6 +40,13 @@
 
     <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
        <property name="brokerURL" value="vm://axel?broker.persistent=false" />
+        <property name="trustedPackages">
+            <list>
+                <value>se.inera.axel.shs.broker.messagestore</value>
+                <value>se.inera.axel.shs.xml.label</value>
+                <value>java.util</value>
+            </list>
+        </property>
     </bean>
 
     <bean class="se.inera.axel.shs.broker.rs.internal.MockConfig"/>

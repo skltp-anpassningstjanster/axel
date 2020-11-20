@@ -24,6 +24,13 @@
 
     <bean id="activemqConnectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
         <property name="brokerURL" value="${activemq.brokerURL}" />
+        <property name="trustedPackages">
+            <list>
+                <value>se.inera.axel.shs.broker.messagestore</value>
+                <value>se.inera.axel.shs.xml.label</value>
+                <value>java.util</value>
+            </list>
+        </property>
     </bean>
 
     <bean id="jmsConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
