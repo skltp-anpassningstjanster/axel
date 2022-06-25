@@ -174,7 +174,7 @@
         <servlet.version>3.0.1</servlet.version>
         <slf4j.version>1.6.6</slf4j.version>
         <smartrics-RestFixture.version>3.0</smartrics-RestFixture.version>
-        <spring-data-mongodb.version>1.10.8.RELEASE</spring-data-mongodb.version>
+        <spring-data-mongodb.version>3.3.5</spring-data-mongodb.version>
         <spring-data.version>1.13.8.RELEASE</spring-data.version>
         <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
         <spring-orm.version>2.5.1</spring-orm.version>
