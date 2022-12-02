@@ -26,11 +26,6 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <artifactId>platforms</artifactId>
-      <groupId>se.inera.axel</groupId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <artifactId>monitoring</artifactId>
       <groupId>se.inera.axel</groupId>
       <version>${project.version}</version>
