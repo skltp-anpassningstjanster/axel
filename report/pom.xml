@@ -14,21 +14,25 @@
       <artifactId>webconsole</artifactId>
       <groupId>se.inera.axel</groupId>
       <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <artifactId>shs</artifactId>
       <groupId>se.inera.axel</groupId>
       <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <artifactId>riv-shs</artifactId>
       <groupId>se.inera.axel</groupId>
       <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <artifactId>monitoring</artifactId>
       <groupId>se.inera.axel</groupId>
       <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 
