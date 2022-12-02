@@ -87,6 +87,7 @@
         <module>platforms</module>
         <module>docs</module>
         <module>monitoring</module>
+        <module>report</module>
     </modules>
 
     <scm>
@@ -184,6 +185,7 @@
         <unitils-core.version>3.3</unitils-core.version>
         <wicket.version>6.7.0</wicket.version>
         <xml-apis.version>1.0.b2</xml-apis.version>
+        <jacoco.plugin.version>0.8.5</jacoco.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -1211,6 +1213,32 @@
                 <plugins></plugins>
             </build>
         </profile>
+        <profile>
+			<id>test-coverage</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${jacoco.plugin.version}</version>
+						<executions>
+							<execution>
+								<id>default-prepare-agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>default-report</id>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
     </profiles>
 
 </project>
