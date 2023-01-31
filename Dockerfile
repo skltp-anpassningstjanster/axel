@@ -1,7 +1,7 @@
 FROM tomcat:9-jdk8
 
 ENV APP_NAME=axel \
-    VERSION=2.1.3-SNAPSHOT \
+    VERSION=2.1.4-SNAPSHOT \
     AXEL.HOME=$CATALINA_HOME
 ENV WARFILE_SHS=platforms/war/riv-shs-war/target/axel-riv-shs-${VERSION}.war \
     WARFILE_BROKER=platforms/war/shs-broker-war/target/axel-shs-broker-${VERSION}.war
