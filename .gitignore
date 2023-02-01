@@ -50,3 +50,4 @@ FitNesseRoot/properties
 FitNesseRoot/updateDoNotCopyOverList
 FitNesseRoot/updateList
 velocity.log.*
+.vscode/*
