@@ -1,0 +1,43 @@
+# Default values for Axel.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+namespace: ntjp-local
+
+deployment:
+  axel:
+    name: axel
+  mongo:
+    name: axel-mongodb
+
+
+container:
+  axel:
+    image:
+      repository: docker.drift.inera.se/ntjp/axel
+      pullPolicy: always
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: ""
+  mongo:
+    image:
+      repository: docker.drift.inera.se/ntjp/mongodb
+      pullPolicy: always
+      tag: ""
+
+imagePullSecrets: []
+
+service:
+  axel:
+    type: ClusterIP
+    port: 8082
+  mongo:
+    type: ClusterIP
+    port: 27017
+
+environment:
+  axel:
+    variables:
+      config_maps:
+        - axel-environment-properties
+  mongo:
+    # Nothing yet.
