@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.deployment.axel.name }}"
+spec:
+  selector:
+    app: "{{ .Values.deployment.axel.name }}"
+  type: ClusterIP
+  ports:
+    - port:  {{ .Values.service.axel.port }}
+      targetPort:  {{ .Values.service.axel.port }}
+      protocol: TCP
+      name: http
+status:
+  loadBalancer: {}
