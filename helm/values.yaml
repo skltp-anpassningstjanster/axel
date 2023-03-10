@@ -4,6 +4,8 @@
 replicaCount: 1
 namespace: ntjp-local
 
+testinheritance: axel-local
+
 deployment:
   axel:
     name: axel
