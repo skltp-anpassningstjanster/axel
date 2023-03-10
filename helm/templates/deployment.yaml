@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.deployment.axel.name }}
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 10
   selector:
     matchLabels:
