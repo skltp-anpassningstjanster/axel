@@ -14,7 +14,7 @@ deployment:
 
 
 container:
-  repository: docker.drift.inera.se/speck/
+  repository: docker.drift.inera.se/ntjp/
   axel:
     image:
       name: axel
