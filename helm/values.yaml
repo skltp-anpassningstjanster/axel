@@ -4,6 +4,7 @@
 replicaCount: 1
 namespace: ntjp-local
 
+testinheritance: axel-specific
 deployment:
   axel:
     name: axel
@@ -13,18 +14,14 @@ deployment:
 
 container:
   axel:
-    image:
-      repository: docker.drift.inera.se/ntjp/axel
-      pullPolicy: always
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: ""
+    image: axel
+    pullPolicy: always
+    # Overrides the image tag whose default is the chart appVersion.
+     tag: ""
   mongo:
-    image:
-      repository: docker.drift.inera.se/ntjp/mongodb
-      pullPolicy: always
-      tag: ""
-
-imagePullSecrets: []
+    image: mongo
+    pullPolicy: always
+    tag: ""
 
 service:
   axel:
