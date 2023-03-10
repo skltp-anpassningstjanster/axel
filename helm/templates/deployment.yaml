@@ -30,7 +30,7 @@ spec:
         - name: regcred
       containers:
         - name: {{ .Values.deployment.axel.name }}
-          image: "{{ .Values.container.repository }}{{ .Values.container.axel.image }}:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
+          image: "{{ .Values.container.repository }}{{ .Values.container.axel.image.name }}:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.container.axel.image.pullPolicy | camelcase }}
           ports:
             - containerPort: {{ .Values.service.axel.port }}
