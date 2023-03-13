@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: axel-configmap
+data:
+  AXEL_MONGO_URL: jdbc:mysql://theUrl_Axel_Local
+  AXEL_ENV_VAR: TestVar_Axel_Local
+  AXEL_LOCAL_TEST: LocalTest
