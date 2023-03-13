@@ -32,7 +32,7 @@ environment:
   axel:
     variables:
       config_maps:
-        - axel-configmap
+        - axel-configmap-default
   mongo:
     # Nothing yet.
 
