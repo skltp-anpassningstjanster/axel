@@ -31,8 +31,12 @@ service:
 environment:
   axel:
     variables:
-      config_maps:
+      _default_config_maps:
         - axel-configmap-default
+      config_maps:
+        # Nothing yet. Override to supply your own maps.
+      secrets:
+        # Nothing yet.
   mongo:
     # Nothing yet.
 

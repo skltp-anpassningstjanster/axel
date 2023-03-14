@@ -20,11 +20,6 @@ spec:
       annotations:
       labels:
         app: {{ .Values.deployment.axel.name }}
-    # spec:
-    #   volumes:
-    #     - name: certs-volume
-    #       secret:
-    #         secretName: {{ .Values.tls.certs.files.secret }}
     spec:
       imagePullSecrets:
         - name: regcred
@@ -50,6 +45,10 @@ spec:
           #     mountPath: /etc/axel/certs
           #     readOnly: true
           envFrom:
+            {{- range $.Values.environment.axel.variables._default_config_maps }}
+            - configMapRef:
+                name: {{ . }}
+            {{- end }}
             {{- range $.Values.environment.axel.variables.config_maps }}
             - configMapRef:
                 name: {{ . }}

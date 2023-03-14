@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Values.deployment.axel.name }}"
+  name: {{ .Values.deployment.axel.name }}
 spec:
   selector:
-    app: "{{ .Values.deployment.axel.name }}"
-  type: ClusterIP
+    app: {{ .Values.deployment.axel.name }}
+  type: {{ .Values.service.axel.type }}
   ports:
     - port:  {{ .Values.service.axel.port }}
       targetPort:  {{ .Values.service.axel.port }}
