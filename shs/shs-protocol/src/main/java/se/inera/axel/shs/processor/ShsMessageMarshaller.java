@@ -20,7 +20,7 @@ package se.inera.axel.shs.processor;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.DeferredFileOutputStream;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.inera.axel.shs.exception.IllegalMessageStructureException;

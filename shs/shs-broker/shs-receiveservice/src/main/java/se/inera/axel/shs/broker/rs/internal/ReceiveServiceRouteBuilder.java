@@ -43,7 +43,7 @@ public class ReceiveServiceRouteBuilder extends RouteBuilder {
     public void configure() throws Exception {
         // Handle MimeMessage
         from("{{shsRsHttpEndpoint}}{{shsRsPathPrefix}}?disableStreamCache=true")
-        .routeId("/shs/rs")
+        .routeId("{{shsRsPathPrefix}}")
         .onException(ShsException.class)
             .handled(true)
             .log(LoggingLevel.ERROR, "ShsException caught: ${exception.stacktrace}")
@@ -79,10 +79,15 @@ public class ReceiveServiceRouteBuilder extends RouteBuilder {
             .setHeader(ShsHeaders.X_SHS_CONTENTID, simple("${exception.label.content.contentId}"))
             .setHeader(ShsHeaders.X_SHS_NODEID, simple("${properties:nodeId}"))
             .setHeader(ShsHeaders.X_SHS_TXID, simple("${exception.label.txId}"))
-            .setHeader(ShsHeaders.X_SHS_ARRIVALDATE, simple("${exception.previousMessageTimestamp}"))
+            
+            // Does not work with date:header.X-shs-arrivaldate ... in newer Camel versions.
+            // Camel does not like the -. Seems like a bug introduced.
+            .setHeader("TMP_ARRIVALDATE", simple("${exception.previousMessageTimestamp}"))
             .setHeader(ShsHeaders.X_SHS_ARRIVALDATE,
-                    simple("${date:header." + ShsHeaders.X_SHS_ARRIVALDATE
+                    simple("${date:header." + "TMP_ARRIVALDATE"
                             + ":" + TimestampConverter.DATETIME_FORMAT + "}"))
+            .removeHeader("TMP_ARRIVALDATE")
+            
             .setHeader(ShsHeaders.X_SHS_DUPLICATEMSG, constant("yes"))
             .transform(header(ShsHeaders.X_SHS_TXID))
             .handled(true)
@@ -107,10 +112,15 @@ public class ReceiveServiceRouteBuilder extends RouteBuilder {
             .setHeader(ShsHeaders.X_SHS_NODEID, simple("${properties:nodeId}"))
             .setHeader(ShsHeaders.X_SHS_LOCALID, simple("${body.id}"))
             .setHeader(ShsHeaders.X_SHS_TXID, simple("${body.label.txId}"))
-            .setHeader(ShsHeaders.X_SHS_ARRIVALDATE, simple("${body.arrivalTimeStamp}"))
+            
+            // Does not work with date:header.X-shs-arrivaldate ... in newer Camel versions.
+            // Camel does not like the -. Seems like a bug introduced.
+            .setHeader("TMP_ARRIVALDATE", simple("${body.arrivalTimeStamp}"))
             .setHeader(ShsHeaders.X_SHS_ARRIVALDATE,
-                    simple("${date:header." + ShsHeaders.X_SHS_ARRIVALDATE
+                    simple("${date:header." + "TMP_ARRIVALDATE"
                             + ":" + TimestampConverter.DATETIME_FORMAT + "}"))
+            .removeHeader("TMP_ARRIVALDATE")
+            
             .setHeader(ShsHeaders.X_SHS_DUPLICATEMSG, constant("no"))
             .transform(simple("${body.label.txId}"))
         .end()

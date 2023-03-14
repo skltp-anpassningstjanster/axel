@@ -18,7 +18,7 @@
  */
 package se.inera.axel.shs.broker.directory.internal;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.ldap.NameNotFoundException;
 import org.springframework.ldap.core.DirContextAdapter;
 import org.springframework.ldap.core.DistinguishedName;

@@ -43,12 +43,9 @@ public class DeliveryServiceRouteBuilder extends RouteBuilder {
         .handled(true);
 
 
-        from("{{shsDsHttpEndpoint}}{{shsDsPathPrefix}}/" +
-                "?" +
-                "httpBindingRef=shsHttpBinding" +
-                "&matchOnUriPrefix=true")
+        from("{{shsDsHttpEndpoint}}{{shsDsPath}}")
         .routeId("/shs/ds")
-        .beanRef("httpPathParamsExtractor")
+        .bean("httpPathParamsExtractor")
         .validate(header("outbox").isNotNull())
         .choice()
         .when(header(Exchange.HTTP_METHOD).isEqualTo("POST"))
@@ -68,15 +65,15 @@ public class DeliveryServiceRouteBuilder extends RouteBuilder {
 
         from("direct:fetchMessage").routeId("direct:fetchMessage")
         // the message is locked here and then committed or rollbacked in ShsHttpBinding on the jetty endpoint.
-        .beanRef("messageLogService", "loadEntryAndLockForFetching(${header.outbox}, ${header.txId})")
+        .bean("messageLogService", "loadEntryAndLockForFetching(${header.outbox}, ${header.txId})")
         .setProperty("entry", body())  // must be set on 'entry'-property so ShsHttpBinding can use it
-        .beanRef("messageLogService", "loadMessage(${property.entry})")
+        .bean("messageLogService", "loadMessage(${property.entry})")
         .setHeader(Exchange.CONTENT_TYPE, constant("message/rfc822"));
 
 
         from("direct:listMessages").routeId("direct:listMessages")
         .bean(new HeaderToFilterConverter())
-        .beanRef("messageLogService", "listMessages(${header.outbox}, ${body})")
+        .bean("messageLogService", "listMessages(${header.outbox}, ${body})")
         .bean(new MessageListConverter())
         .setHeader(Exchange.CONTENT_TYPE, constant("application/xml"))
         .setProperty(Exchange.CHARSET_NAME, constant("iso-8859-1"))
@@ -90,14 +87,14 @@ public class DeliveryServiceRouteBuilder extends RouteBuilder {
 
 
         from("direct:acknowledgeMessage").routeId("direct:acknowledgeMessage")
-        .beanRef("messageLogService", "loadEntry(${header.outbox}, ${header.txId})")
+        .bean("messageLogService", "loadEntry(${header.outbox}, ${header.txId})")
         .choice()
         .when().simple("${body.label.sequenceType} != 'ADM' && ${body.acknowledged} == false")
-            .beanRef("messageLogService", "messageAcknowledged(${body})")
+            .bean("messageLogService", "messageAcknowledged(${body})")
             .bean(ConfirmMessageBuilder.class)
             .to("direct-vm:shs:rs")
         .otherwise()
-            .beanRef("messageLogService", "messageAcknowledged(${body})")
+            .bean("messageLogService", "messageAcknowledged(${body})")
         .end()
         .setBody(constant("OK"));
 

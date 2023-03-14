@@ -20,8 +20,7 @@ package se.inera.axel.webconsole;
 
 import org.testng.annotations.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Jan Hallonstén, jan.hallonsten@r2m.se
@@ -34,6 +33,6 @@ public class NodeInfoTest {
         nodeInfo.setGroupId("se.inera.axel");
 
         String mavenVersion = nodeInfo.getMavenVersion();
-        assertThat(mavenVersion, equalTo("1.0-NodeInfoTest"));
+        assertEquals(mavenVersion, "1.0-NodeInfoTest");
     }
 }

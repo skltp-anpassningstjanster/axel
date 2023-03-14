@@ -2,7 +2,7 @@ package se.inera.axel.test.fitnesse.fixtures;
 
 import java.io.File;
 
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 
 public class TestCase6 {
 	private String endpointUri;

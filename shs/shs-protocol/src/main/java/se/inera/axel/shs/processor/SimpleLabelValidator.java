@@ -18,7 +18,7 @@
  */
 package se.inera.axel.shs.processor;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import se.inera.axel.shs.exception.*;
 import se.inera.axel.shs.mime.ShsMessage;
 import se.inera.axel.shs.xml.UrnAddress;

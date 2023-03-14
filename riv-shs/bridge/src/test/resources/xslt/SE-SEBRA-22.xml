@@ -1,4 +1,4 @@
-<ns3:ProcessIndividualCaseSafetyReport xmlns:ns3="urn:riv:lv:reporting:pharmacovigilance:ProcessIndividualCaseSafetyReportResponder:1" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns2="urn:riv:lv:reporting:pharmacovigilance:1">
+<ns3:ProcessIndividualCaseSafetyReport xmlns:ns3="urn:riv-lv:lv:reporting:pharmacovigilance:ProcessIndividualCaseSafetyReportResponder:1" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns2="urn:riv-lv:lv:reporting:pharmacovigilance:1">
 	<ns3:individualCaseSafetyReport>
 		<ns2:ichicsr lang="se">
 			<ns2:ichicsrmessageheader>

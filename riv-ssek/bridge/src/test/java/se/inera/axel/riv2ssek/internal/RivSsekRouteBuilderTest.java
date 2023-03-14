@@ -27,7 +27,7 @@ import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.builder.xml.XPathBuilder;
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.AvailablePortFinder;
 import org.apache.camel.testng.AbstractCamelTestNGSpringContextTests;

@@ -64,6 +64,7 @@
             <props>
                 <prop key="shsDsHttpEndpoint">jetty://http://localhost</prop>
                 <prop key="shsDsPathPrefix">/shs/ds</prop>
+                <prop key="shsDsPath">/shs/ds/?httpBindingRef=shsHttpBinding&#x26;matchOnUriPrefix=true</prop>
 
                	<prop key="keyStoreParameters.resource">/certs/shs-test-server.p12</prop>
                 <prop key="keyStoreParameters.type">pkcs12</prop>

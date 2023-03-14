@@ -34,8 +34,13 @@ public class EmbeddedMongoDbInitializer implements ApplicationContextInitializer
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
-        try {
-            startMongoDb(applicationContext.getEnvironment());
+    	
+    	//TODO: method is running twice in newer version of Camel.
+    	if(System.getProperty("shsRsPort") != null)
+    		return;
+    	
+    	try {
+        	startMongoDb(applicationContext.getEnvironment());
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }

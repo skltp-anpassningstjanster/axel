@@ -28,7 +28,7 @@ import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -36,7 +36,7 @@
     <osgi:reference id="senderValidationService" interface="se.inera.axel.shs.broker.validation.SenderValidationService" />
     <osgi:reference id="jmsConnectionFactory" interface="javax.jms.ConnectionFactory" filter="(name=axel)"/>
 
-    <osgi:reference id="servletref" interface="org.apache.camel.component.http.CamelServlet">
+    <osgi:reference id="servletref" interface="org.apache.camel.http.common.CamelServlet">
         <osgi:listener bind-method="register" unbind-method="unregister">
             <ref bean="httpRegistry"/>
         </osgi:listener>

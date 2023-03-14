@@ -20,9 +20,7 @@ package se.inera.axel.shs.broker.rs.internal;
 
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
-import org.apache.camel.component.http.HttpOperationFailedException;
-import se.inera.axel.shs.broker.messagestore.MessageLogService;
-import se.inera.axel.shs.broker.messagestore.ShsMessageEntry;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import se.inera.axel.shs.exception.MissingDeliveryExecutionException;
 import se.inera.axel.shs.mime.ShsMessage;
 import se.inera.axel.shs.processor.ShsHeaders;

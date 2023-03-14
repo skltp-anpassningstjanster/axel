@@ -4,7 +4,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.converter.stream.InputStreamCache;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.text.StrBuilder;
+import org.apache.commons.lang3.text.StrBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.inera.axel.shs.broker.messagestore.ShsMessageEntry;

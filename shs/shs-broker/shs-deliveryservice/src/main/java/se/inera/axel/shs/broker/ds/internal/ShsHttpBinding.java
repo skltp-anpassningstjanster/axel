@@ -20,7 +20,7 @@ package se.inera.axel.shs.broker.ds.internal;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.component.http.DefaultHttpBinding;
+import org.apache.camel.http.common.DefaultHttpBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.inera.axel.shs.broker.messagestore.MessageLogService;

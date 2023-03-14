@@ -20,7 +20,7 @@ package se.inera.axel.riv.internal;
 
 import org.apache.camel.ExchangeProperty;
 import org.apache.camel.Header;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import se.inera.axel.riv.RivShsMappingService;
 import se.inera.axel.riv.RivShsServiceMapping;
 import se.inera.axel.riv.RivShsServiceMappingRepository;

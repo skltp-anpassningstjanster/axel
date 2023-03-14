@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:ns3="urn:riv:lv:reporting:pharmacovigilance:ProcessIndividualCaseSafetyReportResponder:1"
-	xmlns:ns2="urn:riv:lv:reporting:pharmacovigilance:1"
+	xmlns:ns3="urn:riv-lv:lv:reporting:pharmacovigilance:ProcessIndividualCaseSafetyReportResponder:1"
+	xmlns:ns2="urn:riv-lv:lv:reporting:pharmacovigilance:1"
 	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
 	exclude-result-prefixes="ns2 ns3 SOAP-ENV">
 
-	<xsl:output method="xml" indent="yes" encoding="utf-8" />
+	<xsl:output method="xml" indent="yes" encoding="utf-8" cdata-section-elements="parentmedicalrelevanttext" />
 	
 	<xsl:template match="ns3:ProcessIndividualCaseSafetyReport">
 		<xsl:text disable-output-escaping="yes">

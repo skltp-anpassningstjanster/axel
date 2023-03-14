@@ -64,7 +64,7 @@
     <bean id="matcher" class="org.apache.shiro.authc.credential.Sha1CredentialsMatcher"/>
 
     <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
         <property name="url" value="${tak.db.url}" />
         <property name="username" value="${tak.db.login}" />
         <property name="password" value="${tak.db.password}" />

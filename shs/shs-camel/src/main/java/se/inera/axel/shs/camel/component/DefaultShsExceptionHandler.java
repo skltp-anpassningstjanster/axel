@@ -19,7 +19,7 @@
 package se.inera.axel.shs.camel.component;
 
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.inera.axel.shs.exception.MissingDeliveryExecutionException;
@@ -51,24 +51,41 @@ public class DefaultShsExceptionHandler implements ShsExceptionHandler {
         ShsLabel label = inExchange.getProperty(ShsHeaders.LABEL, ShsLabel.class);
 
         if (hasException(returnedExchange)) {
-            createResponse(inExchange, createOrEnrichShsException(returnedExchange, label));
+            createResponse(inExchange, createOrEnrichShsException(returnedExchange.getException(), label));
         }
     }
 
-	private ShsException createOrEnrichShsException(Exchange returnedExchange, ShsLabel label) {
+	@Override
+    public void handleException(Throwable exception) {
+        handleException(null, null, exception);
+    }
 
-		ShsException shsException = returnedExchange.getException(ShsException.class);
+	@Override
+    public void handleException(String message, Throwable exception) {
+        handleException(message, null, exception);
+    }
 
-		if (shsException == null) {
-			IOException ioException = returnedExchange.getException(IOException.class);
+	@Override
+	public void handleException(String message, Exchange exchange, Throwable exception) {
+        ShsLabel label = exchange.getProperty(ShsHeaders.LABEL, ShsLabel.class);
 
-			if (ioException != null) {
-				shsException = new MissingDeliveryExecutionException(ioException);
-			}
+        if (exception != null) {
+            createResponse(exchange, createOrEnrichShsException(exception, label));
+        }
+		
+	}
+	private ShsException createOrEnrichShsException(Throwable exception, ShsLabel label) {
+
+		
+		ShsException shsException = null; 
+
+		if(exception instanceof ShsException) {
+			shsException = (ShsException) exception;
 		}
-
-		if (shsException == null) {
-			Exception exception = returnedExchange.getException(Exception.class);
+		else if(exception instanceof IOException) {
+			shsException = new MissingDeliveryExecutionException(exception);
+		}
+		else {
 			shsException = new OtherErrorException(exception);
 		}
 
@@ -113,4 +130,5 @@ public class DefaultShsExceptionHandler implements ShsExceptionHandler {
 			return exchange.getIn().getBody();
 		}
 	}
+
 }

@@ -36,7 +36,7 @@
     <!-- Register this plugin with the shs router service -->
     <osgi:service ref="shs2RivPlugin" interface="se.inera.axel.shs.broker.routing.ShsPluginRegistration" ranking="10" />
 
-    <osgi:reference id="servletref" interface="org.apache.camel.component.http.CamelServlet">
+    <osgi:reference id="servletref" interface="org.apache.camel.http.common.CamelServlet">
         <osgi:listener bind-method="register" unbind-method="unregister">
             <ref bean="httpRegistry"/>
         </osgi:listener>

@@ -21,7 +21,7 @@ package se.inera.axel.riv.internal;
 import org.apache.camel.Exchange;
 import org.apache.camel.Predicate;
 import org.apache.camel.builder.xml.XPathBuilder;
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 
 public final class IsSoapFaultExceptionPredicate implements Predicate {
 

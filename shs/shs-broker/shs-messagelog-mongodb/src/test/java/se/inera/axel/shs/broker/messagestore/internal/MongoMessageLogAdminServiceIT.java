@@ -30,7 +30,7 @@ import static se.inera.axel.shs.xml.label.ShsLabelMaker.ShsLabelInstantiator.tra
 
 import java.util.Iterator;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;

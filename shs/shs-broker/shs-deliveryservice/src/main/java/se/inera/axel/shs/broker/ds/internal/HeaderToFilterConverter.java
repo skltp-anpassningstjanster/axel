@@ -19,7 +19,7 @@
 package se.inera.axel.shs.broker.ds.internal;
 
 import org.apache.camel.Header;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import se.inera.axel.shs.broker.messagestore.MessageLogService;
 import se.inera.axel.shs.processor.TimestampConverter;
 import se.inera.axel.shs.xml.UrnProduct;

@@ -20,7 +20,7 @@ package se.inera.axel.test.st2;
 
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.builder.xml.XPathBuilder;
-import org.apache.camel.component.http.HttpOperationFailedException;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import org.hamcrest.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
