@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.deployment.axel.name }}
 spec:
   progressDeadlineSeconds: 600
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.deployment.axel.replicaCount }}
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -24,13 +24,13 @@ spec:
       imagePullSecrets:
         - name: regcred
       containers:
-        - name: {{ .Values.deployment.axel.name }}
+        - name: {{ .Values.container.axel.image.name }}
           image: "{{ .Values.container.repository }}{{ .Values.container.axel.image.name }}:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.container.axel.image.pullPolicy | camelcase }}
           ports:
-            - containerPort: {{ .Values.service.axel.port }}
+            - name: {{ .Values.deployment.axel.name }}
+              containerPort: {{ .Values.service.axel.port }}
               protocol: TCP
-              name: {{ .Values.deployment.axel.name }}
           resources:
             limits:
               cpu: 8001m

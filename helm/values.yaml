@@ -1,12 +1,9 @@
-# Default values for Axel.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-replicaCount: 1
 namespace: ntjp
 
 deployment:
   axel:
     name: axel
+    replicaCount: 1
   mongo:
     name: axel-mongodb
 
@@ -34,7 +31,7 @@ environment:
       _default_config_maps:
         - axel-configmap-default
       config_maps:
-        # Nothing yet. Override to supply your own maps.
+        # Nothing yet. Override to supply your own values.
       secrets:
         # Nothing yet.
   mongo:
