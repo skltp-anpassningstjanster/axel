@@ -1,29 +1,7 @@
-namespace: ntjp
-
-deployment:
-  axel:
-    name: axel
-    replicaCount: 1
-  mongo:
-    name: axel-mongodb
-
 container:
   axel:
     image:
-      name: axel
-      pullPolicy: always
-  mongo:
-    image:
-      name: mongodb
-      pullPolicy: always
-
-service:
-  axel:
-    type: ClusterIP
-    port: 8082
-  mongo:
-    type: ClusterIP
-    port: 27017
+      tag: 
 
 environment:
   axel:
@@ -33,9 +11,7 @@ environment:
       config_maps:
         # Nothing yet. Override to supply your own values.
       secrets:
-        # Nothing yet.
-  mongo:
-    # Nothing yet.
+        # Nothing yet. Override to supply your own values.
 
 
     
