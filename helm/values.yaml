@@ -1,5 +1,4 @@
-container:
-  repository: docker.drift.inera.se/ntjp/
+repository: docker.drift.inera.se/ntjp/
   axel:
     image:
       tag: 

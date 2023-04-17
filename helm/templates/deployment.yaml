@@ -24,7 +24,7 @@ spec:
         - name: regcred
       containers:
         - name: axel
-          image: {{ .Values.container.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}
+          image: {{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}
           ports:
             - name: axel
               containerPort: 8082
