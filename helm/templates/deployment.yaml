@@ -42,6 +42,22 @@ spec:
           #   - name: certs-volume
           #     mountPath: /etc/axel/certs
           #     readOnly: true
+          env:
+            - name: activemq.userName
+              valueFrom:
+                secretKeyRef:
+                  key: activemq.username
+                  name: axel-secrets
+            - name: activemq.password
+              valueFrom:
+                secretKeyRef:
+                  key: activemq.password
+                  name: axel-secrets
+            - name: activemq.brokerURL
+              valueFrom:
+                configMapKeyRef:
+                  key: activemq.brokerURL
+                  name: axel-configmap
           envFrom:
             {{- range $.Values.environment.axel.variables._default_config_maps }}
             - configMapRef:

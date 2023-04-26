@@ -12,7 +12,4 @@ environment:
       config_maps:
         # Nothing yet. Override to supply your own values.
       secrets:
-        # Nothing yet. Override to supply your own values.
-
-
-    
+        - axel-secrets
