@@ -20,54 +20,39 @@ spec:
       labels:
         app: axel
     spec:
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-        - name: regcred
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: certs-volume
+          secret:
+            secretName: {{ .Values.environment.axel.secretVolumes.clientCert.secretName }}
       containers:
-        - name: axel
-          image: {{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: axel
               containerPort: 8082
               protocol: TCP
-          resources:
-            limits:
-              cpu: 600m
-              memory: 800Mi
-            requests:
-              cpu: 200m
-              memory: 401Mi
+          resources: {{- toYaml .Values.resources | nindent 12 }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
-          # volumeMounts:
-          #   - name: certs-volume
-          #     mountPath: /etc/axel/certs
-          #     readOnly: true
-          env:
-            - name: activemq.userName
-              valueFrom:
-                secretKeyRef:
-                  key: activemq.username
-                  name: axel-secrets
-            - name: activemq.password
-              valueFrom:
-                secretKeyRef:
-                  key: activemq.password
-                  name: axel-secrets
-            - name: activemq.brokerURL
-              valueFrom:
-                configMapKeyRef:
-                  key: activemq.brokerURL
-                  name: axel-configmap
+          volumeMounts:
+            - name: certs-volume
+              mountPath: {{ .Values.environment.axel.secretVolumes.clientCert.mountPath }}
+              readOnly: true
           envFrom:
-            {{- range $.Values.environment.axel.variables._default_config_maps }}
+            {{- range .Values.environment.axel.variables._default_config_maps }}
             - configMapRef:
                 name: {{ . }}
             {{- end }}
-            {{- range $.Values.environment.axel.variables.config_maps }}
+            {{- range .Values.environment.axel.variables.config_maps }}
             - configMapRef:
                 name: {{ . }}
             {{- end }}
-            {{- range $.Values.environment.axel.variables.secrets }}
+            {{- range .Values.environment.axel.variables.secrets }}
             - secretRef:
                 name: {{ . }}
             {{- end }}
