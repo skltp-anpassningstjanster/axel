@@ -2,10 +2,16 @@ repository: docker.drift.inera.se/ntjp/
 container:
   axel:
     image:
+      pullPolicy: Always
       tag: 
 
 imagePullSecrets:
   - name: regcred
+
+
+ingressroute:
+  hostName: dev.ntjp.se
+  pathPrefixPrefix: "/axel"
 
 environment:
   axel:

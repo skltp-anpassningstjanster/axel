@@ -30,4 +30,4 @@ metadata:
 spec:
     stripPrefix:
         prefixes:
-            - /axel
+            - {{ .Values.ingressroute.pathPrefixPrefix }}

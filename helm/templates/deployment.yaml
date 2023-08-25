@@ -31,7 +31,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.container.axel.image.pullPolicy }}
           ports:
             - name: axel
               containerPort: 8082
