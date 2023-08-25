@@ -23,8 +23,8 @@ environment:
       secrets:
         - axel-secrets
     secretVolumes:
-      clientCert:
-        secretName: axel-client-cert
+      certs:
+        secretName: axel-certs
         mountPath: /etc/axel/certs
 
 

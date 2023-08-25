@@ -27,7 +27,7 @@ spec:
       volumes:
         - name: certs-volume
           secret:
-            secretName: {{ .Values.environment.axel.secretVolumes.clientCert.secretName }}
+            secretName: {{ .Values.environment.axel.secretVolumes.certs.secretName }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
@@ -41,7 +41,7 @@ spec:
           terminationMessagePolicy: File
           volumeMounts:
             - name: certs-volume
-              mountPath: {{ .Values.environment.axel.secretVolumes.clientCert.mountPath }}
+              mountPath: {{ .Values.environment.axel.secretVolumes.certs.mountPath }}
               readOnly: true
           envFrom:
             {{- range .Values.environment.axel.variables._default_config_maps }}
