@@ -7,7 +7,7 @@ metadata:
 spec:
     routes:
         - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/shs-broker`)
+          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/`)
           middlewares:
               - name: ipwhitelist
               - name: redirect-https
@@ -15,16 +15,6 @@ spec:
               - kind: Service
                 name: axel
                 port: 8080
-        - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/riv-shs`)
-          middlewares:
-              - name: ipwhitelist
-              - name: redirect-https
-          services:
-              - kind: Service
-                name: axel
-                port: 8080
-
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -37,29 +27,7 @@ metadata:
 spec:
     routes:
         - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/shs-broker`)
-          middlewares:
-              - name: ipwhitelist
-              - name: stripprefix
-          priority: 10
-          services:
-              - kind: Service
-                name: axel-web
-                passHostHeader: true
-                port: 8080
-                responseForwarding:
-                    flushInterval: 1ms
-                scheme: http
-                sticky:
-                    cookie:
-                        httpOnly: true
-                        name: cookie
-                        sameSite: none
-                        secure: true
-                strategy: RoundRobin
-                weight: 10
-        - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/riv-shs`)
+          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/`)
           middlewares:
               - name: ipwhitelist
               - name: stripprefix
