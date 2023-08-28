@@ -13,7 +13,7 @@ spec:
               - name: redirect-https
           services:
               - kind: Service
-                name: axel
+                name: axel-web
                 port: 8080
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -40,14 +40,6 @@ spec:
                 responseForwarding:
                     flushInterval: 1ms
                 scheme: http
-                sticky:
-                    cookie:
-                        httpOnly: true
-                        name: cookie
-                        sameSite: none
-                        secure: true
-                strategy: RoundRobin
-                weight: 10
     tls:
         domains:
             - main: dev.ntjp.se
