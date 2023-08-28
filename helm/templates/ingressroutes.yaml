@@ -33,7 +33,6 @@ metadata:
     labels:
         app.kubernetes.io/instance: tak-dev
     name: tak-https
-    namespace: ntjp-dev
 spec:
     routes:
         - kind: Rule
