@@ -2,83 +2,26 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
     annotations: null
-
-    name: axel-http
-spec:
-    routes:
-        - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/shs-broker`)
-          middlewares:
-              - name: ipwhitelist
-              - name: redirect-https
-          services:
-              - kind: Service
-                name: axel
-                port: 8082
-        - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/riv-shs`)
-          middlewares:
-              - name: ipwhitelist
-              - name: redirect-https
-          services:
-              - kind: Service
-                name: axel
-                port: 8082
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-    annotations: null
     labels:
-        app.kubernetes.io/instance: tak-dev
-    name: tak-https
+        app.kubernetes.io/instance: axel-dev
+    name: axel-https
+    namespace: ntjp-dev
 spec:
     routes:
         - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/shs-broker`)
+          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/`)
           middlewares:
               - name: ipwhitelist
               - name: stripprefix
           priority: 10
           services:
               - kind: Service
-                name: tak-web-svc
+                name: axel
                 passHostHeader: true
                 port: 8080
                 responseForwarding:
                     flushInterval: 1ms
                 scheme: http
-                sticky:
-                    cookie:
-                        httpOnly: true
-                        name: cookie
-                        sameSite: none
-                        secure: true
-                strategy: RoundRobin
-                weight: 10
-        - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/riv-shs`)
-          middlewares:
-              - name: ipwhitelist
-              - name: stripprefix
-          priority: 10
-          services:
-              - kind: Service
-                name: tak-services-svc
-                passHostHeader: true
-                port: 8080
-                responseForwarding:
-                    flushInterval: 1ms
-                scheme: http
-                sticky:
-                    cookie:
-                        httpOnly: true
-                        name: cookie
-                        sameSite: none
-                        secure: true
-                strategy: RoundRobin
-                weight: 10
     tls:
         domains:
             - main: dev.ntjp.se
