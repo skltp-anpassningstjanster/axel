@@ -1,15 +1,14 @@
-{{- $pathPrefix := trimAll "/" .Values.ingressroute.pathPrefixPrefix -}}
+{{- $pathPrefix := trimAll "/" .Values.ingressroute.pathPrefix -}}
+{{- $defaultIpWhiteList := dict "sourceRange" (list "0.0.0.0/0")  -}} {{- /* allow all */ -}}
+---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-    labels:
-        app.kubernetes.io/instance: {{ .Chart.Name }}
-    name: ipwhitelist
+labels:
+    app.kubernetes.io/instance: {{ .Chart.Name }}-dev
+    name: {{ .Chart.Name }}-ipwhitelist
 spec:
-    ipWhiteList:
-        sourceRange:
-            - 10.6.3.0/24 # Orange-VPN
-            - 185.144.144.144/28 # NMT-VPN
+    ipWhiteList: {{ .Values.ingressroute.ipWhiteList | default $defaultIpWhiteList | toYaml | nindent 8 }}
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -17,9 +16,9 @@ kind: Middleware
 metadata:
     labels:
         app.kubernetes.io/instance: {{ .Chart.Name }}
-    name: stripprefix
+    name: {{ .Chart.Name }}-stripprefix
 spec:
-   stripPrefix:
+    stripPrefix:
         prefixes:
             - /{{  $pathPrefix }}/
 ---
@@ -28,7 +27,7 @@ kind: Middleware
 metadata:
     labels:
         app.kubernetes.io/instance: {{ .Chart.Name }}
-    name: redirectwithslash
+    name: {{ .Chart.Name }}-redirectwithslash
 spec:
     redirectRegex:
         regex: '^https?://([^/]*)/{{ $pathPrefix }}/([^/]*)$'

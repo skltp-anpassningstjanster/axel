@@ -10,8 +10,8 @@ imagePullSecrets:
 
 
 ingressroute:
-  hostName: dev.ntjp.se
-  pathPrefixPrefix: "axel"
+  hostName: axel.localhost
+  pathPrefix: "axel"
 
 environment:
   axel:

@@ -1,4 +1,4 @@
-{{- $pathPrefix := trimAll "/" .Values.ingressroute.pathPrefixPrefix -}}
+{{- $pathPrefix := trimAll "/" .Values.ingressroute.pathPrefix -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -11,9 +11,9 @@ spec:
         - kind: Rule
           match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`/{{ $pathPrefix }}/`)
           middlewares:
-              - name: ipwhitelist
-              - name: redirectwithslash
-              - name: stripprefix
+              - name: {{ .Chart.Name }}-ipwhitelist
+              - name: {{ .Chart.Name }}-redirectwithslash
+              - name: {{ .Chart.Name }}-stripprefix
           priority: 10
           services:
               - kind: Service
@@ -25,5 +25,5 @@ spec:
                 scheme: http
     tls:
         domains:
-            - main: dev.ntjp.se
-        secretName: dev.ntjp.se-letsencrypt
+            - main: {{ .Values.ingressroute.hostName }}
+        secretName: {{ .Values.ingressroute.hostName }}-letsencrypt
