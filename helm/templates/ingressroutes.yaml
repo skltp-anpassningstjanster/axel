@@ -4,7 +4,7 @@ kind: IngressRoute
 metadata:
     annotations: null
     labels:
-        app.kubernetes.io/instance: axel-dev
+        app.kubernetes.io/instance: {{ .Chart.Name }}
     name: axel-https
 spec:
     routes:
