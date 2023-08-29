@@ -5,7 +5,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
 labels:
-    app.kubernetes.io/instance: {{ .Chart.Name }}-dev
+    app.kubernetes.io/instance: {{ .Chart.Name }}
     name: {{ .Chart.Name }}-ipwhitelist
 spec:
     ipWhiteList: {{ .Values.ingressroute.ipWhiteList | default $defaultIpWhiteList | toYaml | nindent 8 }}
