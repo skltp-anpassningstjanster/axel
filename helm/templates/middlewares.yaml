@@ -6,7 +6,7 @@ kind: Middleware
 metadata:
     labels:
         app.kubernetes.io/instance: {{ .Chart.Name }}
-        name: {{ .Chart.Name }}-ipwhitelists
+    name: {{ .Chart.Name }}-ipwhitelists
 spec:
     ipWhiteList: {{ .Values.ingressroute.ipWhiteList | default $defaultIpWhiteList | toYaml | nindent 8 }}
 
