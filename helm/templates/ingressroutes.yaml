@@ -5,7 +5,6 @@ metadata:
     labels:
         app.kubernetes.io/instance: axel-dev
     name: axel-https
-    namespace: ntjp-dev
 spec:
     routes:
         - kind: Rule
