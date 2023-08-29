@@ -39,6 +39,7 @@ spec:
           match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/shs-broker`)
           middlewares:
               - name: ipwhitelist
+              - name: redirectwithslash
               - name: stripprefix
           priority: 10
           services:

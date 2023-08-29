@@ -16,6 +16,15 @@ kind: Middleware
 metadata:
     name: stripprefix
 spec:
-    stripPrefix:
+   stripPrefix:
         prefixes:
             - {{ .Values.ingressroute.pathPrefixPrefix }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+    name: redirectwithslash
+spec:
+    redirectRegex:
+        regex: '^https?://([^/]*)/{{ .Values.ingressroute.pathPrefixPrefix }}/([^/]*)$'
+        replacement: 'https://${1}/{{ .Values.ingressroute.pathPrefixPrefix }}/${2}/'
