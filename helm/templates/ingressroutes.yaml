@@ -3,8 +3,8 @@ kind: IngressRoute
 metadata:
     annotations: null
     labels:
-        app.kubernetes.io/instance: axel-dev
-    name: axel-https
+        app.kubernetes.io/instance: {{ .Chart.Name }}
+    name: {{ .Chart.Name }}-https
 spec:
     routes:
         - kind: Rule
@@ -23,5 +23,5 @@ spec:
                 scheme: http
     tls:
         domains:
-            - main: dev.ntjp.se
-        secretName: dev.ntjp.se-letsencrypt
+            - main: {{ .Values.ingressroute.hostName }}
+        secretName: {{ .Values.ingressroute.hostName }}-letsencrypt
