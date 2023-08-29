@@ -1,4 +1,4 @@
-
+{{- $pathPrefix := trimAll "/" .Values.ingressroute.pathPrefixPrefix -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -9,7 +9,7 @@ metadata:
 spec:
     routes:
         - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`/{{ .Values.ingressroute.pathPrefixPrefix }}`)
+          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`/{{ $pathPrefix }}/`)
           middlewares:
               - name: ipwhitelist
               - name: redirectwithslash

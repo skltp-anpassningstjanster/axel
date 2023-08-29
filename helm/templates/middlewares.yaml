@@ -1,3 +1,4 @@
+{{- $pathPrefix := trimAll "/" .Values.ingressroute.pathPrefixPrefix -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
@@ -14,17 +15,21 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
+    labels:
+        app.kubernetes.io/instance: {{ .Chart.Name }}
     name: stripprefix
 spec:
    stripPrefix:
         prefixes:
-            - {{ .Values.ingressroute.pathPrefixPrefix }}
+            - /{{  $pathPrefix }}/
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
+    labels:
+        app.kubernetes.io/instance: {{ .Chart.Name }}
     name: redirectwithslash
 spec:
     redirectRegex:
-        regex: '^https?://([^/]*)/{{ .Values.ingressroute.pathPrefixPrefix }}/([^/]*)$'
-        replacement: 'https://${1}/{{ .Values.ingressroute.pathPrefixPrefix }}/${2}/'
+        regex: '^https?://([^/]*)/{{ $pathPrefix }}/([^/]*)$'
+        replacement: 'https://${1}/{{ $pathPrefix }}/${2}/'
