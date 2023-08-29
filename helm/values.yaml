@@ -3,25 +3,25 @@ container:
   axel:
     image:
       pullPolicy: Always
-      tag:
+      tag: 
 
 imagePullSecrets:
-- name: regcred
+  - name: regcred
 
 
 ingressroute:
-  hostName: base.env.url # This should be overridden and set to your environment's base name.
-  pathPrefixPrefix: "/axel"
+  hostName: axel.localhost
+  pathPrefix: "axel"
 
 environment:
   axel:
     variables:
       _default_config_maps:
-      - axel-configmap-default
+        - axel-configmap-default
       config_maps:
-      # Nothing yet. Override to supply your own values.
+        # Nothing yet. Override to supply your own values.
       secrets:
-      - axel-secrets
+        - axel-secrets
     secretVolumes:
       certs:
         secretName: axel-certs
@@ -29,3 +29,13 @@ environment:
 
 
 resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
