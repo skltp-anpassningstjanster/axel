@@ -11,7 +11,7 @@ spec:
         - kind: Rule
           match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`/{{ $pathPrefix }}/`)
           middlewares:
-              - name: {{ .Chart.Name }}-ipwhitelist
+              - name: {{ .Chart.Name }}-ipwhitelists
               - name: {{ .Chart.Name }}-redirectwithslash
               - name: {{ .Chart.Name }}-stripprefix
           priority: 10
