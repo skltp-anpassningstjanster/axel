@@ -16,7 +16,7 @@ spec:
           priority: 10
           services:
               - kind: Service
-                name: axel-web
+                name: axel
                 passHostHeader: true
                 port: 8080
                 responseForwarding:
