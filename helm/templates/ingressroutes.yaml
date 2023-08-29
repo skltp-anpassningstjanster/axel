@@ -2,24 +2,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
     annotations: null
-
-    name: axel-http
-spec:
-    routes:
-        - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`{{ .Values.ingressroute.pathPrefixPrefix }}/`)
-          middlewares:
-              - name: ipwhitelist
-              - name: redirect-https
-          services:
-              - kind: Service
-                name: axel-web
-                port: 8080
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-    annotations: null
     labels:
         app.kubernetes.io/instance: axel-dev
     name: axel-https
