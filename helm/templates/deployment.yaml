@@ -28,6 +28,9 @@ spec:
         - name: certs-volume
           secret:
             secretName: {{ .Values.environment.axel.secretVolumes.certs.secretName }}
+        - name: axel-home-etc-vol
+          configMap:
+            name: axel-home-etc
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
@@ -43,6 +46,8 @@ spec:
             - name: certs-volume
               mountPath: {{ .Values.environment.axel.secretVolumes.certs.mountPath }}
               readOnly: true
+            - name: axel-home-etc-vol
+              mountPath: {{ .Values.environment.axel.home }}/etc
           envFrom:
             {{- range .Values.environment.axel.variables._default_config_maps }}
             - configMapRef:
