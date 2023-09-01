@@ -15,6 +15,7 @@ ingressroute:
 
 environment:
   axel:
+    home: /usr/local/tomcat
     variables:
       _default_config_maps:
         - axel-configmap-default

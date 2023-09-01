@@ -7,44 +7,46 @@ data:
   # This becomes the default logging level for all Loggers.
   .level: WARNING
 
+  AXEL_HOME: "{{ .Values.environment.axel.home }}"
+
   # List all the log handlers
-  handlers: java.util.logging.FileHandler
+  HANDLERS: java.util.logging.FileHandler
 
   # Everything is logged to the file writer
-  java.util.logging.FileHandler.level: ALL
-  java.util.logging.FileHandler.pattern: /var/log/tomcat/axel/axel.log
-  java.util.logging.FileHandler.append: "true"
-  java.util.logging.FileHandler.formatter: java.util.logging.SimpleFormatter
+  JAVA_UTIL_LOGGING_FILEHANDLER_LEVEL: ALL
+  JAVA_UTIL_LOGGING_FILEHANDLER_PATTERN: /var/log/tomcat/axel/axel.log
+  JAVA_UTIL_LOGGING_FILEHANDLER_APPEND: "true"
+  JAVA_UTIL_LOGGING_FILEHANDLER_FORMATTER: java.util.logging.SimpleFormatter
 
   # SHS Broker certificate
-  shsRsKeyStoreParameters.resource: /etc/axel/certs/268B5EC441D822B2.p12
-  shsRsKeyStoreParameters.type: pkcs12
-  shsRsTrustStoreParameters.resource: /etc/axel/certs/steria-ca.jks
-  shsRsTrustStoreParameters.type: jks
+  SHSRSKEYSTOREPARAMETERS_RESOURCE: /etc/axel/certs/268B5EC441D822B2.p12
+  SHSRSKEYSTOREPARAMETERS_TYPE: pkcs12
+  SHSRSTRUSTSTOREPARAMETERS_RESOURCE: /etc/axel/certs/steria-ca.jks
+  SHSRSTRUSTSTOREPARAMETERS_TYPE: jks
 
   # RIV-SHS certificate - relative path!
-  keyStoreParameters.resource: certs/tp.jks
-  keyStoreParameters.type: jks
-  trustStoreParameters.resource: certs/truststore.jks
-  trustStoreParameters.type: jks
+  KEYSTOREPARAMETERS_RESOURCE: certs/tp.jks
+  KEYSTOREPARAMETERS_TYPE: jks
+  TRUSTSTOREPARAMETERS_RESOURCE: certs/truststore.jks
+  TRUSTSTOREPARAMETERS_TYPE: jks
 
   # Activemq properties
-  activemq.brokerURL: "failover:(tcp://axel-amq:61616)?randomize=false&timeout=10000&jms.prefetchPolicy.queuePrefetch=5"
-  activemq.maxConnections: "1"
-  spring.activemq.packages.trusted: se.inera.axel.shs.broker.messagestore,se.inera.axel.shs.xml.label,java.util
+  ACTIVEMQ_BROKERURL: "failover:(tcp://axel-amq:61616)?randomize=false&timeout=10000&jms.prefetchPolicy.queuePrefetch=5"
+  ACTIVEMQ_MAXCONNECTIONS: "1"
+  SPRING_ACTIVEMQ_PACKAGES_TRUSTED: se.inera.axel.shs.broker.messagestore,se.inera.axel.shs.xml.label,java.util
 
   # SHS Broker properties
-  nodeId: IneraTest-DEV
-  orgId: "1234567890"
-  shs.label.status: test
+  NODEID: IneraTest-DEV
+  ORGID: "1234567890"
+  SHS_LABEL_STATUS: test
 
-  shs.ldap.url: ldap://public.openshs.se:389/L=SHS
-  shs.ldap.admin.url: ldap://update.openshs.se:389/L=SHS
-  shs.ldap.admin.userDn: cn=ineraadmin,ou=katalogadmin
+  SHS_LDAP_URL: ldap://public.openshs.se:389/L=SHS
+  SHS_LDAP_ADMIN_URL: ldap://update.openshs.se:389/L=SHS
+  SHS_LDAP_ADMIN_USERDN: cn=ineraadmin,ou=katalogadmin
 
   # RIV-SHS properties
-  productServiceRestEndpoint: http://localhost:8080/shs-broker/services/products
-  rsEndpoint: http://localhost:8080/shs-broker/rs
+  PRODUCTSERVICERESTENDPOINT: http://localhost:8080/shs-broker/services/products
+  RSENDPOINT: http://localhost:8080/shs-broker/rs
 
   # for inloggning
-  tak.db.url: "jdbc:mysql://localhost:3306/takv3?autoReconnect=true"
+  TAK_DB_URL: "jdbc:mysql://localhost:3306/takv3?autoReconnect=true"
