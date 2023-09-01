@@ -31,6 +31,12 @@ spec:
         - name: axel-home-etc-vol
           configMap:
             name: axel-home-etc
+        - name: setenv
+          configMap:
+            name: setenv
+            items:
+              - key: setenv.sh
+                path: setenv.sh
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
@@ -48,6 +54,12 @@ spec:
               readOnly: true
             - name: axel-home-etc-vol
               mountPath: {{ .Values.environment.axel.home }}/etc
+              readOnly: true
+            - name: setenv
+              mountPath: {{ .Values.environment.axel.home }}/bin/setenv.sh
+              subPath: setenv.sh
+              readOnly: true
+
           envFrom:
             {{- range .Values.environment.axel.variables._default_config_maps }}
             - configMapRef:
