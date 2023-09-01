@@ -4,12 +4,12 @@ metadata:
   creationTimestamp: null
   name: setenv
 data:
-  setenv.sh: >-
-    export CATALINA_OPTS=$CATALINA_OPTS
+  setenv.sh:
+    export CATALINA_OPTS="$CATALINA_OPTS
         -Daxel.home=$AXEL_HOME
         -Dtak.db.login=$TAK_DB_LOGIN
         -Dtak.db.url=$TAK_DB_URL
-        -Dtak.db.password=$TAK_DB_PASSWORD
+        -Dtak.db.password=$TAK_DB_PASSWORD"
 
 
 
