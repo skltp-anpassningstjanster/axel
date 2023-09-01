@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: security-properties
+  name: axel-home-etc-vol
 data:
   security.properties: |+
     whitelist=127.0.0.1,10.250.14,10.7.127,10.6.1,10.6.3
