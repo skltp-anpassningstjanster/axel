@@ -1,4 +1,9 @@
 repository: docker.drift.inera.se/ntjp/
+
+deployment:
+  replicaCount: 1
+  elasticGrokFilter: axel
+
 container:
   axel:
     image:
