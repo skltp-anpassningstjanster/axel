@@ -19,4 +19,4 @@ ENV APP_NAME=axel \
 
 COPY --from=builder $CATALINA_HOME/lib/mysql-connector-java.jar lib/mysql-connector-java.jar
 COPY --from=builder $CATALINA_HOME/webapps/riv-shs/ $CATALINA_HOME/webapps/riv-shs/
-COPY --from=builder $CATALINA_HOME/webapps/shs-broker/  $CATALINA_HOME/webapps/shs-broker/592738
+COPY --from=builder $CATALINA_HOME/webapps/shs-broker/  $CATALINA_HOME/webapps/shs-broker/
