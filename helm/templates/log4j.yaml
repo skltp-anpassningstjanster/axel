@@ -13,7 +13,7 @@ data:
         <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
             <param name="Target" value="System.out"/>
             <layout class="org.apache.log4j.PatternLayout">
-                <param name="ConversionPattern" value="%d %-5p [%t] %-30c - %m%n"/>
+                <param name="ConversionPattern" value="%d{yyyy-MM-ddThh:mm:ss.SSSZ} %-5p [%t] %-30c - %m%n"/>
             </layout>
         </appender>
 
