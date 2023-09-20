@@ -13,6 +13,19 @@ container:
 imagePullSecrets:
   - name: regcred
 
+log4j:
+  volume:
+    name: axel-log4j-vol
+    configMap:
+      name: axel-log4j
+      items:
+        - key: log4j.xml
+          path: log4j.xml
+  mount:
+    mountPath: /opt/log4j
+    subPath: log4j.xml
+
+
 
 ingressroute:
   hostName: axel.localhost
