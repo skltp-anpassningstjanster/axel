@@ -9,7 +9,9 @@ data:
         -Daxel.home=$AXEL_HOME
         -Dtak.db.login=$TAK_DB_LOGIN
         -Dtak.db.url=$TAK_DB_URL
-        -Dtak.db.password=$TAK_DB_PASSWORD"
+        -Dtak.db.password=$TAK_DB_PASSWORD
+        -Dlog4j.configuration=file:{{.Values.log4j.mount.mountPath}}/{{ .Values.log4j.mount.subPath }}
+        -Dlog4j.configurationFile=file:{{.Values.log4j.mount.mountPath}}/{{ .Values.log4j.mount.subPath }}"
 
 
 

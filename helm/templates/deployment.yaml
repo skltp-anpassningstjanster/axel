@@ -38,6 +38,11 @@ spec:
             items:
               - key: setenv.sh
                 path: setenv.sh
+        {{- with .Values.log4j.volume }}
+        - name: {{ .name }}
+          configMap: {{ .configMap | toYaml | nindent 14 }}
+        {{- end }}
+
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
@@ -78,7 +83,10 @@ spec:
               mountPath: {{ .Values.environment.axel.home }}/bin/setenv.sh
               subPath: setenv.sh
               readOnly: true
-
+            {{- with .Values.log4j }}
+            - name: {{ .volume.name }}
+            {{- .mount | toYaml | nindent 14 }}
+            {{- end }}
           envFrom:
             {{- range .Values.environment.axel.variables._default_config_maps }}
             - configMapRef:
