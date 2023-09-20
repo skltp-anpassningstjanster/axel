@@ -9,7 +9,7 @@ metadata:
 spec:
     routes:
         - kind: Rule
-          match: Host(`{{ .Values.ingressroute.hostName }}`) && PathPrefix(`/{{ $pathPrefix }}/`)
+          match: Host(`{{ .Values.ingressroute.bksHostName }}`) && PathPrefix(`/{{ $pathPrefix }}/`)
           middlewares:
               - name: {{ .Chart.Name }}-ipwhitelist
               - name: {{ .Chart.Name }}-redirectwithslash
@@ -25,5 +25,5 @@ spec:
                 scheme: http
     tls:
         domains:
-            - main: {{ .Values.ingressroute.hostName }}
-        secretName: {{ .Values.ingressroute.hostName }}-letsencrypt
+            - main: {{ .Values.ingressroute.bksHostName }}
+        secretName: {{ .Values.ingressroute.bksHostName }}-letsencrypt
