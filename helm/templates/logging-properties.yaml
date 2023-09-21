@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: axel-log4j
+data:
+    logging.properties: |
+        java.util.logging.ConsoleHandler.level=FINE
+        java.util.logging.ConsoleHandler.formatter=org.apache.juli.OneLineFormatter
+        org.apache.juli.OneLineFormatter.timeFormat=yyyy-MM-ddTHH:mm:ss,SSSZ
