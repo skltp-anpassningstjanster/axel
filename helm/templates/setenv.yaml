@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  creationTimestamp: null
-  name: setenv
+  name: axel-setenv
 data:
   setenv.sh:
     export CATALINA_OPTS="$CATALINA_OPTS
