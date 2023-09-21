@@ -32,15 +32,17 @@ spec:
         - name: axel-home-etc-vol
           configMap:
             name: axel-home-etc
-        - name: setenv
-          configMap:
-            name: setenv
-            items:
-              - key: setenv.sh
-                path: setenv.sh
-        {{- with .Values.log4j.volume }}
-        - name: {{ .name }}
-          configMap: {{ .configMap | toYaml | nindent 14 }}
+        {{- with .Values.log4j }}
+        - name: {{ .volume.name }}
+          configMap: {{ .volume.configMap | toYaml | nindent 14 }}
+        {{- end }}
+        {{- with .Values.tomcat_logging }}
+        - name: {{ .volume.name }}
+          configMap: {{ .volume.configMap | toYaml | nindent 14 }}
+        {{- end }}
+        {{- with .Values.setenv }}
+        - name: {{ .volume.name }}
+          configMap: {{ .volume.configMap | toYaml | nindent 14 }}
         {{- end }}
 
       containers:
@@ -79,13 +81,17 @@ spec:
             - name: axel-home-etc-vol
               mountPath: {{ .Values.environment.axel.home }}/etc
               readOnly: true
-            - name: setenv
-              mountPath: {{ .Values.environment.axel.home }}/bin/setenv.sh
-              subPath: setenv.sh
-              readOnly: true
+            {{- with .Values.setenv }}
+            - name: {{ .volume.name }}
+              {{- .mount | toYaml | nindent 14 }}
+            {{- end }}
             {{- with .Values.log4j }}
             - name: {{ .volume.name }}
-            {{- .mount | toYaml | nindent 14 }}
+              {{- .mount | toYaml | nindent 14 }}
+            {{- end }}
+            {{- with .Values.tomcat_logging }}
+            - name: {{ .volume.name }}
+              {{- .mount | toYaml | nindent 14 }}
             {{- end }}
           envFrom:
             {{- range .Values.environment.axel.variables._default_config_maps }}
