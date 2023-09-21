@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: axel-log4j
+    name: axel-logging-props
 data:
     logging.properties: |
         java.util.logging.ConsoleHandler.level=FINE
