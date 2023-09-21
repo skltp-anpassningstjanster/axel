@@ -22,7 +22,7 @@ log4j:
         - key: log4j.xml
           path: log4j.xml
   mount:
-    mountPath: /opt/log4j
+    mountPath: /opt/log4j/log4j.xml
     subPath: log4j.xml
 
 tomcat_logging:
@@ -34,7 +34,7 @@ tomcat_logging:
         - key: logging.properties
           path: logging.properties
   mount:
-    mountPath: /usr/local/tomcat/conf
+    mountPath: /usr/local/tomcat/conf/logging.properties
     subPath: logging.properties
 
 setenv:
@@ -46,7 +46,7 @@ setenv:
         - key: setenv.sh
           path: setenv.sh
   mount:
-    mountPath: /usr/local/tomcat/bin
+    mountPath: /usr/local/tomcat/bin/setenv.sh
     subPath: setenv.sh
 
 
