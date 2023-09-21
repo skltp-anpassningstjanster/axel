@@ -11,7 +11,7 @@ data:
         <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender"> <param
         name="Target" value="System.out"/> <layout
         class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern"
-        value="%d{yyyy-MM-dd'T'hh:mm:ss.SSSZ} %-5p [%t] %-30c - %m%n"/> </layout>
+        value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %-5p [%t] %-30c - %m%n"/> </layout>
         </appender>
 
         <logger name="org.apache.activemq.transport.failover.FailoverTransport">
