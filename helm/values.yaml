@@ -46,7 +46,7 @@ setenv:
         - key: setenv.sh
           path: setenv.sh
   mount:
-    mountPath: /usr/local/tomcat/bin/
+    mountPath: /usr/local/tomcat/bin
     subPath: setenv.sh
 
 
