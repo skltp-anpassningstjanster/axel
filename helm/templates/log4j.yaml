@@ -4,41 +4,18 @@ metadata:
     creationTimestamp: null
     name: axel-log4j
 data:
-    log4j.xml: >-
-        <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE log4j:configuration SYSTEM
-        "log4j.dtd"> <log4j:configuration>
+    log4j.properties: |-
+        # initialize root logger with level ERROR for stdout and fout
+        log4j.rootLogger=INFO,stdout
+        # add a ConsoleAppender to the logger stdout to write to the console
+        log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+        log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+        log4j.appender.stdout.layout.ConversionPattern={"@timestamp":"%d{yyyy-MM-dd HH:mm:ssz}","loglevel":"%p", "thread": "%t", "logmessage":"""%m"""}%n
 
-        <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender"> <param
-        name="Target" value="System.out"/> <layout
-        class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern"
-        value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %-5p [%t] %-30c - %m%n"/> </layout>
-        </appender>
-
-        <logger name="org.apache.activemq.transport.failover.FailoverTransport">
-        <level value="DEBUG"/> </logger>
-
-        <logger
-        name="org.springframework.beans.factory.xml.XmlBeanDefinitionReader"> <level
-        value="INFO"/> </logger>
-
-        <logger
-        name="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
-        <level value="INFO"/> </logger>
-
-        <logger name="se.inera.axel.shs.broker.rs.internal.MessageInfoLogger"
-        additivity="false"> <level value="INFO"/> <appender-ref ref="CONSOLE"/>
-        </logger>
-
-        <logger name="se.inera.axel"> <level value="INFO"/> </logger>
-
-        <logger name="org.apache.wicket"> <level value="INFO"/> </logger>
-
-        <logger name="org.springframework"> <level value="INFO"/> </logger>
-
-        <root>
-
-        <priority value="INFO"/>
-
-        <appender-ref ref="CONSOLE" />
-
-        <appender-ref ref="CONSOLE"/> </root> </log4j:configuration>
+        log4j.logger.org.apache.activemq.transport.failover.FailoverTransport=DEBUG
+        log4j.logger.org.springframework.beans.factory.xml.XmlBeanDefinitionReader=INFO
+        log4j.logger.org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer=INFO
+        log4j.logger.se.inera.axel.shs.broker.rs.internal.MessageInfoLogger=INFO
+        log4j.logger.se.inera.axel=INFO
+        log4j.logger.org.apache.wicket=INFO
+        log4j.logger.org.springframework=INFO
