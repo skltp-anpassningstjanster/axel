@@ -8,4 +8,4 @@ data:
         .level=INFO
         java.util.logging.ConsoleHandler.level=INFO
         java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
-        java.util.logging.SimpleFormatter.format=%1$tFT%1$tT.%1$tL%1$tz %4$-6s  [%2$s]  %3$s - %5$s%n
+        java.util.logging.SimpleFormatter.format={"@timestamp": "%1$tFT%1$tT.%1$tL%1$tz", "loglevel": "%4$s", "thread": "%2$S", "class": "%3$s", "logmessage": """%5$s"""}%n
