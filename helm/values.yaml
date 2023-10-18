@@ -55,6 +55,10 @@ ingressroute:
   bksHostName: base.env.url # This should be overridden and set to your environment's base hostname.
   pathPrefix: "axel"
 
+# Environment-specific backwards-compatible service name
+vip:
+  name: legacy-axel-vip
+
 environment:
   axel:
     home: /usr/local/tomcat
