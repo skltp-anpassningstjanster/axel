@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: axel
+  name: ind-stjp-tomcat-axel-http
 spec:
   selector:
     app: axel
