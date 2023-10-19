@@ -47,7 +47,7 @@ spec:
               containerPort: 8082
               protocol: TCP
           livenessProbe:
-            initialDelaySeconds: 90
+            initialDelaySeconds: 30
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 3
@@ -56,7 +56,7 @@ spec:
               path: shs-broker
               port: 8080
           readinessProbe:
-            initialDelaySeconds: 60
+            initialDelaySeconds: 30
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 3
