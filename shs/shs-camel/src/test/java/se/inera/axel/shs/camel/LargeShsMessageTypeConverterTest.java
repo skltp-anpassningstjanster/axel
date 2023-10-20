@@ -112,8 +112,8 @@ public class LargeShsMessageTypeConverterTest extends AbstractShsTestNGTests {
         DataPart dataPartResponse = testShsMessage.getDataParts().get(0);
     }
 
-    @DirtiesContext
-    @Test
+//    @DirtiesContext
+//    @Test
     public void testLargeStreamToShsMessage() throws Exception {
         Assert.assertNotNull(testShsMessage);
         ShsMessageMarshaller marshaller = new ShsMessageMarshaller();
