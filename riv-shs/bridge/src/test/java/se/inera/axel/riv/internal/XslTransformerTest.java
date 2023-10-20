@@ -41,7 +41,7 @@ public class XslTransformerTest extends CamelTestSupport {
         template().request("direct:xsltransform", null);
 
         List<Exchange> x = mockEndpoint.getReceivedExchanges();
-        String s = x.get(0).getIn().getBody().toString().replace("\t", "");
+        String s = x.get(0).getIn().getBody().toString().replace("\t", "").replace("\r", "");
         assertThat(s.substring(0, expectedResult.length()), 
                 equalTo(expectedResult));
         

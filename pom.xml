@@ -112,12 +112,12 @@
 
     <properties>
         <activation.version>1.1</activation.version>
-        <activemq.version>5.15.10</activemq.version>
+        <activemq.version>5.18.2</activemq.version>
         <!-- Turn off strict checking of javadoc tags for Java 8 -->
         <additionalparam>-Xdoclint:none</additionalparam>
         <aopalliance.version>1.0</aopalliance.version>
         <build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
-        <camel.version>2.24.0</camel.version>
+        <camel.version>2.25.4</camel.version>
         <cglib.version>2.2.2</cglib.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-collections.version>3.2.2</commons-collections.version>
@@ -145,6 +145,7 @@
         <jetty.version>9.4.12.v20180830</jetty.version>
         <joda-time.version>2.2</joda-time.version>
         <karaf.version>2.4.0</karaf.version>
+        <log4j.version>2.20.0</log4j.version>
         <make-it-easy.version>3.1.0</make-it-easy.version>
         <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
         <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
@@ -174,13 +175,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <servicemix.version>4.4.2</servicemix.version>
         <servlet.version>3.0.1</servlet.version>
-        <slf4j.version>1.6.6</slf4j.version>
+        <slf4j.version>2.0.9</slf4j.version>
         <smartrics-RestFixture.version>3.0</smartrics-RestFixture.version>
         <spring-data-mongodb.version>1.10.8.RELEASE</spring-data-mongodb.version>
         <spring-data.version>1.13.8.RELEASE</spring-data.version>
         <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
         <spring-orm.version>2.5.1</spring-orm.version>
-        <spring.version>5.2.22.RELEASE</spring.version>
+        <spring.version>5.3.30</spring.version>
         <springockito.version>1.0.4</springockito.version>
         <testng.version>6.14.2</testng.version>
         <unitils-core.version>3.3</unitils-core.version>
@@ -314,12 +315,6 @@
             </dependency>
 
             <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
-            </dependency>
-
-            <dependency>
                 <groupId>net.sf.dozer</groupId>
                 <artifactId>dozer</artifactId>
                 <version>${dozer.version}</version>
@@ -334,7 +329,7 @@
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-camel</artifactId>
-                <version>${activemq.version}</version>
+                <version>5.16.6</version>
             </dependency>
 
             <dependency>
@@ -536,6 +531,12 @@
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
                 <version>${geronimo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
             </dependency>
 
             <dependency>
@@ -1038,7 +1039,7 @@
                             </systemProperty>
                             <systemProperty>
                                 <name>com.sun.management.jmxremote</name>
-                                <value />
+                                <value></value>
                             </systemProperty>
                         </systemProperties>
                     </configuration>
@@ -1210,7 +1211,7 @@
                 </property>
             </activation>
             <build>
-                <plugins />
+                <plugins></plugins>
             </build>
         </profile>
         <profile>
