@@ -29,9 +29,6 @@ spec:
         - name: certs-volume
           secret:
             secretName: {{ .Values.environment.axel.secretVolumes.certs.secretName }}
-        - name: axel-home-etc-vol
-          configMap:
-            name: axel-home-etc
         {{- with .Values.log4j }}
         - name: {{ .volume.name }}
           configMap: {{ .volume.configMap | toYaml | nindent 14 }}
@@ -77,9 +74,6 @@ spec:
           volumeMounts:
             - name: certs-volume
               mountPath: {{ .Values.environment.axel.secretVolumes.certs.mountPath }}
-              readOnly: true
-            - name: axel-home-etc-vol
-              mountPath: {{ .Values.environment.axel.home }}/etc
               readOnly: true
             {{- with .Values.setenv }}
             - name: {{ .volume.name }}
