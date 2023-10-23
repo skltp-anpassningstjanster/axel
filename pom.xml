@@ -329,7 +329,7 @@
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-camel</artifactId>
-                <version>5.16.6</version>
+                <version>${activemq.version}</version>
             </dependency>
 
             <dependency>
