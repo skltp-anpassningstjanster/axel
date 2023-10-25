@@ -111,8 +111,9 @@
     </distributionManagement>
 
     <properties>
+        <java.version>8</java.version>
         <activation.version>1.1</activation.version>
-        <activemq.version>5.18.2</activemq.version>
+        <activemq.version>5.15.10</activemq.version>
         <!-- Turn off strict checking of javadoc tags for Java 8 -->
         <additionalparam>-Xdoclint:none</additionalparam>
         <aopalliance.version>1.0</aopalliance.version>
@@ -329,7 +330,7 @@
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-camel</artifactId>
-                <version>5.16.6</version>
+                <version>${activemq.version}</version>
             </dependency>
 
             <dependency>
