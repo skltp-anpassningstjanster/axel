@@ -64,8 +64,8 @@ public class AsynchBrokerRouteBuilderTest extends AbstractCamelTestNGSpringConte
     @Autowired
     AgreementService agreementService;
 
-    @Autowired
-    MessageLogService messageLogService;
+//    @Autowired
+//    MessageLogService messageLogService;
 
     @Produce(context = "shs-broker-asynchronous-test", uri = "direct:in-vm-asynch")
     ProducerTemplate camel;
