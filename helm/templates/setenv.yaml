@@ -11,6 +11,9 @@ data:
         -Dtak.db.password=$TAK_DB_PASSWORD
         -DrsEndpoint=$RS_ENDPOINT
         -DproductServiceRestEndpoint=$PRODUCT_SERVICE_REST_ENDPOINT
+        -DnodeId=$NODEID
+        -DorgId=$ORGID
+        -Dshs.label.status=$SHS_LABEL_STATUS
         -Dlog4j.configuration=file:{{.Values.log4j.mount.mountPath}}
         -Dlog4j.configurationFile=file:{{.Values.log4j.mount.mountPath}}"
 
