@@ -9,8 +9,16 @@ data:
         -Dtak.db.login=$TAK_DB_LOGIN
         -Dtak.db.url=$TAK_DB_URL
         -Dtak.db.password=$TAK_DB_PASSWORD
+        -DrsEndpoint=$RS_ENDPOINT
+        -DproductServiceRestEndpoint=$PRODUCT_SERVICE_REST_ENDPOINT
+        -DnodeId=$NODEID
+        -DorgId=$ORGID
+        -Dshs.label.status=$SHS_LABEL_STATUS
+        -DshsRsKeyStoreParameters.resource=$SHSRSKEYSTOREPARAMETERS_RESOURCE
+        -DshsRsKeyStoreParameters.type=$SHSRSKEYSTOREPARAMETERS_TYPE
+        -DshsRsKeyStoreParameters.password=$SHSRSKEYSTOREPARAMETERS_PASSWORD
+        -DshsRsTrustStoreParameters.resource=$SHSRSTRUSTSTOREPARAMETERS_RESOURCE
+        -DshsRsTrustStoreParameters.type=$SHSRSTRUSTSTOREPARAMETERS_TYPE
+        -DshsRsTrustStoreParameters.password=$SHSRSTRUSTSTOREPARAMETERS_PASSWORD
         -Dlog4j.configuration=file:{{.Values.log4j.mount.mountPath}}
         -Dlog4j.configurationFile=file:{{.Values.log4j.mount.mountPath}}"
-
-
-

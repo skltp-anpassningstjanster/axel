@@ -23,18 +23,7 @@ data:
   SHSRSKEYSTOREPARAMETERS_TYPE: pkcs12
   SHSRSTRUSTSTOREPARAMETERS_RESOURCE: /etc/axel/certs/steria-ca.jks
   SHSRSTRUSTSTOREPARAMETERS_TYPE: jks
-
-  # RIV-SHS certificate - relative path!
-  KEYSTOREPARAMETERS_RESOURCE: certs/tp.jks
-  KEYSTOREPARAMETERS_TYPE: jks
-  TRUSTSTOREPARAMETERS_RESOURCE: certs/truststore.jks
-  TRUSTSTOREPARAMETERS_TYPE: jks
-
-  # Activemq properties
-  ACTIVEMQ_BROKERURL: "failover:(tcp://axel-amq:61616)?randomize=false&timeout=10000&jms.prefetchPolicy.queuePrefetch=5"
-  ACTIVEMQ_MAXCONNECTIONS: "1"
-  SPRING_ACTIVEMQ_PACKAGES_TRUSTED: se.inera.axel.shs.broker.messagestore,se.inera.axel.shs.xml.label,java.util
-
+  
   # SHS Broker properties
   NODEID: IneraTest-DEV
   ORGID: "1234567890"
