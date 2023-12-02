@@ -1,32 +1,34 @@
-FROM tomcat:9-jdk8 as builder
+FROM alpine as builder
+ENV MYSQLVERSION=8.0.30 \
+    LOG4J_VERSION=2.22.0
 
-COPY platforms/war/shs-broker-war/target/axel-shs-broker*.war webapps/shs-broker.war
-RUN mkdir webapps/shs-broker \
-    && cd webapps/shs-broker \
-    && jar xf ../shs-broker.war
+ADD https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQLVERSION}/mysql-connector-java-${MYSQLVERSION}.jar \
+    /opt/catalina/lib/
 
-COPY platforms/war/riv-shs-war/target/axel-riv-shs*.war webapps/riv-shs.war
-RUN mkdir webapps/riv-shs \
-    && cd webapps/riv-shs \
-    && jar xf ../riv-shs.war
+ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/${LOG4J_VERSION}/log4j-api-${LOG4J_VERSION}.jar \
+    https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/${LOG4J_VERSION}/log4j-core-${LOG4J_VERSION}.jar \
+    https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-appserver/${LOG4J_VERSION}/log4j-appserver-${LOG4J_VERSION}.jar \
+    https://repo1.maven.org/maven2/co/elastic/logging/log4j2-ecs-layout/1.5.0/log4j2-ecs-layout-1.5.0.jar \
+    https://repo1.maven.org/maven2/co/elastic/logging/ecs-logging-core/1.5.0/ecs-logging-core-1.5.0.jar \
+    https://repo1.maven.org/maven2/co/elastic/logging/jul-ecs-formatter/1.5.0/jul-ecs-formatter-1.5.0.jar \
+    /opt/catalina/log4j2/lib/
+
+COPY platforms/war/shs-broker-war/target/axel-shs-broker*.war /tmp/shs-broker.war
+COPY platforms/war/riv-shs-war/target/axel-riv-shs*.war /tmp/riv-shs.war
+
+RUN mkdir -p /opt/catalina/webapps/
+RUN unzip /tmp/shs-broker.war -d /opt/catalina/webapps/shs-broker
+RUN unzip /tmp/riv-shs.war -d /opt/catalina/webapps/riv-shs
+
+ADD docker_context/logging.properties /opt/catalina/conf/
+ADD docker_context/setenv.sh /opt/catalina/bin/
+ADD docker_context/log4j2.xml /opt/catalina/log4j2/conf/log4j2-tomcat.xml
+ADD docker_context/log4j2.xml docker_context/log4j.xml /opt/catalina/conf/
 
 
-FROM tomcat:9-jdk8
+FROM tomcat:9-jre8-temurin AS axel
 ENV APP_NAME=axel \
-    AXEL_HOME=$CATALINA_HOME \
-    LOG4JVERSION=2.20.0 \
-    MYSQLVERSION=8.0.30
+    AXEL_HOME=$CATALINA_HOME
 
-ADD log4j2.xml ${CATALINA_HOME}/conf/log4j2.xml
-ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-appserver/${LOG4JVERSION}/log4j-appserver-${LOG4JVERSION}.jar \
-    https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/${LOG4JVERSION}/log4j-api-${LOG4JVERSION}.jar \
-    https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/${LOG4JVERSION}/log4j-core-${LOG4JVERSION}.jar \
-    https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-jul/${LOG4JVERSION}/log4j-jul-${LOG4JVERSION}.jar \
-    https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-layout-template-json/${LOG4JVERSION}/log4j-layout-template-json-${LOG4JVERSION}.jar \
-    https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQLVERSION}/mysql-connector-java-${MYSQLVERSION}.jar \
-    ${CATALINA_HOME}/lib/
-
-
-COPY --from=builder ${CATALINA_HOME}/webapps/riv-shs/ ${CATALINA_HOME}/webapps/riv-shs/
-COPY --from=builder ${CATALINA_HOME}/webapps/shs-broker/  ${CATALINA_HOME}/webapps/shs-broker/
+COPY --from=builder /opt/catalina ${CATALINA_HOME}/
 

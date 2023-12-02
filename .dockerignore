@@ -1,4 +1,4 @@
 *
 !platforms/war/*/target/*.war
-!log4j2.xml
+!docker_context
 !setenv.sh
