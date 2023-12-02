@@ -13,30 +13,6 @@ container:
 imagePullSecrets:
   - name: regcred
 
-log4j:
-  volume:
-    name: axel-log4j-vol
-    configMap:
-      name: axel-log4j
-      items:
-        - key: log4j.properties
-          path: log4j.properties
-  mount:
-    mountPath: /opt/log4j/log4j.properties
-    subPath: log4j.properties
-
-tomcat_logging:
-  volume:
-    name: axel-logging-props-vol
-    configMap:
-      name: axel-logging-props
-      items:
-        - key: logging.properties
-          path: logging.properties
-  mount:
-    mountPath: /usr/local/tomcat/conf/logging.properties
-    subPath: logging.properties
-
 setenv:
   volume:
     name: axel-setenv-vol

@@ -4,6 +4,7 @@ metadata:
   name: axel-setenv
 data:
   setenv.sh:
+    export CLASSPATH=$CATALINA_CLASSPATH
     export CATALINA_OPTS="$CATALINA_OPTS
         -Daxel.home=$AXEL_HOME
         -Dtak.db.login=$TAK_DB_LOGIN
@@ -19,6 +20,4 @@ data:
         -DshsRsKeyStoreParameters.password=$SHSRSKEYSTOREPARAMETERS_PASSWORD
         -DshsRsTrustStoreParameters.resource=$SHSRSTRUSTSTOREPARAMETERS_RESOURCE
         -DshsRsTrustStoreParameters.type=$SHSRSTRUSTSTOREPARAMETERS_TYPE
-        -DshsRsTrustStoreParameters.password=$SHSRSTRUSTSTOREPARAMETERS_PASSWORD
-        -Dlog4j.configuration=file:{{.Values.log4j.mount.mountPath}}
-        -Dlog4j.configurationFile=file:{{.Values.log4j.mount.mountPath}}"
+        -DshsRsTrustStoreParameters.password=$SHSRSTRUSTSTOREPARAMETERS_PASSWORD"

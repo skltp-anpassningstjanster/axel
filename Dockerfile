@@ -28,7 +28,9 @@ ADD docker_context/log4j2.xml docker_context/log4j.xml /opt/catalina/conf/
 
 FROM tomcat:9-jre8-temurin AS axel
 ENV APP_NAME=axel \
-    AXEL_HOME=$CATALINA_HOME
+    AXEL_HOME=$CATALINA_HOME \
+    CATALINA_CLASSPATH=$CATALINA_HOME/log4j2/lib/*:$CATALINA_HOME/log4j2/conf \
+    CATALINA_OPTS="-Dlog4j.configuration=file://${CATALINA_HOME}/conf/log4j.xml -Dlog4j.configurationFile=file://${CATALINA_HOME}/conf/log4j2.xml"
 
 COPY --from=builder /opt/catalina ${CATALINA_HOME}/
 
