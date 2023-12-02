@@ -564,12 +564,6 @@
                 <version>${jetty.version}</version>
             </dependency>
 
-            <!--<dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcmail-jdk15</artifactId>
-                <version>1.46</version>
-            </dependency>-->
-
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-core</artifactId>
@@ -844,6 +838,21 @@
 
         </dependencies>
     </dependencyManagement>
+    <dependencies>
+
+        <dependency>
+            <groupId>co.elastic.logging</groupId>
+            <artifactId>log4j-ecs-layout</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>co.elastic.logging</groupId>
+            <artifactId>log4j2-ecs-layout</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+
+    </dependencies>
 
     <repositories>
         <repository>
