@@ -1,4 +1,4 @@
-FROM alpine as builder
+FROM alpine AS builder
 ENV MYSQLVERSION=8.0.30 \
     LOG4J_VERSION=2.22.0
 
@@ -34,3 +34,5 @@ ENV APP_NAME=axel \
 
 COPY --from=builder /opt/catalina ${CATALINA_HOME}/
 
+RUN useradd -MU ind-app && chown ind-app -R ${CATALINA_HOME}
+USER ind-app
