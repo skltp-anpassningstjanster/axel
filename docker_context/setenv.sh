@@ -30,9 +30,6 @@ fi
 if [ -n "$SHS_LABEL_STATUS" ]; then
   CATALINA_OPTS+=" -Dshs.label.status=\"$SHS_LABEL_STATUS\""
 fi
-if [ -n "$SHSRSKEYSTOREPARAMETERS_PASSWORD" ]; then
-  CATALINA_OPTS+=" -DshsRsKeyStoreParameters.password=\"$SHSRSKEYSTOREPARAMETERS_PASSWORD\""
-fi
 if [ -n "$SHSRSTRUSTSTOREPARAMETERS_RESOURCE" ]; then
   CATALINA_OPTS+=" -DshsRsTrustStoreParameters.resource=\"$SHSRSTRUSTSTOREPARAMETERS_RESOURCE\""
 fi
@@ -42,11 +39,23 @@ fi
 if [ -n "$SHSRSTRUSTSTOREPARAMETERS_PASSWORD" ]; then
   CATALINA_OPTS+=" -DshsRsTrustStoreParameters.password=\"$SHSRSTRUSTSTOREPARAMETERS_PASSWORD\""
 fi
+if [ -n "$TRUSTSTOREPARAMETERS_RESOURCE" ]; then
+  CATALINA_OPTS+=" -DtrustStoreParameters.resource=\"$TRUSTSTOREPARAMETERS_RESOURCE\""
+fi
+if [ -n "$TRUSTSTOREPARAMETERS_TYPE" ]; then
+  CATALINA_OPTS+=" -DtrustStoreParameters.type=\"$TRUSTSTOREPARAMETERS_TYPE\""
+fi
+if [ -n "$TRUSTSTOREPARAMETERS_PASSWORD" ]; then
+  CATALINA_OPTS+=" -DtrustStoreParameters.password=\"$TRUSTSTOREPARAMETERS_PASSWORD\""
+fi
 if [ -n "$SHSRSKEYSTOREPARAMETERS_RESOURCE" ]; then
   CATALINA_OPTS+=" -DshsRsKeyStoreParameters.resource=\"$SHSRSKEYSTOREPARAMETERS_RESOURCE\""
 fi
 if [ -n "$SHSRSKEYSTOREPARAMETERS_TYPE" ]; then
   CATALINA_OPTS+=" -DshsRsKeyStoreParameters.type=\"$SHSRSKEYSTOREPARAMETERS_TYPE\""
+fi
+if [ -n "$SHSRSKEYSTOREPARAMETERS_PASSWORD" ]; then
+  CATALINA_OPTS+=" -DshsRsKeyStoreParameters.password=\"$SHSRSKEYSTOREPARAMETERS_PASSWORD\""
 fi
 if [ -n "$MONGODB_URI" ]; then
   CATALINA_OPTS+=" -Dmongodb.uri=\"$MONGODB_URI\""
