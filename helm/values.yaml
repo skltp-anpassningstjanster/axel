@@ -13,19 +13,6 @@ container:
 imagePullSecrets:
   - name: regcred
 
-setenv:
-  volume:
-    name: axel-setenv-vol
-    configMap:
-      name: axel-setenv
-      items:
-        - key: setenv.sh
-          path: setenv.sh
-  mount:
-    mountPath: /usr/local/tomcat/bin/setenv.sh
-    subPath: setenv.sh
-
-
 ingressroute:
   hostName: axel.localhost
   bksHostName: base.env.url # This should be overridden and set to your environment's base hostname.

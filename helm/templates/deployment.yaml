@@ -29,10 +29,6 @@ spec:
         - name: certs-volume
           secret:
             secretName: {{ .Values.environment.axel.secretVolumes.certs.secretName }}
-        {{- with .Values.setenv }}
-        - name: {{ .volume.name }}
-          configMap: {{ .volume.configMap | toYaml | nindent 14 }}
-        {{- end }}
 
       containers:
         - name: {{ .Chart.Name }}
@@ -67,10 +63,6 @@ spec:
             - name: certs-volume
               mountPath: {{ .Values.environment.axel.secretVolumes.certs.mountPath }}
               readOnly: true
-            {{- with .Values.setenv }}
-            - name: {{ .volume.name }}
-              {{- .mount | toYaml | nindent 14 }}
-            {{- end }}
           envFrom:
             {{- range .Values.environment.axel.variables._default_config_maps }}
             - configMapRef:

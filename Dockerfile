@@ -20,17 +20,16 @@ RUN mkdir -p /opt/catalina/webapps/
 RUN unzip /tmp/shs-broker.war -d /opt/catalina/webapps/shs-broker
 RUN unzip /tmp/riv-shs.war -d /opt/catalina/webapps/riv-shs
 
-ADD docker_context/logging.properties /opt/catalina/conf/
-ADD docker_context/setenv.sh /opt/catalina/bin/
-ADD docker_context/log4j2.xml /opt/catalina/log4j2/conf/log4j2-tomcat.xml
-ADD docker_context/log4j2.xml docker_context/log4j.xml /opt/catalina/conf/
+COPY docker_context/logging.properties /opt/catalina/conf/
+COPY docker_context/setenv.sh /opt/catalina/bin/
+COPY docker_context/log4j2.xml /opt/catalina/log4j2/conf/log4j2-tomcat.xml
+COPY docker_context/log4j.xml /opt/catalina/conf/
+COPY docker_context/log4j2.xml /opt/catalina/conf/
 
 
 FROM tomcat:9-jre8-temurin AS axel
 ENV APP_NAME=axel \
-    AXEL_HOME=$CATALINA_HOME \
-    CATALINA_CLASSPATH=$CATALINA_HOME/log4j2/lib/*:$CATALINA_HOME/log4j2/conf \
-    CATALINA_OPTS="-Dlog4j.configuration=file://${CATALINA_HOME}/conf/log4j.xml -Dlog4j.configurationFile=file://${CATALINA_HOME}/conf/log4j2.xml"
+    AXEL_HOME=$CATALINA_HOME
 
 COPY --from=builder /opt/catalina ${CATALINA_HOME}/
 
