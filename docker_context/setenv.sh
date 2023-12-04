@@ -48,7 +48,9 @@ fi
 if [ -n "$SHSRSKEYSTOREPARAMETERS_TYPE" ]; then
   CATALINA_OPTS+=" -DshsRsKeyStoreParameters.type=\"$SHSRSKEYSTOREPARAMETERS_TYPE\""
 fi
+if [ -n "$MONGODB_URI" ]; then
+  CATALINA_OPTS+=" -Dmongodb.uri=\"$MONGODB_URI\""
+fi
 
 export CATALINA_OPTS
 
-echo $CATALINA_OPTS
