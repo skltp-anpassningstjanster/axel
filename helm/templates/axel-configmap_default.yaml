@@ -34,8 +34,8 @@ data:
   SHS_LDAP_ADMIN_USERDN: cn=ineraadmin,ou=katalogadmin
 
   # RIV-SHS properties
-  PRODUCTSERVICERESTENDPOINT: http://localhost:8080/shs-broker/services/products
-  RSENDPOINT: http://localhost:8080/shs-broker/rs
+  PRODUCT_SERVICE_REST_ENDPOINT: http://localhost:8080/shs-broker/services/products
+  RS_ENDPOINT: http://localhost:8080/shs-broker/rs
 
   # for inloggning
   TAK_DB_URL: "jdbc:mysql://localhost:3306/takv3?autoReconnect=true"
