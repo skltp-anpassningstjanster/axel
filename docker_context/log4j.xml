@@ -7,7 +7,7 @@
         </layout>
     </appender>
     <root>
-        <priority value="WARN"/>
+        <priority value="INFO"/>
         <appender-ref ref="LogToConsole"/>
     </root>
 </log4j:configuration>
