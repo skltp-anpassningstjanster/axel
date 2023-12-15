@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: axel-default-log-config
+data:
+  log4j.xml: |+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+    <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+      <appender name="LogToConsole" class="org.apache.log4j.ConsoleAppender">
+          <param name="Target" value="System.out"/>
+          <layout class="co.elastic.logging.log4j.EcsLayout">
+          </layout>
+      </appender>
+
+      <logger name="org.apache.activemq.transport.failover.FailoverTransport">
+        <level value="DEBUG"/>
+      </logger>
+
+      <logger name="org.springframework.beans.factory.xml.XmlBeanDefinitionReader">
+        <level value="INFO"/>
+      </logger>
+
+      <logger name="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+        <level value="INFO"/>
+      </logger>
+
+      <logger name="se.inera.axel.shs.broker.rs.internal.MessageInfoLogger" additivity="false">
+        <level value="INFO"/>
+      <appender-ref ref="ROLLINGFILE_MESSAGELOG"/>
+      </logger>
+
+      <logger name="se.inera.axel">
+        <level value="INFO"/>
+      </logger>
+      <root>
+          <priority value="INFO"/>
+          <appender-ref ref="LogToConsole"/>
+      </root>
+    </log4j:configuration>
+
+  log4j2.xml: |+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Configuration status="INFO">
+        <Appenders>
+            <Console name="LogToConsole" target="SYSTEM_OUT">
+                <EcsLayout/>
+            </Console>
+        </Appenders>
+        <Loggers>
+            <Root level="info">
+                <AppenderRef ref="LogToConsole"/>
+            </Root>
+        </Loggers>
+    </Configuration>
+
+  logging.properties: |+
+    java.util.logging.ConsoleHandler.level = FINE
+    java.util.logging.ConsoleHandler.formatter = co.elastic.logging.jul.EcsFormatter
