@@ -49,3 +49,16 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+fileMounts:
+  configMaps:
+    - ref:
+        configMap:
+          name: axel-default-log-config
+      dst:
+      - mountPath: /usr/local/tomcat/log4j.xml
+        subPath: log4j.xml
+      - mountPath: /usr/local/tomcat/log4j2.xml
+        subPath: log4j2.xml
+      - mountPath: /usr/local/tomcat/logging.properties
+        subPath: logging.properties

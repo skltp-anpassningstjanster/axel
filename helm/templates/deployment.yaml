@@ -25,10 +25,6 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      volumes:
-        - name: certs-volume
-          secret:
-            secretName: {{ .Values.environment.axel.secretVolumes.certs.secretName }}
 
       containers:
         - name: {{ .Chart.Name }}
@@ -63,6 +59,21 @@ spec:
             - name: certs-volume
               mountPath: {{ .Values.environment.axel.secretVolumes.certs.mountPath }}
               readOnly: true
+            {{- range .Values.fileMounts.configMaps }}
+            {{- $volname := printf "vol-%s" .ref.configMap.name -}}
+            {{- range .dst }}
+            - name: {{ $volname }}
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- end }}
+      volumes:
+        - name: certs-volume
+          secret:
+            secretName: {{ .Values.environment.axel.secretVolumes.certs.secretName }}
+        {{- range .Values.fileMounts.configMaps }}
+        - name: vol-{{ .ref.configMap.name }}
+          {{- toYaml .ref | nindent 10 }}
+        {{- end }}
           envFrom:
             {{- range .Values.environment.axel.variables._default_config_maps }}
             - configMapRef:

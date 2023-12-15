@@ -4,31 +4,32 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-    labels:
-        app.kubernetes.io/instance: {{ .Chart.Name }}
-    name: {{ .Chart.Name }}-ipwhitelist
+  labels:
+    app.kubernetes.io/instance: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}-ipwhitelist
 spec:
-    ipWhiteList: {{ .Values.ingressroute.ipWhiteList | default $defaultIpWhiteList | toYaml | nindent 8 }}
+  ipWhiteList: {{ .Values.ingressroute.ipWhiteList | default $defaultIpWhiteList | toYaml | nindent 8 }}
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-    labels:
-        app.kubernetes.io/instance: {{ .Chart.Name }}
-    name: {{ .Chart.Name }}-stripprefix
+  labels:
+    app.kubernetes.io/instance: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}-stripprefix
 spec:
-    stripPrefix:
-        prefixes:
-            - /{{  $pathPrefix }}/
+  stripPrefix:
+    prefixes:
+    - /{{  $pathPrefix }}/
+
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-    labels:
-        app.kubernetes.io/instance: {{ .Chart.Name }}
-    name: {{ .Chart.Name }}-redirectwithslash
+  labels:
+    app.kubernetes.io/instance: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}-redirectwithslash
 spec:
-    redirectRegex:
-        regex: '^https?://([^/]*)/{{ $pathPrefix }}/([^/]*)$'
-        replacement: 'https://${1}/{{ $pathPrefix }}/${2}/'
+  redirectRegex:
+    regex: '^https?://([^/]*)/{{ $pathPrefix }}/([^/]*)$'
+    replacement: 'https://${1}/{{ $pathPrefix }}/${2}/'
