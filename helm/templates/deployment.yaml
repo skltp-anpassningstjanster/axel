@@ -55,6 +55,19 @@ spec:
           resources: {{- toYaml .Values.resources | nindent 12 }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
+          envFrom:
+          {{- range .Values.environment.axel.variables._default_config_maps }}
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
+          {{- range .Values.environment.axel.variables.config_maps }}
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
+          {{- range .Values.environment.axel.variables.secrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
           volumeMounts:
             - name: certs-volume
               mountPath: {{ .Values.environment.axel.secretVolumes.certs.mountPath }}
@@ -74,16 +87,4 @@ spec:
         - name: vol-{{ .ref.configMap.name }}
           {{- toYaml .ref | nindent 10 }}
         {{- end }}
-          envFrom:
-            {{- range .Values.environment.axel.variables._default_config_maps }}
-            - configMapRef:
-                name: {{ . }}
-            {{- end }}
-            {{- range .Values.environment.axel.variables.config_maps }}
-            - configMapRef:
-                name: {{ . }}
-            {{- end }}
-            {{- range .Values.environment.axel.variables.secrets }}
-            - secretRef:
-                name: {{ . }}
-            {{- end }}
+
