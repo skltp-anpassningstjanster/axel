@@ -28,7 +28,6 @@ data:
 
       <logger name="se.inera.axel.shs.broker.rs.internal.MessageInfoLogger" additivity="false">
         <level value="INFO"/>
-      <appender-ref ref="ROLLINGFILE_MESSAGELOG"/>
       </logger>
 
       <logger name="se.inera.axel">
