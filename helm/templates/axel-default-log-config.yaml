@@ -30,6 +30,10 @@ data:
         <level value="INFO"/>
       </logger>
 
+      <logger name="releaseStaleFetchingInProgress">
+        <level value="WARN"/>
+      </logger>
+
       <logger name="se.inera.axel">
         <level value="INFO"/>
       </logger>
