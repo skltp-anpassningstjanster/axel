@@ -26,7 +26,7 @@ data:
         <level value="INFO"/>
       </logger>
 
-      <logger name="se.inera.axel.shs.broker.rs.internal.MessageInfoLogger" additivity="false">
+      <logger name="se.inera.axel.shs.broker.rs.internal.MessageInfoLogger">
         <level value="INFO"/>
       </logger>
 
