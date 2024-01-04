@@ -8,7 +8,7 @@ metadata:
         app.kubernetes.io/instance: {{ .Chart.Name }}
     name: {{ .Chart.Name }}-ipwhitelist
 spec:
-    ipWhiteList: {{ .Values.ingressroute.ipWhiteList | default $defaultIpWhiteList | toYaml | nindent 8 }}
+    ipWhiteList: {{ .Values.ipWhiteList | default $defaultIpWhiteList | toYaml | nindent 8 }}
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
