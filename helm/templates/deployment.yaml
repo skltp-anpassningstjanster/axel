@@ -28,12 +28,12 @@ spec:
       volumes:
         - name: certs-volume
           secret:
-            secretName: {{ .Values.environment.axel.secretVolumes.certs.secretName }}
+            secretName: {{ .Values.environment.secretVolumes.certs.secretName }}
 
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.repository }}axel:{{ .Values.container.axel.image.tag | default $.Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.container.axel.image.pullPolicy }}
+          image: "{{ .Values.repository }}axel:{{ .Values.container.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.container.image.pullPolicy }}
           ports:
             - name: axel
               containerPort: 8082
@@ -66,18 +66,27 @@ spec:
           terminationMessagePolicy: File
           volumeMounts:
             - name: certs-volume
-              mountPath: {{ .Values.environment.axel.secretVolumes.certs.mountPath }}
+              mountPath: {{ .Values.environment.secretVolumes.certs.mountPath }}
               readOnly: true
+          {{- with .Values.environment.variables }}
+          {{- if .map }}
+          env:
+            {{- range $k, $v := .map }}
+            - name: {{ $k }}
+              value: {{ $v }}
+            {{- end }}
+          {{- end }}
+          {{- end }}
           envFrom:
-            {{- range .Values.environment.axel.variables._default_config_maps }}
+            {{- range .Values.environment.variables._default_config_maps }}
             - configMapRef:
                 name: {{ . }}
             {{- end }}
-            {{- range .Values.environment.axel.variables.config_maps }}
+            {{- range .Values.environment.variables.config_maps }}
             - configMapRef:
                 name: {{ . }}
             {{- end }}
-            {{- range .Values.environment.axel.variables.secrets }}
+            {{- range .Values.environment.variables.secrets }}
             - secretRef:
                 name: {{ . }}
             {{- end }}
