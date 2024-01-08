@@ -68,15 +68,6 @@ spec:
             - name: certs-volume
               mountPath: {{ .Values.environment.secretVolumes.certs.mountPath }}
               readOnly: true
-          {{- with .Values.environment.variables }}
-          {{- if .map }}
-          env:
-            {{- range $k, $v := .map }}
-            - name: {{ $k }}
-              value: {{ $v }}
-            {{- end }}
-          {{- end }}
-          {{- end }}
           envFrom:
             {{- range .Values.environment.variables._default_config_maps }}
             - configMapRef:
