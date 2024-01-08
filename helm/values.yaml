@@ -32,7 +32,7 @@ environment:
     secrets:
       - axel-secrets
     map: 
-      CATALINA_OPTS: "-XX:MaxRAMPercentage=75"
+      CATALINA_OPTS: "-XX:MaxRAMPercentage=75.0"
   secretVolumes:
     certs:
       secretName: axel-certs
