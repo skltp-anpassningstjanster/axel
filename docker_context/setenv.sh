@@ -62,5 +62,3 @@ if [ -n "$MONGODB_URI" ]; then
 fi
 
 export CATALINA_OPTS
-
-export JAVA_OPTS="$JAVA_OPTS -XX:MaxRAMPercentage=75.0"
