@@ -27,7 +27,7 @@ COPY docker_context/log4j.xml /opt/catalina/conf/
 COPY docker_context/log4j2.xml /opt/catalina/conf/
 
 
-FROM tomcat:9-jre8-temurin AS axel
+FROM tomcat:9-jdk8-temurin AS axel
 ENV APP_NAME=axel \
     AXEL_HOME=$CATALINA_HOME
 
