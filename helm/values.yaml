@@ -3,7 +3,12 @@ repository: docker.drift.inera.se/ntjp/
 deployment:
   replicaCount: 1
   elasticGrokFilter: axel
-  memory: 512Mi
+  resources: #{} # The no-op curly-braces can optionally replace below sub-resources.
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 25m
+      memory: 512Mi
 
 container:
   image:
