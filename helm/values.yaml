@@ -40,19 +40,6 @@ environment:
     certs:
       secretName: axel-certs
       mountPath: /etc/axel/certs
-  axel:
-    home: /usr/local/tomcat
-    variables:
-      _default_config_maps:
-        - axel-configmap-default
-      config_maps:
-        # Nothing yet. Override to supply your own values.
-      secrets:
-        - axel-secrets
-    secretVolumes:
-      certs:
-        secretName: axel-certs
-        mountPath: /etc/axel/certs
 
 fileMounts:
   configMaps:
