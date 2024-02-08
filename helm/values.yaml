@@ -3,13 +3,17 @@ repository: docker.drift.inera.se/ntjp/
 deployment:
   replicaCount: 1
   elasticGrokFilter: axel
-  memory: 512Mi
+  resources: #{} # The no-op curly-braces can optionally replace below sub-resources.
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 25m
+      memory: 512Mi
 
 container:
-  axel:
-    image:
-      pullPolicy: Always
-      tag: 
+  image:
+    pullPolicy: Always
+    tag: 
 
 imagePullSecrets:
   - name: regcred
@@ -24,6 +28,18 @@ vip:
   name: legacy-axel-vip
 
 environment:
+  home: /usr/local/tomcat
+  variables:
+    _default_config_maps:
+      - axel-configmap-default
+    config_maps:
+      # Nothing yet. Override to supply your own values.
+    secrets:
+      - axel-secrets
+  secretVolumes:
+    certs:
+      secretName: axel-certs
+      mountPath: /etc/axel/certs
   axel:
     home: /usr/local/tomcat
     variables:

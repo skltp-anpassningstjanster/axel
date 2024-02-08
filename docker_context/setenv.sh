@@ -63,4 +63,3 @@ if [ -n "$MONGODB_URI" ]; then
 fi
 
 export CATALINA_OPTS
-
