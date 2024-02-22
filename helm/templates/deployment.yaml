@@ -56,6 +56,15 @@ spec:
             httpGet:
               path: shs-broker
               port: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            runAsUser: 556559423 # ind-app
+            seccompProfile:
+              type: RuntimeDefault
           resources: # Block-templated memory and CPU resources.
             {{- toYaml .Values.deployment.resources | nindent 12 }}
           terminationMessagePath: /dev/termination-log

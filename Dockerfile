@@ -33,5 +33,5 @@ ENV APP_NAME=axel \
 
 COPY --from=builder /opt/catalina ${CATALINA_HOME}/
 
-RUN useradd -MU ind-app && chown ind-app -R ${CATALINA_HOME}
+RUN useradd -MUl -u 556559423 ind-app && chown ind-app -R ${CATALINA_HOME}
 USER ind-app
