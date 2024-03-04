@@ -2,5 +2,5 @@ sonar-projectkey: 'ntjp-axel'                                                   
 sonar-test-inclusions: '**/src/test/**/*.java'                                                                           # What tests to include in the scan.
 archive-artifacts: 'platforms/war/riv-shs-war/target/axel-riv-shs*.war,platforms/war/shs-broker-war/target/axel-shs-broker-*.war' # The artifacts to archive.
 maven-docker-args: '-e GRAILS_MAVEN_LOCAL=${WORKSPACE}/?/.m2/repository/'                                                # Extra maven docker image arguments.
-maven-docker-image: 'maven:3.8.1-jdk-8'                                                                                  # The Maven Docker image to use.
+maven-docker-image: 'maven:3.9-eclipse-temurin-8'                                                                                  # The Maven Docker image to use.
 jdk-path: 'Java_8_221'                                                                                                   # JDK path.
