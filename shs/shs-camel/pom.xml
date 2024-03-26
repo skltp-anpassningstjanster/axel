@@ -4,7 +4,7 @@
     <parent>
         <artifactId>shs</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>2.1.6-SNAPSHOT</version>
+        <version>2.1.6-RC1</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>shs-camel</artifactId>
