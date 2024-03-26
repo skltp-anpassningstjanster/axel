@@ -25,10 +25,6 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      volumes:
-        - name: certs-volume
-          secret:
-            secretName: {{ .Values.environment.secretVolumes.certs.secretName }}
 
       containers:
         - name: {{ .Chart.Name }}
@@ -62,17 +58,13 @@ spec:
               drop:
                 - ALL
             runAsNonRoot: true
-            runAsUser: 556559423 # ind-app
+            runAsUser: 1000 # ind-app
             seccompProfile:
               type: RuntimeDefault
           resources: # Block-templated memory and CPU resources.
             {{- toYaml .Values.deployment.resources | nindent 12 }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
-          volumeMounts:
-            - name: certs-volume
-              mountPath: {{ .Values.environment.secretVolumes.certs.mountPath }}
-              readOnly: true
           envFrom:
             {{- range .Values.environment.variables._default_config_maps }}
             - configMapRef:
