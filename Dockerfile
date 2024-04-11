@@ -15,7 +15,7 @@ ENV APP_NAME=axel \
 COPY --from=builder /opt/catalina ${CATALINA_HOME}/
 
 COPY docker_context/setenv.sh /tmp/setenv.sh
-RUN cat /tmp/setenv.sh >> /opt/catalina/bin/setenv.sh
+RUN cat /tmp/setenv.sh >> ${CATALINA_HOME}/bin/setenv.sh
 
 RUN useradd -u1000 -MU ind-app \
  && chown ind-app -R ${CATALINA_HOME}
