@@ -8,7 +8,7 @@ RUN unzip /tmp/shs-broker.war -d /opt/catalina/webapps/shs-broker
 RUN unzip /tmp/riv-shs.war -d /opt/catalina/webapps/riv-shs
 
 COPY docker_context/setenv.sh /tmp/setenv.sh
-RUN cp cat /tmp/setenv.sh >> /opt/catalina/bin/setenv.sh
+RUN cat /tmp/setenv.sh >> /opt/catalina/bin/setenv.sh
 
 FROM docker.drift.inera.se/ntjp/tomcat:9-jre8-log4j-ecs AS axel
 ENV APP_NAME=axel \
