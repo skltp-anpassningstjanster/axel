@@ -54,7 +54,7 @@
         <feature>activemq-blueprint</feature>
 
         <bundle>mvn:org.springframework.data/spring-data-commons/${spring-data.version}</bundle>
-        <bundle>mvn:org.mongodb/mongodb-driver-legacy/${mongodb-driver-legacy.version}</bundle>
+        <bundle>mvn:org.mongodb/mongo-java-driver/${mongo-java-driver.version}</bundle>
         <bundle>mvn:org.springframework.data/spring-data-mongodb/${spring-data-mongodb.version}</bundle>
 
         <bundle>mvn:se.inera.axel/common-services/${project.version}</bundle>
