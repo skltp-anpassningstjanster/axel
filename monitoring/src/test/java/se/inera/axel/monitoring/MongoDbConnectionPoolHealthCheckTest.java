@@ -11,7 +11,6 @@ import de.flapdoodle.embed.mongo.config.IMongodConfig;
 import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.mongo.tests.MongodForTestsFactory;
 import de.flapdoodle.embed.process.runtime.Network;
 import org.testng.annotations.*;
 
@@ -29,7 +28,6 @@ import static org.hamcrest.Matchers.*;
 public class MongoDbConnectionPoolHealthCheckTest extends AbstractHealthCheckTest {
 
     public static final String MONGODB_NAME_PATTERN = "org.mongodb.driver:type=ConnectionPool,*";
-    private MongodForTestsFactory mongodForTestsFactory;
     private MongoClient mongoClient;
 
     private static final MongodStarter starter = MongodStarter.getDefaultInstance();
