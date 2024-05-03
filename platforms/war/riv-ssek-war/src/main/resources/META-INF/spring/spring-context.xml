@@ -47,7 +47,7 @@
         </property>
     </bean>
 
-    <mongo:db-factory id="mongoDbFactory" uri="${mongodb.uri}" />
+    <mongo:db-factory id="mongoDbFactory" client-uri="${mongodb.uri}" />
 
     <util:list id="navigationProviders" value-type="se.inera.axel.webconsole.NavigationProvider">
         <bean id="ssekrivnav" class="se.inera.axel.rivssek.webconsole.SsekRivAdminNavigationProvider"></bean>
