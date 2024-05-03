@@ -1,10 +1,20 @@
 package se.inera.axel.monitoring;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ServerAddress;
+import com.mongodb.management.JMXConnectionPoolListener;
+import de.flapdoodle.embed.mongo.MongodExecutable;
+import de.flapdoodle.embed.mongo.MongodProcess;
+import de.flapdoodle.embed.mongo.MongodStarter;
+import de.flapdoodle.embed.mongo.config.IMongodConfig;
+import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
+import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.mongo.tests.MongodForTestsFactory;
+import de.flapdoodle.embed.process.runtime.Network;
 import org.testng.annotations.*;
 
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.util.*;
 import java.util.concurrent.*;
@@ -18,27 +28,35 @@ import static org.hamcrest.Matchers.*;
 public class MongoDbConnectionPoolHealthCheckTest extends AbstractHealthCheckTest {
 
     public static final String MONGODB_NAME_PATTERN = "org.mongodb.driver:type=ConnectionPool,*";
-    private MongodForTestsFactory mongodForTestsFactory;
     private MongoClient mongoClient;
+
+    private static final MongodStarter starter = MongodStarter.getDefaultInstance();
+    private MongodExecutable mongodExecutable;
+    private MongodProcess mongodProcess;
+    private int port;
 
     @BeforeClass
     public void beforeClass() throws Exception {
-        mongodForTestsFactory = MongodForTestsFactory.with(Version.Main.PRODUCTION);
+        port = Network.getFreeServerPort();
+        mongodExecutable = starter.prepare(createMongodConfig());
+        mongodProcess = mongodExecutable.start();
         mBeanServer = ManagementFactory.getPlatformMBeanServer();
     }
 
 
     @AfterClass
     public void tearDown() throws Exception {
-        if (mongodForTestsFactory != null) {
-            mongodForTestsFactory.shutdown();
-        }
+        if (mongodProcess != null) mongodProcess.stop();
+        if (mongodExecutable != null) mongodExecutable.stop();
     }
 
     @BeforeMethod
     public void setUp() throws Exception {
-        mongoClient = mongodForTestsFactory.newMongo();
-
+        JMXConnectionPoolListener connectionPoolListener = new JMXConnectionPoolListener();
+        MongoClientOptions mongoClientOptions = MongoClientOptions.builder()
+                .addConnectionPoolListener(connectionPoolListener)
+                .build();
+        mongoClient = new MongoClient(new ServerAddress("localhost", port), mongoClientOptions);
     }
 
     @AfterMethod
@@ -95,4 +113,10 @@ public class MongoDbConnectionPoolHealthCheckTest extends AbstractHealthCheckTes
         private final String name;
     }
 
+    private IMongodConfig createMongodConfig() throws IOException {
+        return new MongodConfigBuilder()
+                .version(Version.Main.PRODUCTION)
+                .net(new Net(port, Network.localhostIsIPv6()))
+                .build();
+    }
 }
