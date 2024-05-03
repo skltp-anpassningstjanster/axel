@@ -51,8 +51,8 @@
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>${mongo-java-driver.version}</version>
+            <artifactId>mongodb-driver-legacy</artifactId>
+            <version>${mongodb-driver-legacy.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>persistence-api</artifactId>
