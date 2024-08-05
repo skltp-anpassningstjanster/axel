@@ -6,6 +6,7 @@ metadata:
 spec:
   progressDeadlineSeconds: 600
   replicas: {{ .Values.deployment.replicaCount }}
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: axel
