@@ -1,0 +1,4 @@
+*
+!platforms/war/*/target/*.war
+!docker_context
+!setenv.sh

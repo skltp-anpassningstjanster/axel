@@ -26,6 +26,6 @@
        http://www.springframework.org/schema/data/mongo	http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
        ">
 
-    <mongo:db-factory id="mongoDbFactory" uri="${mongodb.uri}"/>
+    <mongo:db-factory id="mongoDbFactory" client-uri="${mongodb.uri}"/>
 </beans>
 

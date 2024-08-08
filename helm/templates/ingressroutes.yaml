@@ -1,0 +1,29 @@
+{{- $pathPrefix := trimAll "/" .Values.ingressroute.pathPrefix -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    annotations: null
+    labels:
+        app.kubernetes.io/instance: {{ .Chart.Name }}
+    name: axel-https
+spec:
+  routes:
+  - kind: Rule
+    match: Host(`{{ .Values.ingressroute.bksHostName }}`) && PathPrefix(`/{{ $pathPrefix }}/`)
+    middlewares:
+    - name: {{ .Chart.Name }}-ipwhitelist
+    - name: {{ .Chart.Name }}-redirectwithslash
+    - name: {{ .Chart.Name }}-stripprefix
+    priority: 10
+    services:
+    - kind: Service
+      name: {{ .Values.vip.name }}
+      passHostHeader: true
+      port: 8080
+      responseForwarding:
+        flushInterval: 1ms
+      scheme: http
+  tls:
+    domains:
+    - main: {{ .Values.ingressroute.bksHostName }}
+    secretName: {{ .Values.ingressroute.bksHostName }}-letsencrypt

@@ -1,0 +1,76 @@
+repository: docker.drift.inera.se/ntjp/
+
+deployment:
+  replicaCount: 1
+  elasticGrokFilter: axel
+  resources: #{} # The no-op curly-braces can optionally replace below sub-resources.
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 25m
+      memory: 512Mi
+
+container:
+  image:
+    pullPolicy: Always
+    tag: 
+
+imagePullSecrets:
+  - name: regcred
+
+ingressroute:
+  hostName: axel.localhost
+  bksHostName: base.env.url # This should be overridden and set to your environment's base hostname.
+  pathPrefix: "axel"
+
+# Environment-specific backwards-compatible service name
+vip:
+  name: legacy-axel-vip
+
+environment:
+  home: /usr/local/tomcat
+  variables:
+    _default_config_maps:
+      - axel-configmap-default
+    config_maps:
+      # Nothing yet. Override to supply your own values.
+    secrets:
+      - axel-secrets
+  secretVolumes:
+    certs:
+      secretName: axel-certs
+      mountPath: /etc/axel/certs
+
+fileMounts:
+  configMaps:
+    - ref:
+        configMap:
+          name: axel-default-log-config
+      dst:
+      - mountPath: /usr/local/tomcat/conf/log4j.xml
+        subPath: log4j.xml
+      - mountPath: /usr/local/tomcat/conf/log4j2.xml
+        subPath: log4j2.xml
+      - mountPath: /usr/local/tomcat/conf/logging.properties
+        subPath: logging.properties
+
+probes:
+  livenessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 3
+    failureThreshold: 10
+    httpGet:
+      path: shs-broker
+      port: 8080
+  startupProbe:
+    httpGet:
+      path: shs-broker
+      port: 8080
+      scheme: HTTP
+    initialDelaySeconds: 10
+    failureThreshold: 20
+    periodSeconds: 2  # 10s + 20 * 2s = 50 seconds max startup time
+    successThreshold: 1
+    timeoutSeconds: 1

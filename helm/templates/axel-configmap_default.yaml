@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: axel-configmap-default
+data:
+  # Set the logging level for the root of the namespace.
+  # This becomes the default logging level for all Loggers.
+  .level: WARNING
+
+  AXEL_HOME: "{{ .Values.environment.home }}"
+
+  # List all the log handlers
+  HANDLERS: java.util.logging.FileHandler
+
+  # Everything is logged to the file writer
+  JAVA_UTIL_LOGGING_FILEHANDLER_LEVEL: ALL
+  JAVA_UTIL_LOGGING_FILEHANDLER_PATTERN: /var/log/tomcat/axel/axel.log
+  JAVA_UTIL_LOGGING_FILEHANDLER_APPEND: "true"
+  JAVA_UTIL_LOGGING_FILEHANDLER_FORMATTER: java.util.logging.SimpleFormatter
+
+  # SHS Broker certificate
+  SHSRSKEYSTOREPARAMETERS_RESOURCE: /etc/axel/certs/268B5EC441D822B2.p12
+  SHSRSKEYSTOREPARAMETERS_TYPE: pkcs12
+  SHSRSTRUSTSTOREPARAMETERS_RESOURCE: /etc/axel/certs/steria-ca.jks
+  SHSRSTRUSTSTOREPARAMETERS_TYPE: jks
+  
+  # SHS Broker properties
+  NODEID: IneraTest-DEV
+  ORGID: "1234567890"
+  SHS_LABEL_STATUS: test
+
+  SHS_LDAP_URL: ldap://public.openshs.se:389/L=SHS
+  SHS_LDAP_ADMIN_URL: ldap://update.openshs.se:389/L=SHS
+  SHS_LDAP_ADMIN_USERDN: cn=ineraadmin,ou=katalogadmin
+
+  # RIV-SHS properties
+  PRODUCT_SERVICE_REST_ENDPOINT: http://localhost:8080/shs-broker/services/products
+  RS_ENDPOINT: http://localhost:8080/shs-broker/rs
+
+  # for inloggning
+  TAK_DB_URL: "jdbc:mysql://localhost:3306/takv3?autoReconnect=true"

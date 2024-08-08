@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  name: axel
+spec:
+  progressDeadlineSeconds: 600
+  replicas: {{ .Values.deployment.replicaCount }}
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: axel
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: axel
+        elasticGrokFilter: {{ .Values.deployment.elasticGrokFilter }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.repository }}axel:{{ .Values.container.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.container.image.pullPolicy }}
+          ports:
+            - name: axel
+              containerPort: 8082
+              protocol: TCP
+          {{- .Values.probes | toYaml | nindent 10 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            runAsUser: 1000 # ind-app
+            seccompProfile:
+              type: RuntimeDefault
+          resources: # Block-templated memory and CPU resources.
+            {{- toYaml .Values.deployment.resources | nindent 12 }}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          envFrom:
+            {{- range .Values.environment.variables._default_config_maps }}
+            - configMapRef:
+                name: {{ . }}
+            {{- end }}
+            {{- range .Values.environment.variables.config_maps }}
+            - configMapRef:
+                name: {{ . }}
+            {{- end }}
+            {{- range .Values.environment.variables.secrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          volumeMounts:
+            - name: certs-volume
+              mountPath: {{ .Values.environment.secretVolumes.certs.mountPath }}
+              readOnly: true
+            {{- range .Values.fileMounts.configMaps }}
+            {{- $volname := printf "vol-%s" .ref.configMap.name -}}
+            {{- range .dst }}
+            - name: {{ $volname }}
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- end }}
+      volumes:
+        - name: certs-volume
+          secret:
+            secretName: {{ .Values.environment.secretVolumes.certs.secretName }}
+        {{- range .Values.fileMounts.configMaps }}
+        - name: vol-{{ .ref.configMap.name }}
+          {{- toYaml .ref | nindent 10 }}
+        {{- end }}
+
