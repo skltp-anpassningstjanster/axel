@@ -24,54 +24,6 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <name>Björn Bength</name>
-            <email>bjorn.bength@r2m.se</email>
-            <organization>R2M</organization>
-            <organizationUrl>http://www.r2m.se</organizationUrl>
-        </developer>
-        <developer>
-            <name>Jan Hallonsten</name>
-            <email>jan.hallonsten@r2m.se</email>
-            <organization>R2M</organization>
-            <organizationUrl>http://www.r2m.se</organizationUrl>
-        </developer>
-        <developer>
-            <name>Ekkehart Lötzsch</name>
-            <email>ekkehart.lotzsch@r2m.se</email>
-            <organization>R2M</organization>
-            <organizationUrl>http://www.r2m.se</organizationUrl>
-        </developer>
-        <developer>
-            <name>Joakim Anell</name>
-            <email>joakim.anell@r2m.se</email>
-            <organization>R2M</organization>
-            <organizationUrl>http://www.r2m.se</organizationUrl>
-        </developer>
-    </developers>
-
-    <contributors>
-        <contributor>
-            <name>Mats Ekhammar</name>
-            <email>mats.ekhammar at callistaenterprise.se</email>
-            <organization>Callista Enterprise</organization>
-            <organizationUrl>http://callistaenterprise.se/</organizationUrl>
-        </contributor>
-        <contributor>
-            <name>Johannes Carlén</name>
-            <email>johannes.carlen at callistaenterprise.se</email>
-            <organization>Callista Enterprise</organization>
-            <organizationUrl>http://callistaenterprise.se/</organizationUrl>
-        </contributor>
-        <contributor>
-            <name>Kristin Luhr</name>
-            <email>kristin.luhr at callistaenterprise.se</email>
-            <organization>Callista Enterprise</organization>
-            <organizationUrl>http://callistaenterprise.se/</organizationUrl>
-        </contributor>
-    </contributors>
-
     <prerequisites>
         <maven>3.0</maven>
     </prerequisites>
