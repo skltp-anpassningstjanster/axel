@@ -134,7 +134,7 @@
         <spring-data.version>1.13.8.RELEASE</spring-data.version>
         <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
         <spring-orm.version>2.5.1</spring-orm.version>
-        <spring.version>5.3.30</spring.version>
+        <spring.version>5.3.39</spring.version>
         <springockito.version>1.0.4</springockito.version>
         <testng.version>6.14.2</testng.version>
         <unitils-core.version>3.3</unitils-core.version>
