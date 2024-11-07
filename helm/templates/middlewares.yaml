@@ -1,7 +1,7 @@
 {{- $pathPrefix := trimAll "/" .Values.ingressroute.pathPrefix -}}
 {{- $defaultIpWhiteList := dict "sourceRange" (list "0.0.0.0/0")  -}} {{- /* allow all */ -}}
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   labels:
@@ -11,7 +11,7 @@ spec:
     ipWhiteList: {{ .Values.ipWhiteList | default $defaultIpWhiteList | toYaml | nindent 8 }}
 
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   labels:
@@ -23,7 +23,7 @@ spec:
     - /{{  $pathPrefix }}/
 
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   labels:
