@@ -132,7 +132,7 @@
         <smartrics-RestFixture.version>3.0</smartrics-RestFixture.version>
         <spring-data-mongodb.version>1.10.8.RELEASE</spring-data-mongodb.version>
         <spring-data.version>1.13.8.RELEASE</spring-data.version>
-        <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
+        <spring-ldap.version>2.4.4</spring-ldap.version>
         <spring-orm.version>2.5.1</spring-orm.version>
         <spring.version>5.3.30</spring.version>
         <springockito.version>1.0.4</springockito.version>
