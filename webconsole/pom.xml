@@ -12,6 +12,11 @@
     <name>Axel :: WebConsole</name>
 
     <dependencies>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
