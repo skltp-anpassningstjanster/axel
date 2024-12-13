@@ -32,11 +32,8 @@ public abstract class BasePage extends WebPage {
 		super(parameters);
 
 		add(new Label("title", "Axel - " + getTitle()));
-		System.out.println(":::: TRACE 1: " + this + ", " + getTitle());
 		HeaderPanel header = new HeaderPanel("header");
-		System.out.println(":::: TRACE 2: " + this + ", " + getTitle());
 		header.add(new Label("title", getTitle()));
-		System.out.println(":::: TRACE 3: " + this + ", " + getTitle());
 		add(header);
 		add(new FooterPanel("footer"));
 	}

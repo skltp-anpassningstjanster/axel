@@ -50,13 +50,9 @@ public class HeaderPanel extends Panel {
 
 	public HeaderPanel(final String id) {
 		super(id);
-        System.out.println(":::: TRACE 4: " + this + ", " + id);
 
-        System.out.println(":::: TRACE 5: " + this + ", " + nodeInfo.getNodeId());
         add(new Label("nodeId", nodeInfo.getNodeId()));
-        System.out.println(":::: TRACE 6: " + this + ", " + nodeInfo.getOrganizationNumber());
         add(new Label("organizationNumber", nodeInfo.getOrganizationNumber()));
-        System.out.println(":::: TRACE 7: " + this + ", " + nodeInfo);
 
         ListView<Link<Page>> linkList = new ListView<Link<Page>>("linkList", navModel) {
             @Override
