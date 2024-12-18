@@ -62,11 +62,11 @@ probes:
     timeoutSeconds: 3
     failureThreshold: 10
     httpGet:
-      path: shs-broker
+      path: health
       port: 8080
   startupProbe:
     httpGet:
-      path: shs-broker
+      path: health
       port: 8080
       scheme: HTTP
     initialDelaySeconds: 10
