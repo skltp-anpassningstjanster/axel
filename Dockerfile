@@ -13,7 +13,7 @@ ENV APP_NAME=axel \
     AXEL_HOME=$CATALINA_HOME
 
 COPY --from=builder /opt/catalina ${CATALINA_HOME}/
-
+COPY docker_context/index.html ${CATALINA_HOME}/webapps/health/index.html
 COPY docker_context/setenv.sh /tmp/setenv.sh
 RUN cat /tmp/setenv.sh >> ${CATALINA_HOME}/bin/setenv.sh
 
