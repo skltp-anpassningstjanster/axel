@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>shs</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>2.2.0-SNAPSHOT</version>
+        <version>2.2.0</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>shs-camel</artifactId>
     <packaging>bundle</packaging>
-
     <name>Axel :: SHS :: Camel</name>
     <description>Contains Camel processors, marshallers and type converters to make it easy
         to integrate SHS into a Camel context.</description>
-
     <dependencies>
         <dependency>
             <groupId>com.natpryce</groupId>
             <artifactId>make-it-easy</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
@@ -31,84 +28,69 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
-
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
         </dependency>
-
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-http</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring-javaconfig</artifactId>
             <version>${camel.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-spring</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-testng</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-integration</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -119,12 +101,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
         </dependency>
-
         <dependency>
             <groupId>se.inera.axel</groupId>
             <artifactId>shs-protocol</artifactId>
@@ -132,9 +112,7 @@
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -142,7 +120,6 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-
                     <instructions>
                         <_failok>true</_failok>
                         <Export-Package>se.inera.axel.shs.camel.*;version="${project.version}",
@@ -151,31 +128,24 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <argLine>-Xmx64m</argLine>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <groups>
                         <group>
                             <title>Axel - SHS Camel Packages</title>
-                            <!--<packages>se.inera.axel.shs.processor:se.inera.axel.shs.xml*:se.inera.axel.shs.camel*:se.inera.axel.shs.cmdline:se.inera.axel.shs.exception:se.inera.axel.shs.protocol-->
-                            <!--</packages>-->
                             <packages>se.inera.axel.shs.camel*:!se.inera.axel.shs.camel.component</packages>
                         </group>
                         <group>
                             <title>Axel - SHS Protocol Packages</title>
-                            <!--<packages>se.inera.axel.shs.processor:se.inera.axel.shs.xml*:se.inera.axel.shs.camel*:se.inera.axel.shs.cmdline:se.inera.axel.shs.exception:se.inera.axel.shs.protocol-->
-                            <!--</packages>-->
                             <packages>se.inera.axel.shs*:!se.inera.axel.shs.broker*:!se.inera.axel.shs.camel*</packages>
                         </group>
                     </groups>
@@ -185,5 +155,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>riv</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>2.2.0-SNAPSHOT</version>
+        <version>2.2.0</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <groupId>se.riv.insuranceprocess.healthreporting</groupId>
     <artifactId>insuranceprocess-healthreporting-schemas-3.1.0</artifactId>
-
     <packaging>bundle</packaging>
     <name>RIV :: insuranceprocess-healthreporting-schemas-3.1.0</name>
     <description>Schema and JAXB generated resources packaged in an OSGi bundle.</description>
-
     <properties>
         <schema.path>${basedir}/src/main/resources/schemas</schema.path>
     </properties>
-
     <dependencies>
-        <!-- cxf dependencies -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -32,7 +27,6 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http-jetty</artifactId>
-            <!-- exkludera en som st�r !!! -->
             <exclusions>
                 <exclusion>
                     <artifactId>slf4j-jdk14</artifactId>
@@ -43,7 +37,6 @@
     </dependencies>
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
@@ -57,12 +50,9 @@
                         <configuration>
                             <sourceRoot>${project.build.directory}/generated-sources/src/main/java</sourceRoot>
                             <wsdlOptions>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:SetCertificateStatus:1:rivtabp20=se.inera.ifv.setcertificatestatus.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -80,12 +70,9 @@
                                     <wsdl>${schema.path}/interactions/SetCertificateStatusInteraction/SetCertificateStatusInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/SetCertificateStatusInteraction/SetCertificateStatusInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:GetCertificate:1:rivtabp20=se.inera.ifv.getcertificate.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -103,12 +90,9 @@
                                     <wsdl>${schema.path}/interactions/GetCertificateInteraction/GetCertificateInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/GetCertificateInteraction/GetCertificateInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:ListCertificates:1:rivtabp20=se.inera.ifv.listcertificates.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -126,12 +110,9 @@
                                     <wsdl>${schema.path}/interactions/ListCertificatesInteraction/ListCertificatesInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/ListCertificatesInteraction/ListCertificatesInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:SendMedicalCertificate:1:rivtabp20=se.inera.ifv.sendmedicalcertificate.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -147,12 +128,9 @@
                                     <wsdl>${schema.path}/interactions/SendMedicalCertificateInteraction/SendMedicalCertificateInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/SendMedicalCertificateInteraction/SendMedicalCertificateInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:RevokeMedicalCertificate:1:rivtabp20=se.inera.ifv.revokemedicalcertificate.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -168,12 +146,9 @@
                                     <wsdl>${schema.path}/interactions/RevokeMedicalCertificateInteraction/RevokeMedicalCertificateInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/RevokeMedicalCertificateInteraction/RevokeMedicalCertificateInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1:rivtabp20=se.inera.ifv.receivemedicalcertificateanswer.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -189,12 +164,9 @@
                                     <wsdl>${schema.path}/interactions/ReceiveMedicalCertificateAnswerInteraction/ReceiveMedicalCertificateAnswerInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/ReceiveMedicalCertificateAnswerInteraction/ReceiveMedicalCertificateAnswerInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1:rivtabp20=se.inera.ifv.receivemedicalcertificatequestion.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -210,12 +182,9 @@
                                     <wsdl>${schema.path}/interactions/ReceiveMedicalCertificateQuestionInteraction/ReceiveMedicalCertificateQuestionInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/ReceiveMedicalCertificateQuestionInteraction/ReceiveMedicalCertificateQuestionInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:SendMedicalCertificateAnswer:1:rivtabp20=se.inera.ifv.sendmedicalcertificateanswer.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -231,12 +200,9 @@
                                     <wsdl>${schema.path}/interactions/SendMedicalCertificateAnswerInteraction/SendMedicalCertificateAnswerInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/SendMedicalCertificateAnswerInteraction/SendMedicalCertificateAnswerInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:SendMedicalCertificateQuestion:1:rivtabp20=se.inera.ifv.sendmedicalcertificatequestion.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -252,12 +218,9 @@
                                     <wsdl>${schema.path}/interactions/SendMedicalCertificateQuestionInteraction/SendMedicalCertificateQuestionInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/SendMedicalCertificateQuestionInteraction/SendMedicalCertificateQuestionInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:FindAllQuestions:1:rivtabp20=se.inera.ifv.findallquestions.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -275,12 +238,9 @@
                                     <wsdl>${schema.path}/interactions/FindAllQuestionsInteraction/FindAllQuestionsInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/FindAllQuestionsInteraction/FindAllQuestionsInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:FindAllAnswers:1:rivtabp20=se.inera.ifv.findallanswers.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -298,12 +258,9 @@
                                     <wsdl>${schema.path}/interactions/FindAllAnswersInteraction/FindAllAnswersInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/FindAllAnswersInteraction/FindAllAnswersInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:DeleteQuestions:1:rivtabp20=se.inera.ifv.deletequestions.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -319,12 +276,9 @@
                                     <wsdl>${schema.path}/interactions/DeleteQuestionsInteraction/DeleteQuestionsInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/DeleteQuestionsInteraction/DeleteQuestionsInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:DeleteAnswers:1:rivtabp20=se.inera.ifv.deleteanswers.v1.rivtabp20</extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2</extraarg>
@@ -340,7 +294,6 @@
                                     <wsdl>${schema.path}/interactions/DeleteAnswersInteraction/DeleteAnswersInteraction_1.0_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/DeleteAnswersInteraction/DeleteAnswersInteraction_1.0_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                                 <wsdlOption>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
@@ -359,16 +312,13 @@
                                     <wsdl>${schema.path}/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl</wsdl>
                                     <wsdlLocation>classpath:schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl</wsdlLocation>
                                 </wsdlOption>
-
                             </wsdlOptions>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-
                 <groupId>org.codehaus.mojo</groupId>
-
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
                     <execution>
@@ -377,7 +327,6 @@
                         <goals>
                             <goal>add-source</goal>
                         </goals>
-
                         <configuration>
                             <sources>
                                 <source>${project.build.directory}/generated-sources/src/main/java</source>

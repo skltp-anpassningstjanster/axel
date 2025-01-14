@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>riv</artifactId>
         <groupId>se.inera.axel</groupId>
-        <version>2.2.0-SNAPSHOT</version>
+        <version>2.2.0</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
-
     <artifactId>insuranceprocess-healthreporting-mocks</artifactId>
-
     <packaging>bundle</packaging>
     <name>Axel :: RIV :: insuranceprocess-healthreporting-mocks</name>
     <description>A mock implementation of the insuranceprocess-healthreporting services for testing purposes.</description>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -34,5 +30,4 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
-
 </project>
