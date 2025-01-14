@@ -52,20 +52,20 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
-    <maven-sortpom-plugin.version>2.1.0</maven-sortpom-plugin.version>
     <servlet.version>3.0.1</servlet.version>
+    <maven-sortpom-plugin.version>2.1.0</maven-sortpom-plugin.version>
     <maven-bundle-plugin.version>2.4.0</maven-bundle-plugin.version>
     <karaf.version>2.4.0</karaf.version>
     <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
     <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
     <jaxb.version>2.2.11</jaxb.version>
     <hawtio.version>1.4.0</hawtio.version>
-    <aopalliance.version>1.0</aopalliance.version>
     <unitils-core.version>3.3</unitils-core.version>
+    <aopalliance.version>1.0</aopalliance.version>
     <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
-    <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
-    <slf4j.version>2.0.9</slf4j.version>
     <testng.version>6.14.2</testng.version>
+    <slf4j.version>2.0.9</slf4j.version>
+    <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
     <additionalparam>-Xdoclint:none</additionalparam>
     <jcommander.version>1.30</jcommander.version>
     <log4j.version>2.20.0</log4j.version>
