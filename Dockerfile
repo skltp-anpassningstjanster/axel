@@ -8,7 +8,7 @@ RUN unzip /tmp/shs-broker.war -d /opt/catalina/webapps/shs-broker
 RUN unzip /tmp/riv-shs.war -d /opt/catalina/webapps/riv-shs
 
 
-FROM docker.drift.inera.se/ntjp/tomcat:9-jre11-log4j-ecs AS axel
+FROM docker.drift.inera.se/ntjp/tomcat:9-jre17-log4j-ecs AS axel
 ENV APP_NAME=axel \
     AXEL_HOME=$CATALINA_HOME
 
