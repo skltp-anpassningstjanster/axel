@@ -5,6 +5,11 @@ CATALINA_OPTS+=" -Dlog4j.configuration=\"file://${CATALINA_HOME}/conf/log4j.xml\
 CATALINA_OPTS+=" -XX:MaxRAMPercentage=75.0"
 # Java 17+ tightens module access; allow CXF to set Authenticator via reflection
 CATALINA_OPTS+=" --add-opens=java.base/java.net=ALL-UNNAMED"
+# Allow Spring LDAP to access JNDI internals on Java 17+
+CATALINA_OPTS+=" --add-opens=java.naming/com.sun.jndi.ldap=ALL-UNNAMED"
+# Be permissive for older JAX-WS/JAXB impls reflecting on internal packages
+CATALINA_OPTS+=" --add-opens=java.xml.ws/com.sun.xml.internal.ws=ALL-UNNAMED"
+CATALINA_OPTS+=" --add-opens=java.xml.bind/com.sun.xml.internal.bind=ALL-UNNAMED"
 
 if [ -n "$AXEL_HOME" ]; then
   CATALINA_OPTS+=" -Daxel.home=\"$AXEL_HOME\""
