@@ -103,7 +103,8 @@
     <commons-httpclient.version>3.1</commons-httpclient.version>
     <maven-jetty-plugin.version>8.1.16.v20140903</maven-jetty-plugin.version>
     <wicket.version>6.7.0</wicket.version>
-    <cglib.version>2.2.2</cglib.version>
+    <cglib.version>3.3.0</cglib.version>
+    <asm.version>9.1</asm.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
     <spring-data.version>1.13.8.RELEASE</spring-data.version>
@@ -144,6 +145,11 @@
         <groupId>cglib</groupId>
         <artifactId>cglib</artifactId>
         <version>${cglib.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ow2.asm</groupId>
+        <artifactId>asm</artifactId>
+        <version>${asm.version}</version>
       </dependency>
       <dependency>
         <groupId>com.beust</groupId>
