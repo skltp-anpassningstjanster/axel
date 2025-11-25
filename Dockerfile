@@ -17,5 +17,5 @@ COPY docker_context/index.html ${CATALINA_HOME}/webapps/health/index.html
 COPY docker_context/setenv.sh /tmp/setenv.sh
 RUN cat /tmp/setenv.sh >> ${CATALINA_HOME}/bin/setenv.sh
 
-USER 1000
 RUN chown 1000 -R ${CATALINA_HOME}
+USER 1000
