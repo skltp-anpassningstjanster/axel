@@ -116,6 +116,11 @@
       <artifactId>shs-protocol</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.sun.xml.messaging.saaj</groupId>
+      <artifactId>saaj-impl</artifactId>
+      <version>${saaj.version}</version>
+    </dependency>
+    <dependency>
       <groupId>se.inera.axel</groupId>
       <artifactId>shs-protocol</artifactId>
       <version>${project.version}</version>

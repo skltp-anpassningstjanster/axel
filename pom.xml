@@ -60,6 +60,7 @@
     <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
     <jaxb.version>2.3.1</jaxb.version>
     <jaxb-runtime.version>2.3.8</jaxb-runtime.version>
+    <saaj.version>1.5.3</saaj.version>
     <hawtio.version>1.4.0</hawtio.version>
     <unitils-core.version>3.3</unitils-core.version>
     <aopalliance.version>1.0</aopalliance.version>
@@ -238,6 +239,11 @@
         <groupId>javax.xml.ws</groupId>
         <artifactId>jaxws-api</artifactId>
         <version>${jaxws.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.messaging.saaj</groupId>
+        <artifactId>saaj-impl</artifactId>
+        <version>${saaj.version}</version>
       </dependency>
       <dependency>
         <groupId>joda-time</groupId>
