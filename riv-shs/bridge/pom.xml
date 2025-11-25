@@ -37,6 +37,11 @@
       <artifactId>camel-core</artifactId>
     </dependency>
     <dependency>
+      <groupId>javax.jws</groupId>
+      <artifactId>javax.jws-api</artifactId>
+      <version>${jws-api.version}</version>
+    </dependency>
+    <dependency>
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>
       <version>${javax-annotation.version}</version>
