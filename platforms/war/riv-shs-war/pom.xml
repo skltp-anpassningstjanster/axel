@@ -105,6 +105,16 @@
       <groupId>se.inera.axel</groupId>
       <artifactId>shs-authentication</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>${jaxb-runtime.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>javax.activation-api</artifactId>
+      <version>1.2.0</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>axel-riv-shs-${project.version}</finalName>

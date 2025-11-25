@@ -58,7 +58,8 @@
     <karaf.version>2.4.0</karaf.version>
     <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
     <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
-    <jaxb.version>2.2.11</jaxb.version>
+    <jaxb.version>2.3.1</jaxb.version>
+    <jaxb-runtime.version>2.3.8</jaxb-runtime.version>
     <hawtio.version>1.4.0</hawtio.version>
     <unitils-core.version>3.3</unitils-core.version>
     <aopalliance.version>1.0</aopalliance.version>
@@ -203,6 +204,11 @@
         <version>${activation.version}</version>
       </dependency>
       <dependency>
+        <groupId>javax.activation</groupId>
+        <artifactId>javax.activation-api</artifactId>
+        <version>1.2.0</version>
+      </dependency>
+      <dependency>
         <groupId>javax.mail</groupId>
         <artifactId>mail</artifactId>
         <version>${javamail.version}</version>
@@ -222,6 +228,11 @@
         <groupId>javax.xml.bind</groupId>
         <artifactId>jaxb-api</artifactId>
         <version>${jaxb.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>${jaxb-runtime.version}</version>
       </dependency>
       <dependency>
         <groupId>javax.xml.ws</groupId>
