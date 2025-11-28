@@ -69,6 +69,7 @@
     <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
     <testng.version>6.14.2</testng.version>
     <slf4j.version>2.0.9</slf4j.version>
+    <micrometer.version>1.11.11</micrometer.version>
     <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
     <additionalparam>-Xdoclint:none</additionalparam>
     <jcommander.version>1.30</jcommander.version>
@@ -114,7 +115,7 @@
     <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
     <maven-failsafe-plugin.version>2.14.1</maven-failsafe-plugin.version>
     <spring-orm.version>2.5.1</spring-orm.version>
-    <java.version>8</java.version>
+    <java.version>1.8</java.version>
     <activation.version>1.1</activation.version>
     <build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
     <mockito.version>1.9.5</mockito.version>
@@ -206,6 +207,16 @@
         <artifactId>hawtio-default</artifactId>
         <version>${hawtio.version}</version>
         <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-core</artifactId>
+        <version>${micrometer.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-registry-prometheus</artifactId>
+        <version>${micrometer.version}</version>
       </dependency>
       <dependency>
         <groupId>javax.activation</groupId>
@@ -848,8 +859,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven-compiler-plugin.version}</version>
           <configuration>
-            <source>1.7</source>
-            <target>1.7</target>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
           </configuration>
         </plugin>
         <plugin>

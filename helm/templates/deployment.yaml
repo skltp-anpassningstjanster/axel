@@ -21,6 +21,7 @@ spec:
       labels:
         app: axel
         elasticGrokFilter: {{ .Values.deployment.elasticGrokFilter }}
+        monitoring: "prometheus"
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -34,6 +35,9 @@ spec:
           ports:
             - name: axel
               containerPort: 8082
+              protocol: TCP
+            - name: actuators
+              containerPort: 8089
               protocol: TCP
           {{- .Values.probes | toYaml | nindent 10 }}
           securityContext:
