@@ -37,6 +37,21 @@
       <artifactId>camel-core</artifactId>
     </dependency>
     <dependency>
+      <groupId>javax.jws</groupId>
+      <artifactId>javax.jws-api</artifactId>
+      <version>${jws-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>${javax-annotation.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.ws</groupId>
+      <artifactId>jaxws-api</artifactId>
+      <version>${jaxws.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-cxf</artifactId>
     </dependency>
@@ -114,6 +129,11 @@
     <dependency>
       <groupId>se.inera.axel</groupId>
       <artifactId>shs-protocol</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.messaging.saaj</groupId>
+      <artifactId>saaj-impl</artifactId>
+      <version>${saaj.version}</version>
     </dependency>
     <dependency>
       <groupId>se.inera.axel</groupId>

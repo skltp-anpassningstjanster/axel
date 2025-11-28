@@ -1,3 +1,3 @@
-FROM bitnami/mongodb:4.4.7
+FROM bitnami/mongodb:latest
 
 COPY init-db/ etc/axel/init-db

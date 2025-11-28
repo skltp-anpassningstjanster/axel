@@ -35,7 +35,8 @@
     </dependency>
     <dependency>
       <groupId>javax.activation</groupId>
-      <artifactId>activation</artifactId>
+      <artifactId>javax.activation-api</artifactId>
+      <version>1.2.0</version>
     </dependency>
     <dependency>
       <groupId>javax.mail</groupId>
@@ -105,6 +106,11 @@
     <dependency>
       <groupId>se.inera.axel</groupId>
       <artifactId>shs-protocol</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>${jaxb-runtime.version}</version>
     </dependency>
     <dependency>
       <groupId>se.inera.axel</groupId>

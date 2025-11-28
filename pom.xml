@@ -58,7 +58,11 @@
     <karaf.version>2.4.0</karaf.version>
     <spring-ldap.version>2.3.2.RELEASE</spring-ldap.version>
     <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
-    <jaxb.version>2.2.11</jaxb.version>
+    <jaxb.version>2.3.1</jaxb.version>
+    <jaxb-runtime.version>2.3.8</jaxb-runtime.version>
+    <saaj.version>1.5.3</saaj.version>
+    <javax-annotation.version>1.3.2</javax-annotation.version>
+    <jws-api.version>1.1</jws-api.version>
     <hawtio.version>1.4.0</hawtio.version>
     <unitils-core.version>3.3</unitils-core.version>
     <aopalliance.version>1.0</aopalliance.version>
@@ -99,7 +103,8 @@
     <commons-httpclient.version>3.1</commons-httpclient.version>
     <maven-jetty-plugin.version>8.1.16.v20140903</maven-jetty-plugin.version>
     <wicket.version>6.7.0</wicket.version>
-    <cglib.version>2.2.2</cglib.version>
+    <cglib.version>3.3.0</cglib.version>
+    <asm.version>9.1</asm.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
     <spring-data.version>1.13.8.RELEASE</spring-data.version>
@@ -140,6 +145,11 @@
         <groupId>cglib</groupId>
         <artifactId>cglib</artifactId>
         <version>${cglib.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ow2.asm</groupId>
+        <artifactId>asm</artifactId>
+        <version>${asm.version}</version>
       </dependency>
       <dependency>
         <groupId>com.beust</groupId>
@@ -203,6 +213,16 @@
         <version>${activation.version}</version>
       </dependency>
       <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>${javax-annotation.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.activation</groupId>
+        <artifactId>javax.activation-api</artifactId>
+        <version>1.2.0</version>
+      </dependency>
+      <dependency>
         <groupId>javax.mail</groupId>
         <artifactId>mail</artifactId>
         <version>${javamail.version}</version>
@@ -224,9 +244,24 @@
         <version>${jaxb.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>${jaxb-runtime.version}</version>
+      </dependency>
+      <dependency>
         <groupId>javax.xml.ws</groupId>
         <artifactId>jaxws-api</artifactId>
         <version>${jaxws.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.messaging.saaj</groupId>
+        <artifactId>saaj-impl</artifactId>
+        <version>${saaj.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.jws</groupId>
+        <artifactId>javax.jws-api</artifactId>
+        <version>${jws-api.version}</version>
       </dependency>
       <dependency>
         <groupId>joda-time</groupId>

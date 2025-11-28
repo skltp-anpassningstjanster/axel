@@ -8,7 +8,7 @@ RUN unzip /tmp/shs-broker.war -d /opt/catalina/webapps/shs-broker
 RUN unzip /tmp/riv-shs.war -d /opt/catalina/webapps/riv-shs
 
 
-FROM docker.drift.inera.se/ntjp/tomcat:9-jre8-log4j-ecs AS axel
+FROM docker.drift.inera.se/ntjp/tomcat:9-jre17-log4j-ecs AS axel
 ENV APP_NAME=axel \
     AXEL_HOME=$CATALINA_HOME
 
@@ -17,6 +17,5 @@ COPY docker_context/index.html ${CATALINA_HOME}/webapps/health/index.html
 COPY docker_context/setenv.sh /tmp/setenv.sh
 RUN cat /tmp/setenv.sh >> ${CATALINA_HOME}/bin/setenv.sh
 
-RUN useradd -u1000 -MU ind-app \
- && chown ind-app -R ${CATALINA_HOME}
-USER ind-app
+RUN chown 1000 -R ${CATALINA_HOME}
+USER 1000
