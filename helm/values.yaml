@@ -63,11 +63,11 @@ probes:
     failureThreshold: 10
     httpGet:
       path: health
-      port: 8080
+      port: actuators
   startupProbe:
     httpGet:
       path: health
-      port: 8080
+      port: actuators
       scheme: HTTP
     initialDelaySeconds: 25
     failureThreshold: 20

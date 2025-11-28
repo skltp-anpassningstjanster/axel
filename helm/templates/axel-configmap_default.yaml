@@ -8,6 +8,9 @@ data:
   .level: WARNING
 
   AXEL_HOME: "{{ .Values.environment.home }}"
+  PROMETHEUS_METRICS_ENABLED: "true"
+  PROMETHEUS_METRICS_PORT: "8089"
+  PROMETHEUS_METRICS_PATH: /prometheus
 
   # List all the log handlers
   HANDLERS: java.util.logging.FileHandler
