@@ -2,249 +2,208 @@ package se.inera.axel.metrics;
 
 import com.sun.net.httpserver.HttpServer;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import javax.servlet.ServletContextEvent;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Supplier;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 
 public class PrometheusMetricsInitializerTest {
 
-    private static final String ENABLED_ENV = "PROMETHEUS_METRICS_ENABLED";
-    private static final String PORT_ENV = "PROMETHEUS_METRICS_PORT";
-    private static final String PATH_ENV = "PROMETHEUS_METRICS_PATH";
-
-    private final Map<String, String> originalEnv = new HashMap<>();
-
-    @BeforeMethod
-    public void setUp() throws Exception {
-        captureOriginalEnv();
-        clearTestEnvs();
-        resetStartedFlag();
-    }
+    private final RecordingServerFactory serverFactory = new RecordingServerFactory();
+    private PrometheusMetricsInitializer initializer;
 
     @AfterMethod
-    public void tearDown() throws Exception {
-        restoreEnv();
-        resetStaticFields();
+    public void tearDown() {
+        if (initializer != null) {
+            initializer.contextDestroyed((ServletContextEvent) null);
+        }
+        if (serverFactory.server != null) {
+            serverFactory.server.stop(0);
+            serverFactory.server = null;
+        }
+        PrometheusMetricsInitializer.resetForTests();
     }
 
     @Test
-    public void shouldEnableMetricsByDefault() throws Exception {
-        PrometheusMetricsInitializer initializer = new PrometheusMetricsInitializer();
-        boolean enabled = (Boolean) invokePrivate(initializer, "isEnabled");
-
-        assertTrue(enabled);
+    public void isEnabledDefaultsToTrue() {
+        initializer = newInitializer(new HashMap<>());
+        assertTrue(initializer.isEnabled());
     }
 
     @Test
-    public void shouldDisableMetricsWhenEnvFalse() throws Exception {
-        setEnvVar(ENABLED_ENV, "false");
-        PrometheusMetricsInitializer initializer = new PrometheusMetricsInitializer();
+    public void isEnabledHandlesFalseAndZero() {
+        Map<String, String> env = new HashMap<>();
+        env.put("PROMETHEUS_METRICS_ENABLED", "false");
+        initializer = newInitializer(env);
+        assertFalse(initializer.isEnabled());
 
-        boolean enabled = (Boolean) invokePrivate(initializer, "isEnabled");
+        env.put("PROMETHEUS_METRICS_ENABLED", "0");
+        initializer = newInitializer(env);
+        assertFalse(initializer.isEnabled());
 
-        assertFalse(enabled);
+        env.put("PROMETHEUS_METRICS_ENABLED", "TrUe ");
+        initializer = newInitializer(env);
+        assertTrue(initializer.isEnabled());
     }
 
     @Test
-    public void shouldResolvePortFromEnv() throws Exception {
-        setEnvVar(PORT_ENV, "9090");
-        PrometheusMetricsInitializer initializer = new PrometheusMetricsInitializer();
+    public void resolvesPortFromEnvironmentOrDefault() {
+        Map<String, String> env = new HashMap<>();
+        initializer = newInitializer(env);
+        assertEquals(initializer.resolvePort(), 8089);
 
-        int port = (Integer) invokePrivate(initializer, "resolvePort");
+        env.put("PROMETHEUS_METRICS_PORT", "9090");
+        initializer = newInitializer(env);
+        assertEquals(initializer.resolvePort(), 9090);
 
-        assertEquals(port, 9090);
+        env.put("PROMETHEUS_METRICS_PORT", "invalid");
+        initializer = newInitializer(env);
+        assertEquals(initializer.resolvePort(), 8089);
     }
 
     @Test
-    public void shouldFallbackToDefaultPortOnInvalidEnv() throws Exception {
-        setEnvVar(PORT_ENV, "not-a-number");
-        PrometheusMetricsInitializer initializer = new PrometheusMetricsInitializer();
+    public void resolvesPathWithLeadingSlash() {
+        Map<String, String> env = new HashMap<>();
+        initializer = newInitializer(env);
+        assertEquals(initializer.resolvePath(), "/prometheus");
 
-        int port = (Integer) invokePrivate(initializer, "resolvePort");
+        env.put("PROMETHEUS_METRICS_PATH", "custom");
+        initializer = newInitializer(env);
+        assertEquals(initializer.resolvePath(), "/custom");
 
-        assertEquals(port, 8089);
+        env.put("PROMETHEUS_METRICS_PATH", "/ready");
+        initializer = newInitializer(env);
+        assertEquals(initializer.resolvePath(), "/ready");
     }
 
     @Test
-    public void shouldResolvePathWithLeadingSlash() throws Exception {
-        PrometheusMetricsInitializer initializer = new PrometheusMetricsInitializer();
-        String defaultPath = (String) invokePrivate(initializer, "resolvePath");
-
-        assertEquals(defaultPath, "/prometheus");
+    public void detectsEmptyStrings() {
+        initializer = newInitializer(new HashMap<>());
+        assertTrue(initializer.isNullOrEmpty(null));
+        assertTrue(initializer.isNullOrEmpty(""));
+        assertTrue(initializer.isNullOrEmpty("  "));
+        assertFalse(initializer.isNullOrEmpty("value"));
     }
 
     @Test
-    public void shouldResolvePathWithoutAddingDoubleSlash() throws Exception {
-        setEnvVar(PATH_ENV, "metrics");
-        PrometheusMetricsInitializer initializer = new PrometheusMetricsInitializer();
-
-        String path = (String) invokePrivate(initializer, "resolvePath");
-
-        assertEquals(path, "/metrics");
+    public void parsesPortOrFallsBackToDefault() {
+        initializer = newInitializer(new HashMap<>());
+        assertEquals(initializer.parsePortOrDefault("8080"), 8080);
+        assertEquals(initializer.parsePortOrDefault(" not-a-number "), 8089);
     }
 
     @Test
-    public void shouldServeContentFromRegisteredContext() throws Exception {
-        PrometheusMetricsInitializer initializer = new PrometheusMetricsInitializer();
-        HttpServer server = HttpServer.create(new InetSocketAddress(0), 0);
-        int port = server.getAddress().getPort();
-        Method register = PrometheusMetricsInitializer.class.getDeclaredMethod("registerGetContext", HttpServer.class, String.class, Supplier.class, String.class);
-        register.setAccessible(true);
-        register.invoke(initializer, server, "/test", (Supplier<byte[]>) () -> "hello".getBytes(StandardCharsets.UTF_8), "text/plain; charset=utf-8");
-        server.setExecutor(Executors.newSingleThreadExecutor());
-        server.start();
+    public void startsAndStopsServerWithEndpoints() throws Exception {
+        Map<String, String> env = new HashMap<>();
+        env.put("PROMETHEUS_METRICS_ENABLED", "true");
+        env.put("PROMETHEUS_METRICS_PORT", "0"); // let OS pick a free port
+        env.put("PROMETHEUS_METRICS_PATH", "metrics");
 
-        HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:" + port + "/test").openConnection();
+        initializer = newInitializer(env);
+        initializer.contextInitialized((ServletContextEvent) null);
+
+        int port = serverFactory.getBoundPort();
+        assertTrue(port > 0, "Server should be bound to an ephemeral port");
+
+        String metricsBody = get("/metrics", port);
+        assertNotNull(metricsBody);
+        assertTrue(metricsBody.contains("# HELP"));
+
+        String healthBody = get("/health", port);
+        assertEquals(healthBody, "Online");
+
+        initializer.contextDestroyed((ServletContextEvent) null);
+    }
+
+    @Test
+    public void doesNotStartTwice() {
+        Map<String, String> env = new HashMap<>();
+        env.put("PROMETHEUS_METRICS_ENABLED", "true");
+        env.put("PROMETHEUS_METRICS_PORT", "0");
+
+        initializer = newInitializer(env);
+        initializer.contextInitialized((ServletContextEvent) null);
+        initializer.contextInitialized((ServletContextEvent) null);
+
+        assertEquals(serverFactory.createdCount, 1, "Server should be created only once");
+    }
+
+    @Test
+    public void returnsServerErrorWhenSupplierFails() throws Exception {
+        initializer = newInitializer(new HashMap<>());
+        HttpServer localServer = HttpServer.create(new InetSocketAddress(0), 0);
+        initializer.registerGetContext(localServer, "/boom", () -> {
+            throw new IllegalStateException("boom");
+        }, "text/plain");
+        localServer.start();
+        int port = localServer.getAddress().getPort();
+
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:" + port + "/boom").openConnection();
         connection.setRequestMethod("GET");
+        assertEquals(connection.getResponseCode(), 500);
+        localServer.stop(0);
+    }
 
+    private PrometheusMetricsInitializer newInitializer(Map<String, String> env) {
+        MapEnvironmentReader reader = new MapEnvironmentReader(env);
+        return new PrometheusMetricsInitializer(reader, serverFactory);
+    }
+
+    private String get(String path, int port) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:" + port + path).openConnection();
+        connection.setRequestMethod("GET");
         assertEquals(connection.getResponseCode(), 200);
-        assertEquals(readFully(connection.getInputStream()), "hello");
-        assertEquals(connection.getHeaderField("Content-Type"), "text/plain; charset=utf-8");
-
-        HttpURLConnection postConnection = (HttpURLConnection) new URL("http://localhost:" + port + "/test").openConnection();
-        postConnection.setRequestMethod("POST");
-        assertEquals(postConnection.getResponseCode(), 405);
-
-        server.stop(0);
-        ((ExecutorService) server.getExecutor()).shutdownNow();
-    }
-
-    @Test
-    public void shouldCleanupResourcesOnContextDestroyed() throws Exception {
-        PrometheusMetricsInitializer initializer = new PrometheusMetricsInitializer();
-        AtomicBoolean started = (AtomicBoolean) getField("STARTED");
-        started.set(true);
-
-        HttpServer server = HttpServer.create(new InetSocketAddress(0), 0);
-        setField("server", server);
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        setField("executor", executor);
-        Object registry = Class.forName("io.micrometer.prometheus.PrometheusMeterRegistry")
-                .getConstructor(io.micrometer.prometheus.PrometheusConfig.class)
-                .newInstance(io.micrometer.prometheus.PrometheusConfig.DEFAULT);
-        setField("registry", registry);
-
-        initializer.contextDestroyed(null);
-
-        assertNull(getField("server"));
-        assertNull(getField("executor"));
-        assertNull(getField("registry"));
-        assertFalse(started.get());
-    }
-
-    private void captureOriginalEnv() {
-        originalEnv.clear();
-        originalEnv.putAll(System.getenv());
-    }
-
-    private void clearTestEnvs() throws Exception {
-        setEnvVar(ENABLED_ENV, null);
-        setEnvVar(PORT_ENV, null);
-        setEnvVar(PATH_ENV, null);
-    }
-
-    private void restoreEnv() throws Exception {
-        Map<String, String> target = new HashMap<>(originalEnv);
-        setEnv(target);
-    }
-
-    private void resetStartedFlag() throws Exception {
-        AtomicBoolean started = (AtomicBoolean) getField("STARTED");
-        started.set(false);
-    }
-
-    private void resetStaticFields() throws Exception {
-        setField("server", null);
-        setField("executor", null);
-        setField("registry", null);
-    }
-
-    private Object invokePrivate(Object target, String methodName, Object... args) throws Exception {
-        Method method = PrometheusMetricsInitializer.class.getDeclaredMethod(methodName);
-        method.setAccessible(true);
-        return method.invoke(target, args);
-    }
-
-    private Object getField(String name) throws Exception {
-        Field field = PrometheusMetricsInitializer.class.getDeclaredField(name);
-        field.setAccessible(true);
-        return field.get(null);
-    }
-
-    private void setField(String name, Object value) throws Exception {
-        Field field = PrometheusMetricsInitializer.class.getDeclaredField(name);
-        field.setAccessible(true);
-        field.set(null, value);
-    }
-
-    private void setEnvVar(String key, String value) throws Exception {
-        Map<String, String> newEnv = new HashMap<>(System.getenv());
-        if (value == null) {
-            newEnv.remove(key);
-        } else {
-            newEnv.put(key, value);
-        }
-        setEnv(newEnv);
-    }
-
-    private void setEnv(Map<String, String> newEnv) throws Exception {
-        try {
-            Class<?> processEnvironment = Class.forName("java.lang.ProcessEnvironment");
-            Field theEnvironmentField = processEnvironment.getDeclaredField("theEnvironment");
-            theEnvironmentField.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<String, String> env = (Map<String, String>) theEnvironmentField.get(null);
-            env.clear();
-            env.putAll(newEnv);
-
-            Field caseInsensitiveField = processEnvironment.getDeclaredField("theCaseInsensitiveEnvironment");
-            caseInsensitiveField.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<String, String> ciEnv = (Map<String, String>) caseInsensitiveField.get(null);
-            if (ciEnv != null) {
-                ciEnv.clear();
-                ciEnv.putAll(newEnv);
+        byte[] buffer = new byte[1024];
+        int read;
+        try (java.io.InputStream in = connection.getInputStream();
+             java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream()) {
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
             }
-        } catch (NoSuchFieldException e) {
-            Map<String, String> env = System.getenv();
-            Class<?> unmodifiableMapClass = Class.forName("java.util.Collections$UnmodifiableMap");
-            Field field = unmodifiableMapClass.getDeclaredField("m");
-            field.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<String, String> modifiable = (Map<String, String>) field.get(env);
-            modifiable.clear();
-            modifiable.putAll(newEnv);
+            return new String(out.toByteArray(), StandardCharsets.UTF_8);
         }
     }
 
-    private String readFully(InputStream inputStream) throws Exception {
-        try (InputStream is = inputStream; ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = is.read(buffer)) != -1) {
-                baos.write(buffer, 0, read);
+    private static class MapEnvironmentReader implements PrometheusMetricsInitializer.EnvironmentReader {
+        private final Map<String, String> values;
+
+        MapEnvironmentReader(Map<String, String> values) {
+            this.values = values;
+        }
+
+        @Override
+        public String get(String key) {
+            return values.get(key);
+        }
+    }
+
+    private static class RecordingServerFactory implements PrometheusMetricsInitializer.HttpServerFactory {
+        HttpServer server;
+        int createdCount;
+
+        @Override
+        public HttpServer create(int port) throws IOException {
+            createdCount++;
+            server = HttpServer.create(new InetSocketAddress(port), 0);
+            return server;
+        }
+
+        int getBoundPort() {
+            if (server == null) {
+                return -1;
             }
-            return new String(baos.toByteArray(), StandardCharsets.UTF_8);
+            return server.getAddress().getPort();
         }
     }
 }

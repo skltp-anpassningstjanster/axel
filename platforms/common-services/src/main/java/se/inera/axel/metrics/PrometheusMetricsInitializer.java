@@ -39,6 +39,18 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
     private static HttpServer server;
     private static ExecutorService executor;
 
+    private final EnvironmentReader environmentReader;
+    private final HttpServerFactory httpServerFactory;
+
+    public PrometheusMetricsInitializer() {
+        this(System::getenv, port -> HttpServer.create(new InetSocketAddress(port), 0));
+    }
+
+    PrometheusMetricsInitializer(EnvironmentReader environmentReader, HttpServerFactory httpServerFactory) {
+        this.environmentReader = environmentReader;
+        this.httpServerFactory = httpServerFactory;
+    }
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         if (!isEnabled()) {
@@ -54,11 +66,11 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         int port = resolvePort();
         String path = resolvePath();
 
-        registry = new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
-        bindStandardMetrics(registry);
-
         try {
-            server = HttpServer.create(new InetSocketAddress(port), 0);
+            registry = new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
+            bindStandardMetrics(registry);
+
+            server = httpServerFactory.create(port);
             registerGetContext(server, path,
                     () -> registry.scrape().getBytes(StandardCharsets.UTF_8),
                     "text/plain; version=0.0.4; charset=utf-8");
@@ -85,7 +97,7 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         }
     }
 
-    private boolean isEnabled() {
+    boolean isEnabled() {
         String enabled = getEnvTrimmed(ENABLED_ENV);
         if (enabled == null) {
             return true;
@@ -93,7 +105,7 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         return !"false".equalsIgnoreCase(enabled.trim()) && !"0".equals(enabled.trim());
     }
 
-    private int resolvePort() {
+    int resolvePort() {
         String port = getEnvTrimmed(PORT_ENV);
         if (port != null) {
             return parsePortOrDefault(port);
@@ -101,7 +113,7 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         return DEFAULT_PORT;
     }
 
-    private String resolvePath() {
+    String resolvePath() {
         String path = getEnvTrimmed(PATH_ENV);
         if (path == null) {
             return DEFAULT_PATH;
@@ -109,7 +121,7 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         return path.startsWith("/") ? path : "/" + path;
     }
 
-    private void bindStandardMetrics(PrometheusMeterRegistry targetRegistry) {
+    void bindStandardMetrics(PrometheusMeterRegistry targetRegistry) {
         new ClassLoaderMetrics().bindTo(targetRegistry);
         new JvmMemoryMetrics().bindTo(targetRegistry);
         new JvmGcMetrics().bindTo(targetRegistry);
@@ -120,7 +132,7 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         new UptimeMetrics().bindTo(targetRegistry);
     }
 
-    private void registerGetContext(HttpServer targetServer, String contextPath, Supplier<byte[]> bodySupplier, String contentType) {
+    void registerGetContext(HttpServer targetServer, String contextPath, Supplier<byte[]> bodySupplier, String contentType) {
         targetServer.createContext(contextPath, exchange -> {
             try {
                 if ("GET".equalsIgnoreCase(exchange.getRequestMethod())) {
@@ -144,7 +156,7 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         });
     }
 
-    private int parsePortOrDefault(String port) {
+    int parsePortOrDefault(String port) {
         try {
             return Integer.parseInt(port.trim());
         } catch (NumberFormatException e) {
@@ -153,36 +165,48 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         }
     }
 
-    private String getEnvTrimmed(String key) {
-        String value = System.getenv(key);
+    String getEnvTrimmed(String key) {
+        String value = environmentReader.get(key);
         if (isNullOrEmpty(value)) {
             return null;
         }
         return value.trim();
     }
 
-    private void stopServerIfRunning() {
+    void stopServerIfRunning() {
         if (server != null) {
             server.stop(0);
             server = null;
         }
     }
 
-    private void shutdownExecutor() {
+    void shutdownExecutor() {
         if (executor != null) {
             executor.shutdownNow();
             executor = null;
         }
     }
 
-    private void closeRegistry() {
+    void closeRegistry() {
         if (registry != null) {
             registry.close();
             registry = null;
         }
     }
 
-    private boolean isNullOrEmpty(String value) {
+    boolean isNullOrEmpty(String value) {
         return value == null || value.trim().isEmpty();
+    }
+
+    static void resetForTests() {
+        STARTED.set(false);
+    }
+
+    interface EnvironmentReader {
+        String get(String key);
+    }
+
+    interface HttpServerFactory {
+        HttpServer create(int port) throws IOException;
     }
 }
