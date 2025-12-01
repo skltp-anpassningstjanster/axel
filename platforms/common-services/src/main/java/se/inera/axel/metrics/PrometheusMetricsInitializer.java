@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 
 public class PrometheusMetricsInitializer implements ServletContextListener {
     private static final Logger LOG = LoggerFactory.getLogger(PrometheusMetricsInitializer.class);
@@ -58,43 +59,12 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
 
         try {
             server = HttpServer.create(new InetSocketAddress(port), 0);
-            server.createContext(path, exchange -> {
-                try {
-                    if ("GET".equalsIgnoreCase(exchange.getRequestMethod())) {
-                        byte[] response = registry.scrape().getBytes(StandardCharsets.UTF_8);
-                        exchange.getResponseHeaders().add("Content-Type", "text/plain; version=0.0.4; charset=utf-8");
-                        exchange.sendResponseHeaders(200, response.length);
-                        try (OutputStream os = exchange.getResponseBody()) {
-                            os.write(response);
-                        }
-                    } else {
-                        exchange.sendResponseHeaders(405, -1);
-                    }
-                } catch (Exception e) {
-                    LOG.warn("Failed to serve Prometheus scrape request", e);
-                    exchange.sendResponseHeaders(500, -1);
-                } finally {
-                    exchange.close();
-                }
-            });
-            server.createContext(HEALTH_PATH, exchange -> {
-                try {
-                    if ("GET".equalsIgnoreCase(exchange.getRequestMethod())) {
-                        byte[] response = "Online".getBytes(StandardCharsets.UTF_8);
-                        exchange.sendResponseHeaders(200, response.length);
-                        try (OutputStream os = exchange.getResponseBody()) {
-                            os.write(response);
-                        }
-                    } else {
-                        exchange.sendResponseHeaders(405, -1);
-                    }
-                } catch (Exception e) {
-                    LOG.warn("Failed to serve health request", e);
-                    exchange.sendResponseHeaders(500, -1);
-                } finally {
-                    exchange.close();
-                }
-            });
+            registerGetContext(server, path,
+                    () -> registry.scrape().getBytes(StandardCharsets.UTF_8),
+                    "text/plain; version=0.0.4; charset=utf-8");
+            registerGetContext(server, HEALTH_PATH,
+                    () -> "Online".getBytes(StandardCharsets.UTF_8),
+                    "text/plain; charset=utf-8");
             executor = Executors.newFixedThreadPool(2);
             server.setExecutor(executor);
             server.start();
@@ -108,45 +78,32 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         if (STARTED.compareAndSet(true, false)) {
-            if (server != null) {
-                server.stop(0);
-                server = null;
-            }
-            if (executor != null) {
-                executor.shutdownNow();
-                executor = null;
-            }
-            if (registry != null) {
-                registry.close();
-                registry = null;
-            }
+            stopServerIfRunning();
+            shutdownExecutor();
+            closeRegistry();
             LOG.info("Prometheus metrics endpoint stopped");
         }
     }
 
     private boolean isEnabled() {
-        String enabled = System.getenv(ENABLED_ENV);
-        if (isNullOrEmpty(enabled)) {
+        String enabled = getEnvTrimmed(ENABLED_ENV);
+        if (enabled == null) {
             return true;
         }
         return !"false".equalsIgnoreCase(enabled.trim()) && !"0".equals(enabled.trim());
     }
 
     private int resolvePort() {
-        String port = System.getenv(PORT_ENV);
-        if (!isNullOrEmpty(port)) {
-            try {
-                return Integer.parseInt(port.trim());
-            } catch (NumberFormatException e) {
-                LOG.warn("Invalid {} '{}', falling back to default {}", PORT_ENV, port, DEFAULT_PORT);
-            }
+        String port = getEnvTrimmed(PORT_ENV);
+        if (port != null) {
+            return parsePortOrDefault(port);
         }
         return DEFAULT_PORT;
     }
 
     private String resolvePath() {
-        String path = System.getenv(PATH_ENV);
-        if (isNullOrEmpty(path)) {
+        String path = getEnvTrimmed(PATH_ENV);
+        if (path == null) {
             return DEFAULT_PATH;
         }
         return path.startsWith("/") ? path : "/" + path;
@@ -161,6 +118,68 @@ public class PrometheusMetricsInitializer implements ServletContextListener {
         new ProcessorMetrics().bindTo(targetRegistry);
         new FileDescriptorMetrics().bindTo(targetRegistry);
         new UptimeMetrics().bindTo(targetRegistry);
+    }
+
+    private void registerGetContext(HttpServer targetServer, String contextPath, Supplier<byte[]> bodySupplier, String contentType) {
+        targetServer.createContext(contextPath, exchange -> {
+            try {
+                if ("GET".equalsIgnoreCase(exchange.getRequestMethod())) {
+                    byte[] response = bodySupplier.get();
+                    if (contentType != null) {
+                        exchange.getResponseHeaders().add("Content-Type", contentType);
+                    }
+                    exchange.sendResponseHeaders(200, response.length);
+                    try (OutputStream os = exchange.getResponseBody()) {
+                        os.write(response);
+                    }
+                } else {
+                    exchange.sendResponseHeaders(405, -1);
+                }
+            } catch (Exception e) {
+                LOG.warn("Failed to serve request for {}", contextPath, e);
+                exchange.sendResponseHeaders(500, -1);
+            } finally {
+                exchange.close();
+            }
+        });
+    }
+
+    private int parsePortOrDefault(String port) {
+        try {
+            return Integer.parseInt(port.trim());
+        } catch (NumberFormatException e) {
+            LOG.warn("Invalid {} '{}', falling back to default {}", PORT_ENV, port, DEFAULT_PORT);
+            return DEFAULT_PORT;
+        }
+    }
+
+    private String getEnvTrimmed(String key) {
+        String value = System.getenv(key);
+        if (isNullOrEmpty(value)) {
+            return null;
+        }
+        return value.trim();
+    }
+
+    private void stopServerIfRunning() {
+        if (server != null) {
+            server.stop(0);
+            server = null;
+        }
+    }
+
+    private void shutdownExecutor() {
+        if (executor != null) {
+            executor.shutdownNow();
+            executor = null;
+        }
+    }
+
+    private void closeRegistry() {
+        if (registry != null) {
+            registry.close();
+            registry = null;
+        }
     }
 
     private boolean isNullOrEmpty(String value) {
