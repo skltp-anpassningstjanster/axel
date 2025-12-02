@@ -95,7 +95,7 @@
     <jacoco.plugin.version>0.8.5</jacoco.plugin.version>
     <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
     <activemq.version>5.15.10</activemq.version>
-    <jetty.version>9.4.12.v20180830</jetty.version>
+    <jetty.version>9.4.56.v20240826</jetty.version>
     <guava.version>13.0.1</guava.version>
     <hamcrest.version>1.3</hamcrest.version>
     <de.flapdoodle.embed.mongo.version>3.5.4</de.flapdoodle.embed.mongo.version>
