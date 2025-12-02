@@ -80,7 +80,7 @@
     <spring-data-mongodb.version>1.10.8.RELEASE</spring-data-mongodb.version>
     <maven-shade-plugin.version>2.1</maven-shade-plugin.version>
     <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
-    <spring.version>5.3.30</spring.version>
+    <spring.version>6.1.14</spring.version>
     <servicemix.version>4.4.2</servicemix.version>
     <jaxrs.version>2.1.1</jaxrs.version>
     <commons-lang.version>3.8.1</commons-lang.version>
