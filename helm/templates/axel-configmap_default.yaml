@@ -7,11 +7,11 @@ data:
   # This becomes the default logging level for all Loggers.
   .level: WARNING
 
-  JAVA_OPTS: "-Xmx768m"
+  JAVA_OPTS: "-Xmx384m"
   AXEL_HOME: "{{ .Values.environment.home }}"
   PROMETHEUS_METRICS_ENABLED: "true"
   PROMETHEUS_METRICS_PORT: "8089"
-  PROMETHEUS_METRICS_PATH: /prometheus
+  PROMETHEUS_METRICS_PATH: "/actuator/prometheus"
 
   # List all the log handlers
   HANDLERS: java.util.logging.FileHandler
