@@ -11,6 +11,9 @@ CATALINA_OPTS+=" --add-opens=java.naming/com.sun.jndi.ldap=ALL-UNNAMED"
 CATALINA_OPTS+=" --add-opens=java.xml.ws/com.sun.xml.internal.ws=ALL-UNNAMED"
 CATALINA_OPTS+=" --add-opens=java.xml.bind/com.sun.xml.internal.bind=ALL-UNNAMED"
 
+if [ -n "$JAVA_OPTS" ]; then
+  CATALINA_OPTS+=" $JAVA_OPTS"
+fi
 if [ -n "$AXEL_HOME" ]; then
   CATALINA_OPTS+=" -Daxel.home=\"$AXEL_HOME\""
 fi

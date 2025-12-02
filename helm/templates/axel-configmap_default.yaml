@@ -7,6 +7,7 @@ data:
   # This becomes the default logging level for all Loggers.
   .level: WARNING
 
+  JAVA_OPTS: "-Xmx768m"
   AXEL_HOME: "{{ .Values.environment.home }}"
   PROMETHEUS_METRICS_ENABLED: "true"
   PROMETHEUS_METRICS_PORT: "8089"
