@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import de.flapdoodle.embed.process.extract.ITempNaming;
+import de.flapdoodle.embed.process.extract.TempNaming;
 
-public class FixedTempNaming implements ITempNaming {
+public class FixedTempNaming implements TempNaming {
 	
 	private String name;
 	private String text;

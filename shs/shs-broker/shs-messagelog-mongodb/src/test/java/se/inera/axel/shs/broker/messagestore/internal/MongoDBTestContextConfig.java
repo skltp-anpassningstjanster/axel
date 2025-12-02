@@ -18,10 +18,16 @@
  */
 package se.inera.axel.shs.broker.messagestore.internal;
 
-import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
+import de.flapdoodle.embed.mongo.MongodExecutable;
+import de.flapdoodle.embed.mongo.MongodProcess;
+import de.flapdoodle.embed.mongo.MongodStarter;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
+import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.mongo.tests.MongodForTestsFactory;
+import de.flapdoodle.embed.process.runtime.Network;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -42,14 +48,35 @@ import java.io.IOException;
 @Import(MockConfig.class)
 public class MongoDBTestContextConfig {
 
-    @Bean(destroyMethod = "shutdown")
-    public MongodForTestsFactory mongodForTestsFactory() throws IOException {
-        return MongodForTestsFactory.with(Version.Main.V3_4);
+    private int mongoPort;
+    private boolean useIpv6;
+    private MongodExecutable mongodExecutable;
+    private MongodProcess mongodProcess;
+
+    @Bean(destroyMethod = "stop")
+    public MongodExecutable mongodExecutable() throws IOException {
+        mongoPort = Network.getFreeServerPort();
+        useIpv6 = Network.localhostIsIPv6();
+
+        MongodConfig mongodConfig = MongodConfig.builder()
+                .version(Version.Main.V3_4)
+                .net(new Net("localhost", mongoPort, useIpv6))
+                .build();
+
+        mongodExecutable = MongodStarter.getDefaultInstance().prepare(mongodConfig);
+        return mongodExecutable;
     }
 
-    @Bean
-    public Mongo mongo() throws Exception {
-        return mongodForTestsFactory().newMongo();
+    @Bean(destroyMethod = "stop")
+    public MongodProcess mongodProcess() throws Exception {
+        mongodProcess = mongodExecutable().start();
+        return mongodProcess;
+    }
+
+    @Bean(destroyMethod = "close")
+    public MongoClient mongo() throws Exception {
+        mongodProcess();
+        return new MongoClient(new ServerAddress("localhost", mongoPort));
     }
 
     @Bean

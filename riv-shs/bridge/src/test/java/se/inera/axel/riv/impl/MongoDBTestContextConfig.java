@@ -20,15 +20,13 @@ package se.inera.axel.riv.impl;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.*;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
+import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.config.IRuntimeConfig;
 import de.flapdoodle.embed.process.runtime.Network;
-import se.inera.axel.test.flapdoodle.FixedTempNaming;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
@@ -44,25 +42,19 @@ public class MongoDBTestContextConfig implements DisposableBean {
 
     MongoClient mongo;
     MongodProcess mongodProcess;
+    private int mongoPort;
+    private boolean useIpv6;
     
     public @Bean(destroyMethod = "stop") MongodExecutable mongodExecutable() throws Exception {
-    	
-    	
-    	
-        IMongodConfig mongodConfig = new MongodConfigBuilder()
+        mongoPort = Network.getFreeServerPort();
+        useIpv6 = Network.localhostIsIPv6();
+
+        MongodConfig mongodConfig = MongodConfig.builder()
                 .version(Version.Main.V3_4)
-                .net(new Net(Network.getFreeServerPort(), Network.localhostIsIPv6()))
+                .net(new Net("localhost", mongoPort, useIpv6))
                 .build();
 
-        IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
-                .defaults(Command.MongoD)
-                .artifactStore(new ExtractedArtifactStoreBuilder()
-                        .defaults(Command.MongoD)
-                        .executableNaming(new FixedTempNaming("riv-shs-bridge"))
-                )
-                .build();
-
-        MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
+        MongodStarter runtime = MongodStarter.getDefaultInstance();
 
         return runtime.prepare(mongodConfig);
     }
@@ -75,9 +67,7 @@ public class MongoDBTestContextConfig implements DisposableBean {
     }
 
     public @Bean(destroyMethod = "close") MongoClient mongo() throws Exception {
-        MongodProcess mongodProcess = mongodProcess();
-
-        mongo = new MongoClient(new ServerAddress(mongodProcess.getConfig().net().getServerAddress(), mongodProcess.getConfig().net().getPort()));
+        mongo = new MongoClient(new ServerAddress("localhost", mongoPort));
         return mongo;
     }
 

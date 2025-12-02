@@ -1,13 +1,12 @@
 package se.inera.axel.test;
 
-import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.*;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
+import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
-import se.inera.axel.test.flapdoodle.FixedTempNaming;
 
 import org.apache.camel.test.AvailablePortFinder;
 import org.springframework.context.ApplicationContextInitializer;
@@ -31,6 +30,8 @@ public class EmbeddedMongoDbInitializer implements ApplicationContextInitializer
         ApplicationListener<ContextClosedEvent> {
     private MongodProcess mongodProcess;
     private MongodExecutable mongodExecutable;
+    private int mongoPort;
+    private boolean useIpv6;
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
@@ -48,7 +49,7 @@ public class EmbeddedMongoDbInitializer implements ApplicationContextInitializer
         String shsRsPort = String.valueOf(AvailablePortFinder.getNextAvailable());
         System.setProperty("shsRsPort", shsRsPort);
         System.setProperty("shsRsHttpEndpoint", String.format("jetty://http://localhost:%s", shsRsPort));
-        System.setProperty("mongodb.uri", String.format("mongodb://localhost:%s/axel?w=1", mongodProcess.getConfig().net().getPort()));
+        System.setProperty("mongodb.uri", String.format("mongodb://localhost:%s/axel?w=1", mongoPort));
         System.setProperty("remoteShsBrokerPort", String.valueOf(AvailablePortFinder.getNextAvailable()));
 
         MutablePropertySources propertySources = applicationContext.getEnvironment().getPropertySources();
@@ -61,18 +62,16 @@ public class EmbeddedMongoDbInitializer implements ApplicationContextInitializer
     }
 
     public void startMongoDb(Environment environment) throws IOException {
-        final MongodStarter runtime = MongodStarter.getInstance(new RuntimeConfigBuilder()
-                .defaults(Command.MongoD)
-                .artifactStore(new ExtractedArtifactStoreBuilder()
-                .defaults(Command.MongoD)
-                .executableNaming(new FixedTempNaming("shs-integration-mongodb"))
-                )
-                .build());
-        mongodExecutable = runtime.prepare(
-        		new MongodConfigBuilder()
-        		.version(Version.Main.V3_4)
-                .net(new Net(Network.getFreeServerPort(), Network.localhostIsIPv6()))
-      		.build());
+        mongoPort = Network.getFreeServerPort();
+        useIpv6 = Network.localhostIsIPv6();
+
+        MongodStarter runtime = MongodStarter.getDefaultInstance();
+        MongodConfig mongodConfig = MongodConfig.builder()
+                .version(Version.Main.V3_4)
+                .net(new Net("localhost", mongoPort, useIpv6))
+                .build();
+
+        mongodExecutable = runtime.prepare(mongodConfig);
         mongodProcess = mongodExecutable.start();
     }
 

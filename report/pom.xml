@@ -37,6 +37,13 @@
       <type>pom</type>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>se.inera.axel</groupId>
+      <artifactId>common-services</artifactId>
+      <version>${project.version}</version>
+      <type>pom</type>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
