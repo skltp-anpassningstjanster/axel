@@ -83,7 +83,7 @@
     <spring.version>5.3.30</spring.version>
     <servicemix.version>4.4.2</servicemix.version>
     <jaxrs.version>2.1.1</jaxrs.version>
-    <commons-lang.version>3.8.1</commons-lang.version>
+    <commons-lang.version>3.18.0</commons-lang.version>
     <maven-surefire-plugin.version>2.14.1</maven-surefire-plugin.version>
     <dozer.version>5.4.0</dozer.version>
     <jaxws.version>2.2.12</jaxws.version>
